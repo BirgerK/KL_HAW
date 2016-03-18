@@ -1,0 +1,169 @@
+%---------------------------------------------------------------------------------------------------
+% Einstellungen
+% (gelten nur in Zusammenarbeit mit pdflatex)
+%---------------------------------------------------------------------------------------------------
+\documentclass[
+  	pagesize,	                                        % flexible Auswahl des Papierformats
+  	a4paper,  	                                       	% DIN A4
+  	oneside,    	                                    % einseitiger Druck
+ 	BCOR5mm,      	                                   	% Bindungskorrektur
+  	headsepline,                                        % Strich unter der Kopfzeile
+ 	12pt,                                               % 12pt Schriftgröße
+	halfparskip,                                      	% Europäischer Satz: Abstand zwischen Absätzen
+	abstracton,											% Spezielle Formatierung, die erlaubt, dass die 
+														% Zusammenfassung vor dem Inhaltsverzeichnis steht
+														% draft,																															% Es handelt sich um eine Vorabversion	
+	final,												% Es handelt sich um die endgültige Version
+	%liststotoc,
+	listof=totoc,										% Tabellen- und Abbildungsverzeichnis im 																							% Inhaltsverzeichnis
+	idxtotoc,											% Index im Inhaltsverzeichnis	
+ 	bibtotoc,                                           % Literaturverzeichnis im Inhaltsverzeichnis  
+]{scrartcl}                                            	% KOMA-Scriptklasse Report
+
+%---------------------------------------------------------------------------------------------------
+\usepackage[ngerman, english]{babel}                    % deutsche Trennmuster
+%\usepackage[T1]{fontenc}                               % EC-Schriften, Trennstellen nach Umlauten
+\usepackage[utf8]{inputenc}                          	% direkte Umlauteingabe (ä statt "a)
+                                                       	% latin1/latin9 für unixoide Systeme
+                                                       	% (latin1 ist auch unter Win verwendbar)
+                                                      	% ansinew für Windows
+                                                       	% applemac Macs
+                                                       	% cp850 OS/2
+%\usepackage{times}              						% Schriften Paket
+\usepackage{array,ragged2e} 							% Wichtig für Abstandsformatierung
+\usepackage[absolute,overlay]{textpos}
+
+
+% todonotes doc: http://www.tex.ac.uk/tex-archive/help/Catalogue/entries/todo.html
+% http://www.tex.ac.uk/tex-archive/macros/latex/contrib/todonotes/todonotes.pdf
+% use option [disable] to remove all todo stuff
+\usepackage[%disable,
+colorinlistoftodos,textsize=small,textwidth=2cm,shadow,bordercolor=black,backgroundcolor={red!100!green!33},linecolor=black]{todonotes}
+
+%---------------------------------------------------------------------------------------------------
+%\usepackage{cmbright}  									% serifenlose Schrift als Standard + alle für TeX benötigten 																		% mathematischen Schriften einschließlich der AMS-Symbole
+
+%\usepackage[scaled=.90]{helvet}                        	% skalierte Helvetica als \sfdefault
+%\usepackage{courier}                                   	% Courier als \ttdefault
+\setkomafont{sectioning}{\bfseries} 						% Setzt die Überschriften auf einen serifen Font
+\usepackage{eurosym}
+\usepackage{wallpaper}
+
+%---------------------------------------------------------------------------------------------------
+\usepackage[automark]{scrpage2}                        	% Anpassung der Kopf- und Fußzeilen
+\usepackage{xspace}                                    	% Korrekter Leerraum nach Befehlsdefinitionen
+\usepackage{amsmath,amssymb,amstext}
+\usepackage{setspace}									% Dieses Package brauchen wir für den  anderthalbzeiligen Abstand.
+\usepackage{natbib}     								% Neuimplementierung des \cite-Kommandos
+\usepackage{bibgerm}      								% Deutsche Bezeichnungen
+\usepackage[absolute]{textpos}   						% placing boxes at absolute positions
+\usepackage[final]{pdfpages}      						% include pages of external PDF documents
+\usepackage{tabularx}              						% Spaltenbreite bis zur Seitenbreite dehnen
+\usepackage{listings}									% Paket für Quellcode-Listings einbinden
+\usepackage{color}										% color
+\usepackage{acronym}									% Liefert Funtionen zur Erstellung eines Abkürzungsverzeichnisses
+\usepackage{smartref}									% color
+\usepackage{verbatim}
+\usepackage{rotating}
+\usepackage{chngcntr}
+\usepackage{varioref}
+\usepackage{footnote}
+\usepackage[ngerman=ngerman-x-latest]{hyphsubst}
+\usepackage{makeidx}									% Paket zur Erstellung eines Stichwortverzeichnisses
+\makeindex					 							% Automatische Erstellung des Stichwortverzeichnis
+%\usepackage[
+%	intoc,
+%	german,
+%	prefix
+%]{nomencl}
+%\makenomenclature
+
+\usepackage[ngerman]{translator} 
+ 
+%---------------------------------------------------------------------------------------------------
+ \usepackage{graphicx}                                 	% Zur Einbindung von PDF-Bildern
+ \usepackage{float}
+ \usepackage{nameref}
+ \usepackage{titleref}
+ 
+\usepackage[colorlinks,	 								% Einstellen und Laden des Hyperref-Pakets
+	pdftex,
+	bookmarks,
+	bookmarksopen=false,
+	bookmarksnumbered,
+	citecolor=blue,
+	linkcolor=black, 									%orig: blue
+	urlcolor=blue,
+	filecolor=blue,
+	linktocpage,
+  pdfstartview=Fit,                                  	% startet mit Ganzseitenanzeige    
+	pdfauthor={Maria Lüdemann}]{hyperref} 
+
+
+\usepackage[all]{hypcap}
+\hypersetup{pdfsubject={Projekt, Maria Lüdemann},
+pdftitle={HAW Barometer, Stimmungserfassung auf dem Campus}, pdfkeywords={HAW Barometer, HAW, Projekt}}
+
+\usepackage[											%Glossar
+nonumberlist, 											%keine Seitenzahlen anzeigen
+toc,       												%Einträge im Inhaltsverzeichnis
+%section=chapter
+]      									
+{glossaries}
+
+
+\makeglossaries											%Glossar-Befehle anschalten 
+ 
+%---------------------------------------------------------------------------------------------------
+% Inhaltsverzeichnis und Abschnittnummerierung
+%---------------------------------------------------------------------------------------------------
+\setcounter{secnumdepth}{3}   
+\setcounter{tocdepth}{3}
+
+%---------------------------------------------------------------------------------------------------
+% Abbildungsverzeichnis
+%---------------------------------------------------------------------------------------------------
+\graphicspath{{graphics/}}
+
+%---------------------------------------------------------------------------------------------------
+% Kopf- und Fußzeilen
+%---------------------------------------------------------------------------------------------------
+\pagestyle{scrheadings}
+\clearscrheadings
+\clearscrplain
+\clearscrheadfoot
+\ohead{\pagemark}
+\ihead{\headmark}
+
+%---------------------------------------------------------------------------------------------------
+% Neue Befehle
+%---------------------------------------------------------------------------------------------------
+\input{einstellungen/neuebefehle_projekt.sty}		%!!!!!!Für das Projekt an den neuen Befehlen konfiguriert!!!!
+
+
+%---------------------------------------------------------------------------------------------------
+% Trennung
+%---------------------------------------------------------------------------------------------------
+\input{einstellungen/trennungen.sty}
+
+%---------------------------------------------------------------------------------------------------
+% Own Functions
+%---------------------------------------------------------------------------------------------------
+\input{einstellungen/functions}
+
+\input{einstellungen/listings}
+
+%\counterwithout*{footnote}{chapter}
+
+\renewcommand*{\glstextformat}[1]{\textcolor{blue}{\textit{#1}}}
+
+%---------------------------------------------------------------------------------------------------
+% Anpassung der Parameter, die TeX bei der Berechnung der Zeilenumbrüche verwendet:
+%---------------------------------------------------------------------------------------------------
+\tolerance 1414
+\hbadness 1414
+\emergencystretch 1.5em
+\hfuzz 0.3pt
+\widowpenalty=10000
+\vfuzz \hfuzz
+\raggedbottom
