@@ -12,3 +12,19 @@
 hs_err_pid*
 
 *.m~
+
+# latex-compile files
+*.toc
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.idx
+*.lof
+*.log
+*.lol
+*.lot
+*.nlo
+*.out
+*.synctex.gz
+~$*
