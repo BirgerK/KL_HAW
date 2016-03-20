@@ -1,5 +1,5 @@
-function result=euler(f0,x0,y0,h,xend)
-%EULER calculating DGL by euler method
+function result=runge_kutta(f0,x0,y0,h,xend)
+%RUNGE KUTTA calculating DGL by runge-kutta method
 % Input :
 %   f0 ... Funktion von R x R^n nach R^n (String oder Inline)
 %   x0 ... Startpunkt auf der x-Achse, z.B. 0
@@ -14,10 +14,11 @@ firstx = x0+h;
 oldy = y0;
 
 for x=firstx:h:xend
-    newy = oldy + h * f0(x,oldy);
+    next_y = oldy + h * f0(x,oldy);
+    
+    newy = oldy + 0.5 * h * (f0(x,oldy)+next_y);
     
     result = [result ; x newy;];
     
     oldy = newy;
-end
 end
