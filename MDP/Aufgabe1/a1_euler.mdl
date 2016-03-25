@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.5"
+    ComputedModelVersion    "1.6"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -68,9 +68,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "birger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Mar 25 16:00:18 2016"
-  RTWModifiedTimeStamp	  380822190
-  ModelVersionFormat	  "1.%<AutoIncrement:5>"
+  LastModifiedDate	  "Fri Mar 25 16:12:28 2016"
+  RTWModifiedTimeStamp	  380823145
+  ModelVersionFormat	  "1.%<AutoIncrement:6>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -121,7 +121,7 @@ Model {
     $ObjectID		    6
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "a1_euler"
-    overrideMode_	    [0U]
+    overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
       Dimension		      1
@@ -890,7 +890,7 @@ Model {
       Name		      "5000x"
       SID		      "6"
       Ports		      [2, 1]
-      Position		      [130, 182, 160, 213]
+      Position		      [130, 197, 160, 228]
       ZOrder		      6
       InputSameDT	      off
       OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -929,7 +929,7 @@ Model {
       BlockType		      Constant
       Name		      "Constant2"
       SID		      "3"
-      Position		      [25, 175, 55, 205]
+      Position		      [30, 165, 60, 195]
       ZOrder		      3
       Value		      "5000"
     }
@@ -938,7 +938,7 @@ Model {
       Name		      "Scope"
       SID		      "11"
       Ports		      [1]
-      Position		      [550, 99, 580, 131]
+      Position		      [490, 99, 520, 131]
       ZOrder		      11
       ScopeSpecificationString "Simulink.scopes.TimeScopeBlockCfg('CurrentConfiguration', extmgr.ConfigurationSet(extm"
       "gr.Configuration('Core','General UI',true),extmgr.Configuration('Core','Source UI',true),extmgr.Configuration('S"
@@ -990,7 +990,7 @@ Model {
       Name		      "x"
       SID		      "9"
       Ports		      [0, 1]
-      Position		      [15, 280, 45, 310]
+      Position		      [30, 235, 60, 265]
       ZOrder		      9
       LibraryVersion	      "1.386"
       SourceBlock	      "simulink/Sources/Ramp"
@@ -1006,7 +1006,7 @@ Model {
       Name		      "y\nbegin with y(0)=1"
       SID		      "10"
       Ports		      [1, 1]
-      Position		      [380, 100, 410, 130]
+      Position		      [360, 100, 390, 130]
       ZOrder		      10
       InitialCondition	      "1"
     }
@@ -1045,6 +1045,7 @@ Model {
       ZOrder		      5
       SrcBlock		      "Constant2"
       SrcPort		      1
+      Points		      [32, 0; 0, 25]
       DstBlock		      "5000x"
       DstPort		      1
     }
@@ -1060,7 +1061,7 @@ Model {
       ZOrder		      9
       SrcBlock		      "x"
       SrcPort		      1
-      Points		      [59, 0; 0, -90]
+      Points		      [33, 0; 0, -30]
       DstBlock		      "5000x"
       DstPort		      2
     }
@@ -1075,10 +1076,10 @@ Model {
       ZOrder		      13
       SrcBlock		      "y\nbegin with y(0)=1"
       SrcPort		      1
-      Points		      [49, 0]
+      Points		      [44, 0]
       Branch {
 	ZOrder			20
-	Points			[0, 42; -355, 0; 0, -32]
+	Points			[0, 42; -342, 0; 0, -32]
 	DstBlock		"500y"
 	DstPort			2
       }
