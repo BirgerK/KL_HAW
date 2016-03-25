@@ -16,7 +16,7 @@
 
 \end{abstract}
 
-\section*{Teilaufgabe 1}
+\section{Teilaufgabe 1}
 Die zu lösende DGL ist:
 $ y' = 10 - 500y + 5000x $
 $ y(0) = 1 $
@@ -26,7 +26,7 @@ Das Simulink-Schaltbild zu dieser Gleichung ist:
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.7\linewidth]{A1_1_Schaltbild}
+\includegraphics[width=0.7\linewidth]{a1_1_Schaltbild}
 \caption{Simulink Schaltbild DGL1}
 \label{fig:A1_1_Schaltbild}
 \end{figure}
@@ -50,5 +50,39 @@ k_{2} = h*f(x_{n} + \dfrac{h}{2},y_{n} + \dfrac{k_{1}}{2}) \\
 k_{2} = h*(10-500*(y_{n} + \dfrac{k_{1}}{2})+5000*(x_{n} + \dfrac{h}{2})) \\
 y_{n+1} = y_{n}+k_{2}
 \end{align}
+
+\subsection{Plot der Lösungen}
+Im Folgenden sind alle Plots der Ergebnisse der Verfahren dargestellt. Es wird außerdem jeweils die Ergebnis-Differenz eines Verfahrens zur Analytischen Lösung gezeigt.
+\subsubsection{h=0.001}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{a1_1_1}
+\caption{}
+\label{fig:a1_1_1}
+\end{figure}
+
+\subsubsection{h=0.003}
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=1\linewidth]{a1_1_2}
+	\caption{}
+	\label{fig:a1_1_2}
+\end{figure}
+
+\subsubsection{h=0.004}
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=1\linewidth]{a1_1_3}
+	\caption{}
+	\label{fig:a1_1_3}
+\end{figure}
+
+\subsubsection{h=0.005}
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=1\linewidth]{a1_1_4}
+	\caption{}
+	\label{fig:a1_1_4}
+\end{figure}
 
 \end{document}

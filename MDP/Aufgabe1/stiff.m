@@ -25,7 +25,7 @@ for i=1:length(h_for_experiments)
     
     subplot(2,1,1);
     plot(x,y_euler,x,y_rk2,x,y_analyticSolution)
-    title('Ergebnis des Verfahrens');
+    title('Ergebnis der Verfahren');
     legend('Explizit Euler','Runge-Kutta','Analytisch');
     
     % Calculate difference of every given method to analytic-solution
@@ -40,6 +40,6 @@ for i=1:length(h_for_experiments)
     
     subplot(2,1,2);
     plot(x,y_euler_diff,x,y_rk2_diff)
-    title('Differenz des Verfahrens zur Analytischen L?sung');
+    title('Differenz der Verfahren zur Analytischen Loesung');
     legend('Explizit Euler','Runge-Kutta');
 end
