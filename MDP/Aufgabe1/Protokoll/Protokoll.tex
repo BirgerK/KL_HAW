@@ -38,7 +38,17 @@ Im folgenden die Iterationsgleichungen der jeweiligen Verfahren.
 \begin{align}
 x_{n+1} = x_{n}+h \\
 y_{n+1} = y_{n}+h*f(x_{n},y_{n}) \\
-y_{n+1} = y_{n}+h*(10-500y_{n}*5000x_{n})
+y_{n+1} = y_{n}+h*(10-500y_{n}+5000x_{n})
+\end{align}
+
+\subsubsection*{Runge-Kutta-Verfahren 2.Ordnung}
+\begin{align}
+x_{n+1} = x_{n}+h \\
+k_{1} = h*f(x_{n},y_{n}) \\
+k_{1} = h*(10-500y_{n}+5000x_{n}) \\
+k_{2} = h*f(x_{n} + \dfrac{h}{2},y_{n} + \dfrac{k_{1}}{2}) \\
+k_{2} = h*(10-500*(y_{n} + \dfrac{k_{1}}{2})+5000*(x_{n} + \dfrac{h}{2})) \\
+y_{n+1} = y_{n}+k_{2}
 \end{align}
 
 \end{document}
