@@ -11,14 +11,17 @@ function result=runge_kutta(f0,x0,y0,h,xend)
 result=[x0 y0];
 
 firstx = x0+h;
-oldy = y0;
+lastx = x0;
+lasty = y0;
 
 for x=firstx:h:xend
-    next_y = oldy + h * f0(x,oldy);
+    k1 = h * f0(lastx,lasty);
+    k2 = h * f0(lastx + h/2, lasty + k1/2);
     
-    newy = oldy + 0.5 * h * (f0(x,oldy)+next_y);
+    newy = lasty + k2;
     
-    result = [result ; x newy;];
+    result = [result ; x newy];
     
-    oldy = newy;
+    lastx = x;
+    lasty = newy;
 end

@@ -11,13 +11,15 @@ function result=euler(f0,x0,y0,h,xend)
 result=[x0 y0];
 
 firstx = x0+h;
-oldy = y0;
+lastx = x0;
+lasty = y0;
 
 for x=firstx:h:xend
-    newy = oldy + h * f0(x,oldy);
+    newy = lasty + h * f0(lastx,lasty);
     
-    result = [result ; x newy;];
+    result = [result ; x newy];
     
-    oldy = newy;
+    lastx = x;
+    lasty = newy;
 end
 end
