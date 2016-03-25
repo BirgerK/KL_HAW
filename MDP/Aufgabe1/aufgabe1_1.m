@@ -6,8 +6,6 @@ ydiff = @(x,y) 10 - 500*y + 5000*x;
 x0 = 0;
 y0 = 1;
 
-
-
 %Experiment
 
 for i=1:length(h_for_experiments)
@@ -20,7 +18,10 @@ for i=1:length(h_for_experiments)
     result_rk2 = runge_kutta(ydiff,x0,y0,h,xend);
     x_rk2 = result_rk2(:,1);
     y_rk2 = result_rk2(:,2);
+    result_analyticSolution = analytic(x0,h,xend);
+    x_analyticSolution = result_analyticSolution(:,1);
+    y_analyticSolution = result_analyticSolution(:,2);
     
-    plot(x_euler,y_euler,x_rk2,y_rk2)
-    legend('Explizit Euler','Runge-Kutta');
+    plot(x_euler,y_euler,x_rk2,y_rk2,x_analyticSolution,y_analyticSolution)
+    legend('Explizit Euler','Runge-Kutta','Analytisch');
 end
