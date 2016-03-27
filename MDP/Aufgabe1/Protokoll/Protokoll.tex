@@ -54,35 +54,47 @@ y_{n+1} = y_{n}+k_{2}
 \subsection{Plot der Lösungen}
 Im Folgenden sind alle Plots der Ergebnisse der Verfahren dargestellt. Es wird außerdem jeweils die Ergebnis-Differenz eines Verfahrens zur Analytischen Lösung gezeigt.
 \subsubsection{h=0.001}
+Das Ergebnis zeigt, dass die Verfahren bis x=0.01 sehr ähnliche Ergebnisse liefern, und haben eine max. Differenz von ca. 0.12. Danach laufen alle Kurven kongruent.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=1\linewidth]{a1_1_1}
-\caption{}
+\caption{h=0.001}
 \label{fig:a1_1_1}
 \end{figure}
 
 \subsubsection{h=0.003}
+Das Ergebnis zeigt, dass die Verfahren bis ca. x=0.03 unterschiedliche Ergebnisse liefern. Die Ergebnisse des Runge-Kutta-Verfahrens verlaufen bis ca. x=0.03 nahezu parallel zur analytischen Lösung. In diesem Wertebereich liefert das explizite Euler-Verfahren sehr schwankende Werte. Ab ca. x=0.03 laufen alle Kurven kongruent.
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=1\linewidth]{a1_1_2}
-	\caption{}
+	\caption{h=0.003}
 	\label{fig:a1_1_2}
 \end{figure}
 
 \subsubsection{h=0.004}
+Bis ca. x=0.01 laufen alle Kurven unterschiedlich. Ab dort laufen die Kurven des Runge-Kutta-Verfahrens und der analytischen Lösung kongruent. Während der ganzen Laufzeit liefert das explizite Euler-Verfahren sehr schwankende Werte, die sich mit einer Differenz von +/- 1 in der Nähe der analytischen Lösung befinden.
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=1\linewidth]{a1_1_3}
-	\caption{}
+	\caption{h=0.004}
 	\label{fig:a1_1_3}
 \end{figure}
 
 \subsubsection{h=0.005}
+Bis ca. x=0.15 laufen alle Kurven kongruent. Ab dort schwanken die Werte des expliziten Euler-Verfahrens mit einer Differenz von ca. +/- 0.1 um die Werte der analytischen Lösung. Die Werte des Runge-Kutta-Verfahrens hingegen werden ab ca. x=0.15 exponentiell größer.
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=1\linewidth]{a1_1_4}
-	\caption{}
+	\caption{h=0.005}
 	\label{fig:a1_1_4}
 \end{figure}
+
+\subsection{Interpretation der Ergebnisse}
+\subsubsection{Explizites Euler-Verfahren}
+Die Ergebnisse zeigen, dass dieses Verfahren bei einer geringen Schrittweite genauere Ergebnisse liefert. Allerdings wird dadurch die benötigte Rechenzeit erhöht.
+
+\subsubsection{Runge-Kutta-Verfahren 2ter Ordnung}
+Die Ergebnisse zeigen, dass dieses Verfahren bei einer geringen Schrittweite genauere Ergebnisse liefert. Allerdings wird dadurch die benötigte Rechenzeit erhöht.
+
 
 \end{document}
