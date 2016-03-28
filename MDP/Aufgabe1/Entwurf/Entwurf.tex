@@ -1,0 +1,59 @@
+\documentclass[]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+
+\title{Modellierung dynamischer Systeme  \\ Entwurf zur Bearbeitung der Praktikumsaufgabe 1}
+
+\author{Maria Lüdemann und Birger Kamp}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+\end{abstract}
+
+\section{Allgemein}
+Diese Praktikumsaufgabe beschäftigt sich mit dem Lösen von DGL(n) mit unterschiedlichen Verfahren. Es wird u.a. gezeigt, wie genau die Verfahren verglichen miteinander sind und wie sich die Schrittweite auf die Lösung auswirkt.
+
+\section{Teilaufgabe 1}
+Es ist eine einfache DGL gegeben, die mit folgenden Verfahren gelöst werden soll:
+
+\begin{itemize}
+	\item (Explizites) Euler-Verfahren
+	\item Runge-Kutta-Verfahren 2ter Ordnung
+	\item Implizites Euler-Verfahren
+	\item gegebene Analytische Lösung
+\end{itemize}
+
+Die Ergebnisse der unterschiedlichen Verfahren soll in einem Plot dargestellt und damit miteinander verglichen werden. Die Verfahren haben unterschiedliche Ansätze und sind alle unterschiedlich genau. Jedes Verfahren soll mit allen gegebenen Schrittweiten durchgeführt werden; dies wird vermutlich dazu führen, dass unterschiedlich genaue Ergebnisse erreicht werden. Es ist davon auszugehen, dass die Analytische Lösung die korrekte Lösung ist, und dann sind alle numerischen Verfahren mit dieser Lösung zu vergleichen, um ihre Genauigkeit besser einschätzen zu können. Dieses Experiment wird für $x_{End} = 0.2$ und die gegebenen Schrittweiten $h=0.001$,$h=0.003$,$h=0.004$  und $h=0.005$ durchgeführt. Es ist zu interpretieren, weshalb sich die Ergebnisse der Verfahren bei unterschiedlichen Schrittweiten unterschiedlich verhalten.
+
+Außerdem soll die gegebene DGL mit Simulink-Bausteinen als Analog-Rechner dargestellt werden.
+
+Weiterhin sollen die Iterationsgleichungen aller gegebenen Verfahren gezeigt werden. Eine Iterationsgleichung ist die Gleichung, die während einer Iteration gelöst werden soll. Eine Iteration ist hierbei ein x-Schritt.
+
+\section{Teilaufgabe 2}
+Es ist eine DGL höherer Ordnung gegeben, die zu zwei DGLn einfacher Ordnung umgeformt werden soll. Die DGLn sollen außerdem mit Simulink-Bausteinen als Analog-Rechner dargestellt werden. Die gebildete DGL einfacher Ordnung soll mit folgenden Verfahren in einem Programm \textit{vanderpol} gelöst werden:
+
+\begin{itemize}
+	\item (Explizites) Euler-Verfahren
+	\item Runge-Kutta-Verfahren 2ter Ordnung
+\end{itemize}
+
+Es sollen die Iterationsgleichungen aller Verfahren gezeigt werden.
+
+Abschließend werden die Ergebnisse aller genannten Verfahren in einem Plot gezeigt. Dieses Experiment wird für $t_{End} = 31$ und die gegebenen Schrittweiten $h=0.001$ und $h=0.02$ durchgeführt.
+
+\section{Teilaufgabe 3}
+Es sind 3 DGLn einfacher Ordnung gegeben, die ein DGL-System bilden. Es sollen die Iterationsgleichungen für die DGLn in Verbindung mit dem Runge-Kutta-Verfahren 2ter Ordnung angegeben werden.
+
+Anschließend sollen 2 Programme geschrieben werden, die beide das DGL-System lösen sollen. Zuerst soll ein Programm in beliebiger Sprache geschrieben werden, das das DGL-System löst und die Ergebnisse von x(t) und z(t) in jeweils einem Plot zeigt.
+
+Danach soll das DGL-System mit Matlab/Simulink gelöst werden. Dabei kann es hilfreich sein, wenn man Simulink-Embedded-Funktion-Blöcke nimmt, denn dort kann man direkt eine Matlab-Funktion einsetzen.
+
+Beide Simulationen sollen mit h=0.002 und $t_{End}=120$ gestartet werden. Dann soll in einem zweiten Versuch die Ableitung von y etwas modifiziert werden, und beide Simulationen werden nochmal ausgeführt. Zum Schluss sollen die x(t)-Kurven der beiden Experimente miteinander verglichen werden.
+
+
+\end{document}
