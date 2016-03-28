@@ -150,26 +150,28 @@ y_{n+1} = y_{n}+k_{2}
 \end{figure}
 
 \section{Teilaufgabe 3}
-Es ist folgendes DGL-System gegeben:
-\begin{align}
-x(0) = 0,01 \\
-y(0) = 0,01 \\
-z(0) = 0,00 \\
-x' = -10 * (x*y) \\
-y' = (40 - z) * x - y \\
-z' = x * y - 2,67 * z
-\end{align}
+Es ist folgendes DGL-System gegeben: \\
+$x' = -10 * (x*y)$, $x(0) = 0,01$ \\
+$y' = (40 - z) * x - y$, $y(0) = 0,01$ \\
+$z' = x * y - 2,67 * z$, $z(0) = 0,00$ \\
+
 
 \subsection{Iterationsgleichungen}
 Im Folgenden die Iterationsgleichungen für das Runge-Kutta-Verfahren 2ter Ordnung bezogen auf das gegebene DGL-System.
 
 \begin{align}
-x_{n+1} = x_{n}+h \\
-k_{1} = h*f(x_{n},y_{n}, z_{n}) \\
-k_{1(x)} = h * (-10 * (x_{n} * y_{n})) \\
-k_{1(y)} = h * ((40 - z) * x_{n} - y_{n}) \\
-k_{1(z)} = h * (x_{n} * y_{n} - 2,67 * z_{n})
-k_{2} = h*f(x_{n} + \dfrac{k_{1(x)} }{2},y_{n} + \dfrac{k_{1(y)} }{2},z_{n} + \dfrac{k_{1(z)} }{2})
+k_{1} = h * (-10 * (x_{n} * y_{n})) \\
+l_{1} = h * ((40 - z) * x_{n} - y_{n}) \\
+m_{1} = h * (x_{n} * y_{n} - 2,67 * z_{n}) \\
+k_{2} = h*f(x_{n} + \dfrac{k_{1} }{2},y_{n} + \dfrac{l_{1} }{2},z_{n} + \dfrac{m_{1} }{2}) \\
+k_{2} = h* (-10 * ((x_{n} + \dfrac{k_{1} }{2})*(y_{n} + \dfrac{l_{1} }{2})) \\
+l_{2} = h*f(x_{n} + \dfrac{k_{1} }{2},y_{n} + \dfrac{l_{1} }{2},z_{n} + \dfrac{m_{1} }{2}) \\
+l_{2} = h*((40 - (z_{n} + \dfrac{m_{1} }{2})) * (x_{n} + \dfrac{k_{1} }{2}) - (y_{n} + \dfrac{l_{1} }{2})) \\
+m_{2} = h*f(x_{n} + \dfrac{k_{1} }{2},y_{n} + \dfrac{l_{1} }{2},z_{n} + \dfrac{m_{1} }{2}) \\
+m_{2} = h*((x_{n} + \dfrac{k_{1} }{2}) * (y_{n} + \dfrac{l_{1} }{2}) - 2,67 * (z_{n} + \dfrac{m_{1} }{2})) \\
+x_{n+1} = x_{n} + k2 \\
+y_{n+1} = y_{n} + l2 \\
+z_{n+1} = z_{n} + m2
 \end{align}
 
 
