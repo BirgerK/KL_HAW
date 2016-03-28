@@ -53,12 +53,7 @@ for i=1:length(h_for_experiments)
     y_rk2_1 = result_rk2_1(:,2);
     y_rk2_2 = result_rk2_2(:,2);
     
-%     result_rk2 = runge_kutta(ydiff,y1,y2,h,xend);
-%     y_rk2 = result_rk2(:,2);
-    
-%     plot(x,y_euler,x,y_rk2)
     plot(x,y_euler_1,x,y_euler_2,x,y_rk2_1,x,y_rk2_2)
     title('Ergebnis der Verfahren');
-%     legend('Explizit Euler','Runge-Kutta');
 legend('Explizit Euler y1','Explizit Euler y2','Runge-Kutta y1','Runge-Kutta y2');
 end
