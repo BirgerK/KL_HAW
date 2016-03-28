@@ -16,7 +16,7 @@
 \end{abstract}
 
 \section{Teilaufgabe 1}
-Die zu lösende DGL ist:
+Die folgende DGL ist gegeben:
 $ y' = 10 - 500y + 5000x $,
 $ y(0) = 1 $
 
@@ -96,56 +96,81 @@ Die Ergebnisse zeigen, dass dieses Verfahren bei einer geringen Schrittweite gen
 Die Ergebnisse zeigen, dass dieses Verfahren bei einer geringen Schrittweite genauere Ergebnisse liefert. Allerdings wird dadurch die benötigte Rechenzeit erhöht.
 
 \section{Teilaufgabe 2}
-Die zu lösende DGL ist:
+Die folgende DGL ist gegeben:
 $ y'' = 6 * (1 - y^{2}) * y' - y $,
-$ y(0) = 1 $,
+$ y(0) = 0 $,
 $ y'(0) = 1 $
 
 \subsection{Schaltbild}
 
 \subsection{DGLn der 1.Ordnung}
 \begin{align}
-y' = 6 * (1 - y_{1}^{2}) * y_{2} - y_{1} \\
-y_{2} = y_{1}
+\tilde{y} = y' \\
+\tilde{y}' = 6 * (1 - y^{2}) * \tilde{y} - y \\
+y(0)  = 0 \\
+\tilde{y}(0) = 1
 \end{align}
+
+\subsection{Iterationsgleichungen}
 
 \subsubsection{Euler-Verfahren}
 \begin{align}
 x_{n+1} = x_{n}+h \\
-y_{n+1} = y_{n}+h*f(x_{n},y_{n}) \\
-y_{1_{n+1}} = y_{1_{n}}+h*(6 * (1 - y_{2_{n}}^{2_{n}}) * y_{1_{n}} - y_{2_{n}}) \\
-y_{2_{n+1}} = y_{2_{n}} + h * y_{1_{n}}
+\tilde{y}_{n+1} = \tilde{y}_{n}+h*(6 * (1 - y_{n}^{2}) * \tilde{y}_{n} - y_{n}) \\
+y_{n+1} = y_{n} + h * \tilde{y}_{n}
 \end{align}
 
 \subsubsection{Runge-Kutta-Verfahren 2.Ordnung}
 \begin{align}
 x_{n+1} = x_{n}+h \\
-k_{1} = h*f(x_{n},y_{n}) \\
-k_{1(y_{1})} = h * (6 * (1 - y_{2_{n}}^{2}) * y_{1_{n}} - y_{2_{n}}) \\
-k_{1(y_{2})} = h * y_{1_{n}} \\
-k_{2} = h*f(x_{n} + \dfrac{h}{2},y_{n} + \dfrac{k_{1}}{2}) \\
-k_{2(y_{1})} = h * (6 * (1 - (y_{2_{n}} + \dfrac{k_{1(y_{2})}}{2})^{2}) * (y_{1_{n}} + \dfrac{k_{1(y_{1})}}{2}) - (y_{2_{n}} + \dfrac{k_{1(y_{2})}}{2})) \\
-k_{2(y_{2})} = h * (y_{1_{n}} + \dfrac{k_{1(y_{2})}}{2}) \\
-y_{1_{n+1}} = y_{n}+k_{2(y_{1})} \\
-y_{2_{n+1}} = y_{n}+k_{2(y_{2})}
+\tilde{k}_{1} = h * (6 * (1 - y_{n}^{2}) * \tilde{y}_{n} - y_{n}) \\
+k_{1} = h * \tilde{y}_{n} \\
+\tilde{k}_{2} = h * (6 * (1 - (y_{n} + \dfrac{k_{1}}{2})^{2}) * (\tilde{y}_{n} + \dfrac{\tilde{k}_{1}}{2}) - (y_{n} + \dfrac{k_{1}}{2})) \\
+k_{2} = h * (\tilde{y}_{n} + \dfrac{k_{1}}{2}) \\
+\tilde{y}_{n+1} = \tilde{y}_{n}+\tilde{k}_{2} \\
+y_{n+1} = y_{n}+k_{2}
 \end{align}
 
 \subsection{Plot der Lösungen}
 \subsubsection{Euler-Verfahren}
-\begin{figure}
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.7\linewidth]{a1_2_1}
+\includegraphics[width=1\linewidth]{a1_2_1}
 \caption{h=0.001}
 \label{fig:a1_2_1}
 \end{figure}
 
 
 \subsubsection{Runge-Kutta-Verfahren 2.Ordnung}
-\begin{figure}
+\begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.7\linewidth]{a1_2_2}
+	\includegraphics[width=1\linewidth]{a1_2_2}
 	\caption{h=0.02}
 	\label{fig:a1_2_2}
 \end{figure}
+
+\section{Teilaufgabe 3}
+Es ist folgendes DGL-System gegeben:
+\begin{align}
+x(0) = 0,01 \\
+y(0) = 0,01 \\
+z(0) = 0,00 \\
+x' = -10 * (x*y) \\
+y' = (40 - z) * x - y \\
+z' = x * y - 2,67 * z
+\end{align}
+
+\subsection{Iterationsgleichungen}
+Im Folgenden die Iterationsgleichungen für das Runge-Kutta-Verfahren 2ter Ordnung bezogen auf das gegebene DGL-System.
+
+\begin{align}
+x_{n+1} = x_{n}+h \\
+k_{1} = h*f(x_{n},y_{n}, z_{n}) \\
+k_{1(x)} = h * (-10 * (x_{n} * y_{n})) \\
+k_{1(y)} = h * ((40 - z) * x_{n} - y_{n}) \\
+k_{1(z)} = h * (x_{n} * y_{n} - 2,67 * z_{n})
+k_{2} = h*f(x_{n} + \dfrac{k_{1(x)} }{2},y_{n} + \dfrac{k_{1(y)} }{2},z_{n} + \dfrac{k_{1(z)} }{2})
+\end{align}
+
 
 \end{document}
