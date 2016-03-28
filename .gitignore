@@ -28,4 +28,5 @@ hs_err_pid*
 *.out
 *.synctex.gz
 ~$*
-*.autosave
+*.autosave 
+*.db
