@@ -2,10 +2,6 @@ clearvars;
 
 y_origin = @(x,y,z) (40 - z) * x-y;
 y_modified = @(x,y,z) (40.000000001 - z) * x-y;
-z = @(x,y,z) x * y - 2.67 * z;
-x0 = 0.01;
-y0 = 0.01;
-z0 = 0.00;
 
 result = lorenz_helper(y_origin);
 t = result(:,1);
