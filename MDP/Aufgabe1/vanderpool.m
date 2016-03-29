@@ -11,17 +11,17 @@ x0 = 0;
 for i=1:length(h_for_experiments)
     h=h_for_experiments(i);
     steps = xend / h;
-    
+
     result_euler_1 = [0 1];
     result_euler_2 = [0 0];
-    
+
     result_rk2_1 = [0 1];
     result_rk2_2 = [0 0];
-    
+
     for step=1:1:steps
         current_x = x0 + step*h;
         next_x = current_x + h;
-        
+
         % Euler-Verfahren
         current_euler_1 = result_euler_1(step,2);
         current_euler_2 = result_euler_2(step,2);
@@ -29,31 +29,31 @@ for i=1:length(h_for_experiments)
         next_euler_2 = current_euler_2 + h * ydiff2(current_euler_1,current_euler_2);
         result_euler_1 = [result_euler_1; next_x next_euler_1];
         result_euler_2 = [result_euler_2; next_x next_euler_2];
-        
+
         % Runge-Kutta-Verfahren
         current_rk2_1 = result_rk2_1(step,2);
         current_rk2_2 = result_rk2_2(step,2);
-        
+
         k1_y1 = h * ydiff1(current_rk2_1,current_rk2_2);
         k1_y2 = h * ydiff2(current_rk2_1,current_rk2_2);
         k2_y1 = h * ydiff1(current_rk2_1 + k1_y1/2,current_rk2_2 + k1_y2/2);
         k2_y2 = h * ydiff2(current_rk2_1 + k1_y1/2,current_rk2_2 + k1_y2/2);
-        
+
         next_rk2_1 = current_rk2_1 + k2_y1;
         next_rk2_2 = current_rk2_2 + k2_y2;
         result_rk2_1 = [result_rk2_1; next_x next_rk2_1];
         result_rk2_2 = [result_rk2_2; next_x next_rk2_2];
     end
     figure('name',strcat('h=',num2str(h)));
-    
+
     % Calculate y-values by every given method
     x = result_euler_1(:,1);
     y_euler_1 = result_euler_1(:,2);
     y_euler_2 = result_euler_2(:,2);
     y_rk2_1 = result_rk2_1(:,2);
     y_rk2_2 = result_rk2_2(:,2);
-    
+
     plot(x,y_euler_1,x,y_euler_2,x,y_rk2_1,x,y_rk2_2)
     title('Ergebnis der Verfahren');
-legend('Explizit Euler y1','Explizit Euler y2','Runge-Kutta y1','Runge-Kutta y2');
+    legend('Explizit Euler y','Explizit Euler y~','Runge-Kutta y','Runge-Kutta y~');
 end
