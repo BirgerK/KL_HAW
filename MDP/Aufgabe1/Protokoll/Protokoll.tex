@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{float}
 
 \title{Modellierung dynamischer Systeme  \\ Abgabe der Praktikumsaufgabe 1}
 
@@ -103,6 +104,13 @@ $ y'(0) = 1 $
 
 \subsection{Schaltbild}
 
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=1\linewidth]{a1_2_schaltbild}
+	\caption{Simulink Schaltbild}
+	\label{fig:a1_2_schaltbild}
+\end{figure}
+
 \subsection{DGLn der 1.Ordnung}
 \begin{align}
 \tilde{y} = y' \\
@@ -133,7 +141,7 @@ y_{n+1} = y_{n}+k_{2}
 
 \subsection{Plot der Lösungen}
 \subsubsection{Euler-Verfahren}
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=1\linewidth]{a1_2_1}
 \caption{h=0.001}
@@ -142,7 +150,7 @@ y_{n+1} = y_{n}+k_{2}
 
 
 \subsubsection{Runge-Kutta-Verfahren 2.Ordnung}
-\begin{figure}[htbp]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=1\linewidth]{a1_2_2}
 	\caption{h=0.02}
@@ -174,5 +182,29 @@ y_{n+1} = y_{n} + l2 \\
 z_{n+1} = z_{n} + m2
 \end{align}
 
+\subsection{Plot der Lösung}
+Gelöst durch das Runge-Kutta-Verfahren 2ter Ordnung.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\linewidth]{a1_3_1}
+	\caption{Vergleich von x(t) und z(t), h=0.002, $t_{end} = 120$}
+	\label{fig:a1_3_1}
+\end{figure}
+
+\subsection{Schaltbild}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\linewidth]{a1_3_schaltbild}
+	\caption{Simulink Schaltbild}
+	\label{fig:a1_3_schaltbild}
+\end{figure}
+
+\subsection{Vergleich der Simulationen}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\linewidth]{a1_3_2}
+	\caption{}
+	\label{fig:a1_3_2}
+\end{figure}
 
 \end{document}
