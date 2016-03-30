@@ -1,4 +1,4 @@
-function result=euler(f0,x0,y0,h,xend)
+function result=imp_euler(f0,x0,y0,h,xend)
 %IMPLICITE EUKER calculating DGL by implicit euler method
 % Input :
 %   f0 ... Funktion von R x R^n nach R^n (String oder Inline)
@@ -9,15 +9,15 @@ function result=euler(f0,x0,y0,h,xend)
 % Output:
 %   result ... Loesungswerte als Matrix
 
-result=[x0 y0]; 
+result=[x0 y0];
 
 firstx = x0+h;
 lasty = y0;
 
     for x=firstx:h:xend
-        options = optimset('Display','off');                    %Einstellen der Optionen für das f Solve auf keine Ausgabe
+        options = optimset('Display','off');                    %Einstellen der Optionen fï¿½r das f Solve auf keine Ausgabe
         yn1appro = fsolve(@(n)n-lasty-h*f0(x, n), x , options); % Zuweisung des y wertes auf n und definition innerhalb der Funktion
-        yn1 = lasty + h * f0(x,yn1appro);                       %Lösen der Gleichung mit Approximiertem Y
+        yn1 = lasty + h * f0(x,yn1appro);                       %Lï¿½sen der Gleichung mit Approximiertem Y
 
         result = [result ; x yn1];
         lasty = yn1;

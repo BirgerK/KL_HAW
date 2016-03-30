@@ -11,35 +11,41 @@ y0 = 1;
 for i=1:length(h_for_experiments)
     h=h_for_experiments(i);
     figure('name',strcat('h=',num2str(h)));
-    
+
     % Calculate y-values by every given method
     result_euler = euler(ydiff,x0,y0,h,xend);
     x = result_euler(:,1);
     y_euler = result_euler(:,2);
-    
+
+    result_impeuler = imp_euler(ydiff,x0,y0,h,xend);
+    y_impeuler = result_impeuler(:,2);
+
     result_rk2 = runge_kutta(ydiff,x0,y0,h,xend);
     y_rk2 = result_rk2(:,2);
-    
+
     result_analyticSolution = analytic(x0,h,xend);
     y_analyticSolution = result_analyticSolution(:,2);
-    
+
     subplot(2,1,1);
-    plot(x,y_euler,x,y_rk2,x,y_analyticSolution)
+    plot(x,y_euler,x,y_rk2,x,y_impeuler,x,y_analyticSolution)
     title('Ergebnis der Verfahren');
-    legend('Explizit Euler','Runge-Kutta','Analytisch');
-    
+    legend('Explizit Euler','Runge-Kutta','Implizit Euler','Analytisch');
+
     % Calculate difference of every given method to analytic-solution
     euler_diff=[];
     rk2_diff=[];
+    impeuler_diff=[];
     for x_i=1:length(x)
         euler_diff=[euler_diff; x(x_i) y_analyticSolution(x_i)-y_euler(x_i)];
         rk2_diff=[rk2_diff; x(x_i) y_analyticSolution(x_i)-y_rk2(x_i)];
+        impeuler_diff=[impeuler_diff; x(x_i) y_analyticSolution(x_i)-y_impeuler(x_i)];
     end
     y_euler_diff = euler_diff(:,2);
     y_rk2_diff = rk2_diff(:,2);
-    
+    y_impeuler_diff = impeuler_diff(:,2);
+
     subplot(2,1,2);
-    plot(x,y_euler_diff,x,y_rk2_diff)
+    plot(x,y_euler_diff,x,y_rk2_diff,x,y_impeuler_diff)
     title('Differenz der Verfahren zur Analytischen Loesung');
-    legend('Explizit Euler','Runge-Kutta');
+    legend('Explizit Euler','Runge-Kutta', 'Implizit Euler');
 end
