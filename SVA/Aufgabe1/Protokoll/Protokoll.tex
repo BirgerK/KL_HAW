@@ -56,4 +56,24 @@ Sobald der Sender wieder sendebereit ist - wenn also ein Token in \textit{m1} is
 \subsection{Variante B}
 Diese Modellierung beinhaltet zwei autarke Schleifen die das Senden, eventuelle Verlieren und empfangen der Nachrichten modellieren. Diese Schleife gibt es je für die Nachrichten mit dem Kontrollbit 1 und dem für 0. 
 
+\section{Begründung der Korrektheit}
+\subsection{Variante A}
+Anforderung: \textit{Nachrichten können verloren gehen} \\
+Die beiden pipe-Stellen \textit{send\_pipe\_m1} und \textit{send\_pipe\_m0} können ihr Token undeterministsch die Stelle \textit{lose\_msg} oder \textit{receive\_m*}weitergeben. Dadurch ist sichergestellt, dass einige Nachrichten verloren gehen und einige Nachrichten ihr Ziel erreichen. Wieviele Nachrichten wo landen, hängt von der Simulationsumgebung ab.
+
+Anforderung: \textit{Nachrichten enthält Kontrollbit} \\
+Das Kontrollbit einer Nachricht wird hier repräsentiert durch die Stellen \textit{m1} und \textit{m0}. Wenn eine dieser Stellen schalten kann, wird die Nachricht mit dem jeweiligen Kontrollbit verschickt.
+
+Anforderung: \textit{Nachricht wird wiederholt bis Empfang bestätigt wurde} \\
+Soll eine Nachricht mit Kontrollbit verschickt werden, wird die jeweilige Transition \textit{send\_m*} geschaltet. Diese Transition legt nicht nur die "Nachricht auf die Leitung", sondern teilt dem dazugehörigen \textit{m*} ein Token zu, sodass \textit{m*} wieder das Senden einer Nachricht initiieren kann. Dies wird solange wiederholt bis die Stelle \textit{was\_acked\_m*} schalten kann. Dadurch wird das "Sende-Token" von der aktuellen \textit{m*}-Stelle abgezogen und auf die jeweils andere \textit{m*}-Stelle übertragen, sodass ab dem Zeitpunkt Nachrichten mit dem anderen Kontrollbit verschickt werden.
+
+Anforderung: \textit{Empfänger sendet bei Nachrichterhalt eine Bestätigung an den Sender} \\
+Dies wird modelliert durch die Stelle \textit{receive\_m*}. Diese kann schalten, sobald eine Nachricht erhalten wurde. Daraufhin wird in \textit{ack\_pipe\_m*} die Bestätigung "auf die Leitung zum Sender gelegt".
+
+Anforderung: \textit{Empfänger wiederholt Bestätigung bis eine Nachricht mit anderem Kontrollbit ankommt} \\
+Der Empfänger bestätigt jede Nachricht, die er bekommt. Sollte der Sender mehrfach Nachrichten mit demselben Kontrollbit schicken, wird für jede der Nachrichten eine Bestätigung an den Sender geschickt.
+
+Anforderung: \textit{Bestätigungen können verloren werden} \\
+Sobald eine Bestätigung vom Empfänger "auf die Leitung gelegt" wird - Stelle \textit{ack\_pipe\_m*} - kann die Transition zur Stelle \textit{lose\_ack} geschaltet werden, wodurch die Bestätigungsnachricht "im Netzwerk verloren" wurde.
+
 \end{document}
