@@ -15,13 +15,45 @@
 
 \end{abstract}
 
-\section{Erläuterung der Modellierung}
+\section{Das Modell als Petrinetz}
+Zur Lösung der gestellten Aufgabe haben wir zwei Petri-Netze entwickelt. Beide stellen das Modell da, allerdings wurde das Modell unterschiedlich abstrahiert.
+
+In Variante A wurde der Algorithmus ausführlich implementiert. Dadurch gibt es eine erhöhte Anzahl von Stellen, Transitionen und Kanten.
+
+In Variante B ist der Algorithmus komprimierter und abstrakter dargestellt. Einige der Stellen und Transitionen aus Variante A sind hier zusammengefasst zu finden.
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=1\linewidth]{petrinet.png}
+	\caption{Variante A}
+	\label{fig:petri_net_A}
+\end{figure}
+
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=1\linewidth]{altBitPro.png}
-	\label{fig:bspModell}
+	\caption{Variante B}
+	\label{fig:petri_net_B}
 \end{figure}
 
-Diese Modellierung beinhaltet zwei autarke Schleifen die das Senden, eventuelle Verlieren und empfangen der Nachrichten modelieren. Diese Schleife gibt es je für die Nachrichten mit dem Kontrollbit 1 und dem für 0. 
+\section{Erläuterung der Modellierung}
+\subsection{Variante A}
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=1\linewidth]{petrinet_grid.png}
+	\caption{Variante A, in Quadranten eingeteilt}
+	\label{fig:petri_net_A_withgrid}
+\end{figure}
+In Abbildung \ref{fig:petri_net_A_withgrid} wurde das Petri-Netz in Quadranten eingeteilt, um es hier verständlicher beschreiben zu können.
+
+Die Quadranten oben links und unten links sind der Sender des Algorithmus. Der Empfänger ist in den oben rechts und unten rechts abgebildet. Es fällt auf, dass das Netz über die horizontale Achse symmetrisch ist. Das liegt daran, dass die obere Hälfte sich mit dem Senden und Empfangen der Nachrichten mit positivem Kontrollbit kümmert, während der untere Teil für die Nachrichten mit negativem Kontrollbit zuständig sind. Es reicht daher eine der Hälfte in der Funktionsweise zu erklären, da die andere Hälfte sich genauso verhält, nur dass sie dabei eine andere Nachricht behandelt.
+
+In \textit{m1} ist das Start-Token gesetzt, es wird daher zu Beginn eine Nachricht mit positivem Kontrollbit verschickt. Sobald die Nachricht durch die Stelle \textit{send\_m1} verschickt ist, erhält der Initiator \textit{m1} erneut ein Token, dadurch wird ermöglicht, dass die Nachricht erneut verschickt wird, falls der Sender das Empfangen des Empfängers nicht bestätigt bekommt. Außerdem wird die Nachricht "physikalisch" auf die Leitung gelegt, die hier durch die Stelle \textit{send\_pipe\_m1} repräsentiert wird. Dort kann es passieren, dass die Nachricht verloren geht. Sollte die Nachricht nicht verloren gehen, wird sie vom Empfänger in \textit{receive\_m1} erhalten.
+
+Der Empfänger wird nun den Erhalt der Nachricht an den Sender bestätigen. Dazu möchte der Empfänger eine Nachricht senden in der Stelle \textit{ack\_m1}. Die Bestätigungs-Nachricht wird auf die "physikalische" Leitung gelegt, die hier durch die Stelle \textit{ack\_pipe\_m1} dargestellt wird. Dort kann es passieren, dass die Bestätigungsnachricht verloren geht, und der Sender diese nicht erhält. Sollte der Sender die Bestätigung erhalten haben, merkt er sich dies in der Stelle \textit{was\_acked\_m1}.
+
+Sobald der Sender wieder sendebereit ist - wenn also ein Token in \textit{m1} ist - kann der Sender wechseln zum Senden von Nachrichten mit negativem Kontrollbit bzw. der Stelle \textit{m0}. Dort beginnt der Sende-Empfangs-Kreislauf wieder wie bereits für \textit{m1} erklärt.
+
+\subsection{Variante B}
+Diese Modellierung beinhaltet zwei autarke Schleifen die das Senden, eventuelle Verlieren und empfangen der Nachrichten modellieren. Diese Schleife gibt es je für die Nachrichten mit dem Kontrollbit 1 und dem für 0. 
 
 \end{document}
