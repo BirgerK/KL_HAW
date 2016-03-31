@@ -16,7 +16,7 @@
 
 \end{abstract}
 
-\section{Teilaufgabe 1}
+\section{Teilaufgabe 1 - Steife Differentialgleichungen}
 Die folgende DGL ist gegeben:
 $ y' = 10 - 500y + 5000x $,
 $ y(0) = 1 $
@@ -34,11 +34,19 @@ Das Simulink-Schaltbild zu dieser Gleichung ist:
 \subsection{Iterationsgleichungen}
 Im Folgenden die Iterationsgleichungen der jeweiligen Verfahren.
 
-\subsubsection{Euler-Verfahren}
+\subsubsection{Explitites Euler-Verfahren}
 \begin{align}
 x_{n+1} = x_{n}+h \\
 y_{n+1} = y_{n}+h*f(x_{n},y_{n}) \\
 y_{n+1} = y_{n}+h*(10-500y_{n}+5000x_{n})
+\end{align}
+
+\subsubsection{Implizites Euler-Verfahren}
+Das implizite Euler entspricht dem expliziten mit dem Unterschied das hier anstelle des yn ein yn+1 genutzt wird, dass mithilfe geeigneter Verfahren zur Nullstellenberechnung approximiert werden muss. 
+\begin{align}
+x_{n+1} = x_{n}+h \\
+y_{n+1} = y_{n}+h*f(x_{n+1},y_{n+1}) \\
+y_{n+1} = y_{n}+h*(10-500y_{n+1}+5000x_{n+1})
 \end{align}
 
 \subsubsection{Runge-Kutta-Verfahren 2.Ordnung}
@@ -63,7 +71,7 @@ Das Ergebnis zeigt, dass die Verfahren bis x=0.01 sehr ähnliche Ergebnisse lief
 \end{figure}
 
 \subsubsection{h=0.003}
-Das Ergebnis zeigt, dass die Verfahren bis ca. x=0.03 unterschiedliche Ergebnisse liefern. Die Ergebnisse des Runge-Kutta-Verfahrens verlaufen bis ca. x=0.03 nahezu parallel zur analytischen Lösung. In diesem Wertebereich liefert das explizite Euler-Verfahren sehr schwankende Werte. Ab ca. x=0.03 laufen alle Kurven kongruent.
+Das Ergebnis zeigt, dass die Verfahren bis ca. x=0.03 unterschiedliche Ergebnisse liefern. Die Ergebnisse des Runge-Kutta-Verfahrens verlaufen bis ca. x=0.03 nahezu parallel zur analytischen Lösung. In diesem Wertebereich liefert das explizite Euler-Verfahren sehr schwankende Werte. Ab ca. x=0.03 laufen alle Kurven kongruent. Das implizite Euler Verfahren gewinnt im Gegensatz zu den anderen Verfahren durch das Steigen der Schrittweite an Genauigkeit und nähert sich in diesem Ergebnis schneller der analytischen Lösung als bei der Schrittweite von 0.001 .
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=1\linewidth]{a1_1_2}
@@ -72,7 +80,7 @@ Das Ergebnis zeigt, dass die Verfahren bis ca. x=0.03 unterschiedliche Ergebniss
 \end{figure}
 
 \subsubsection{h=0.004}
-Bis ca. x=0.01 laufen alle Kurven unterschiedlich. Ab dort laufen die Kurven des Runge-Kutta-Verfahrens und der analytischen Lösung kongruent. Während der ganzen Laufzeit liefert das explizite Euler-Verfahren sehr schwankende Werte, die sich mit einer Differenz von +/- 1 in der Nähe der analytischen Lösung befinden.
+Bis ca. x=0.01 laufen alle Kurven bis auf das des impliziten Euler Verfahrens unterschiedlich zur analytischen Lösung. Ab dort laufen die Kurven des Runge-Kutta-Verfahrens und der analytischen Lösung parallel während das implizite Euler Verfahren eine nahezu kongruente Kurve liefert. Während der ganzen Laufzeit liefert das explizite Euler-Verfahren sehr schwankende Werte, die sich mit einer Differenz von +/- 1 in der Nähe der analytischen Lösung befinden.
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=1\linewidth]{a1_1_3}
@@ -81,7 +89,7 @@ Bis ca. x=0.01 laufen alle Kurven unterschiedlich. Ab dort laufen die Kurven des
 \end{figure}
 
 \subsubsection{h=0.005}
-Bis ca. x=0.15 laufen alle Kurven kongruent. Ab dort schwanken die Werte des expliziten Euler-Verfahrens mit einer Differenz von ca. +/- 0.1 um die Werte der analytischen Lösung. Die Werte des Runge-Kutta-Verfahrens hingegen werden ab ca. x=0.15 exponentiell größer.
+Bis ca. x=0.15 laufen alle Kurven kongruent. Ab dort schwanken die Werte des expliziten Euler-Verfahrens mit einer Differenz von ca. +/- 0.1 um die Werte der analytischen Lösung. Die Werte des Runge-Kutta-Verfahrens hingegen werden ab ca. x=0.15 exponentiell größer und die Werte des impliziten Eulers bleiben kongruent mit der analytischen Lösung.
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=1\linewidth]{a1_1_4}
@@ -90,17 +98,13 @@ Bis ca. x=0.15 laufen alle Kurven kongruent. Ab dort schwanken die Werte des exp
 \end{figure}
 
 \subsection{Interpretation der Ergebnisse}
-\subsubsection{Explizites Euler-Verfahren}
-Die Ergebnisse zeigen, dass dieses Verfahren bei einer geringen Schrittweite genauere Ergebnisse liefert. Allerdings wird dadurch die benötigte Rechenzeit erhöht.
+Die Ergebnisse zeigen, dass die expliziten Verfahren bei einer geringen Schrittweite genauere Ergebnisse liefern. Allerdings wird dadurch die benötigte Rechenzeit erhöht. Dahingegen liefert das implizite Euler Verfahren auch bei höherer Schrittweite recht genaue Lösungen.
 
-\subsubsection{Runge-Kutta-Verfahren 2ter Ordnung}
-Die Ergebnisse zeigen, dass dieses Verfahren bei einer geringen Schrittweite genauere Ergebnisse liefert. Allerdings wird dadurch die benötigte Rechenzeit erhöht.
-
-\section{Teilaufgabe 2}
-Die folgende DGL ist gegeben:
-$ y'' = 6 * (1 - y^{2}) * y' - y $,
-$ y(0) = 0 $,
-$ y'(0) = 1 $
+\section{Teilaufgabe 2 - Nicht Lineare DGL und Van der Pol}
+Die folgende DGL ist gegeben: \\
+$ y'' = 6 * (1 - y^{2}) * y' - y $, \\
+$ y(0) = 0 $, \\
+$ y'(0) = 1 $ \\
 
 \subsection{Schaltbild}
 
@@ -140,7 +144,7 @@ y_{n+1} = y_{n}+k_{2}
 \end{align}
 
 \subsection{Plot der Lösungen}
-\subsubsection{Euler-Verfahren}
+\subsubsection{h = 0.001}
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\linewidth]{a1_2_1}
@@ -148,8 +152,10 @@ y_{n+1} = y_{n}+k_{2}
 \label{fig:a1_2_1}
 \end{figure}
 
+Anhand des Ergebnisses lässt sich erkennen, dass beide Verfahren (Runge-Kutta 2.Ordnung und Expliziter Euler) bei einer Schrittweite von 0.001 kongruente Ergebnisse liefern.
 
-\subsubsection{Runge-Kutta-Verfahren 2.Ordnung}
+
+\subsubsection{h = 0.02}
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\linewidth]{a1_2_2}
@@ -157,11 +163,13 @@ y_{n+1} = y_{n}+k_{2}
 	\label{fig:a1_2_2}
 \end{figure}
 
-\section{Teilaufgabe 3}
+In diesem Experiment mit einer Schrittweite von 0.02 verändern sich die Ergebnisse des expliziten Euler verfahrens und verschieben sich merklich gegenüber der Lösung mit einer Schrittweite von 0.001. Dahingegen verändert sich das komplexere Runge-Kutta 2. Ordnung verfahren nicht und behält das Ergebnis bei.
+
+\section{Teilaufgabe 3 - Lorenz-Attraktor}
 Es ist folgendes DGL-System gegeben: \\
 $x' = -10 * (x*y)$, $x(0) = 0,01$ \\
 $y' = (40 - z) * x - y$, $y(0) = 0,01$ \\
-$z' = x * y - 2,67 * z$, $z(0) = 0,00$ \\
+$z' = x * y - 2,67 * z$, $z(0) = 0,00$\\
 
 
 \subsection{Iterationsgleichungen}
@@ -206,5 +214,7 @@ Gelöst durch das Runge-Kutta-Verfahren 2ter Ordnung.
 	\caption{}
 	\label{fig:a1_3_2}
 \end{figure}
+
+Durch das ausführen der zweiten Funktion y = ... mit 40.000000001 anstatt von 40 ergibt sich obenstehende Verschiebung zwischen den beiden Funktionen. Die Grafik zeigt die Lösungen des Systems mit diesem marginalen Unterschied. Aufgrund von Rundungsfehlern scheint sich die Berechnung des Systems so stark zu verändern dass sich dies in der Grafik sichtbar niederschlägt.
 
 \end{document}
