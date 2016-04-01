@@ -21,14 +21,14 @@ Zur Lösung der gestellten Aufgabe haben wir zwei Petri-Netze entwickelt. Beide 
 In Variante A wurde der Algorithmus ausführlich implementiert. Dadurch gibt es eine erhöhte Anzahl von Stellen, Transitionen und Kanten.
 
 In Variante B ist der Algorithmus komprimierter und abstrakter dargestellt. Einige der Stellen und Transitionen aus Variante A sind hier zusammengefasst zu finden.
-\begin{figure}[htbp]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=1\linewidth]{petrinet.png}
 	\caption{Variante A}
 	\label{fig:petri_net_A}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=1\linewidth]{altBitPro.png}
 	\caption{Variante B}
@@ -37,7 +37,7 @@ In Variante B ist der Algorithmus komprimierter und abstrakter dargestellt. Eini
 
 \section{Erläuterung der Modellierung}
 \subsection{Variante A}
-\begin{figure}[htbp]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=1\linewidth]{petrinet_grid.png}
 	\caption{Variante A, in Quadranten eingeteilt}
@@ -76,4 +76,12 @@ Der Empfänger bestätigt jede Nachricht, die er bekommt. Sollte der Sender mehr
 Anforderung: \textit{Bestätigungen können verloren werden} \\
 Sobald eine Bestätigung vom Empfänger "auf die Leitung gelegt" wird - Stelle \textit{ack\_pipe\_m*} - kann die Transition zur Stelle \textit{lose\_ack} geschaltet werden, wodurch die Bestätigungsnachricht "im Netzwerk verloren" wurde.
 
+\section{Verlust der Nachrichten}
+
+\section{Verifizieren}
+\subsection{Ab Bestätigung 0-Zustand}
+\subsection{Solange 0-Zustand beliebig viele 0-Nachrichten}
+\subsection{1-Nachrichten dürfen nicht vom nächsten 1-Zyklus empfangen werden}
+
 \end{document}
+
