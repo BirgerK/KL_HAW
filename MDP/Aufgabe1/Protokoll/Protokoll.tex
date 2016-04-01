@@ -17,16 +17,28 @@
 \end{abstract}
 
 \section{Teilaufgabe 1 - Steife Differentialgleichungen}
-Die folgende DGL ist gegeben:
+Es ist folgende DGL gegeben:\\
 $ y' = 10 - 500y + 5000x $,
-$ y(0) = 1 $
+$ y(0) = 1 $\\
+\\
+Dazu ist folgende analytische Lösung gegeben:\\
+$ y = 10x + e^{-500x}$ \\
+\\
+Für diese DGL ist ein Schaltbild in Simulink zu entwerfen. Des weiteren sollen die Verfahren(Runge-Kutta 2. Ordnung, expliziter Euler, impliziter Euler) erarbeitet und Iterationsgleichungen für die jeweiligen Verfahren angegeben werden. Im Anschluss soll ein Programm entwickelt(\textit{stiff}) werden das das jedes Verfahren auf die DGL anwendet und in einem Plot zum Vergleich mit der gegebenen analytischen Lösung anzeigt. Zum weiteren Vergleich soll ein Plot berechnet werden der die Differenz zwischen den Verfahrenslösungen und der analytischen Lösung darlegt.\\
+Das Programm (\textit{stiff}) soll mit vier Parameter Varianten gestartet werden, die sich wie folgt beschreiben:
+\begin{itemize}
+	\item $h = 0.001,  x_{End} = 0.2 $
+	\item $h = 0.003,  x_{End} = 0.2 $
+	\item $h = 0.004,  x_{End} = 0.2 $
+	\item $h = 0.005,  x_{End} = 0.2 $
+\end{itemize}
 
 \subsection*{Schaltbild}
 Das Simulink-Schaltbild zu dieser Gleichung ist:
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.7\linewidth]{a1_1_Schaltbild}
+\includegraphics[width=1\linewidth]{a1_1_Schaltbild}
 \caption{Simulink Schaltbild DGL1}
 \label{fig:A1_1_Schaltbild}
 \end{figure}
@@ -63,7 +75,7 @@ y_{n+1} = y_{n}+k_{2}
 Im Folgenden sind alle Plots der Ergebnisse der Verfahren dargestellt. Es wird außerdem jeweils die Ergebnis-Differenz eines Verfahrens zur analytischen Lösung gezeigt.
 \subsubsection{h=0.001}
 Das Ergebnis zeigt, dass die Verfahren bis x=0.01 sehr ähnliche Ergebnisse liefern und haben eine max. Differenz von ca. 0.12. Danach laufen alle Kurven kongruent.
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=1\linewidth]{a1_1_1}
 \caption{h=0.001}
@@ -72,7 +84,7 @@ Das Ergebnis zeigt, dass die Verfahren bis x=0.01 sehr ähnliche Ergebnisse lief
 
 \subsubsection{h=0.003}
 Das Ergebnis zeigt, dass die Verfahren bis ca. x=0.03 unterschiedliche Ergebnisse liefern. Die Ergebnisse des Runge-Kutta-Verfahrens verlaufen bis ca. x=0.03 nahezu parallel zur analytischen Lösung. In diesem Wertebereich liefert das explizite Euler-Verfahren sehr schwankende Werte. Ab ca. x=0.03 laufen alle Kurven kongruent. Das implizite Euler Verfahren gewinnt im Gegensatz zu den anderen Verfahren durch das Steigen der Schrittweite an Genauigkeit und nähert sich in diesem Ergebnis schneller der analytischen Lösung als bei der Schrittweite von 0.001 .
-\begin{figure}[htbp]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=1\linewidth]{a1_1_2}
 	\caption{h=0.003}
@@ -81,7 +93,7 @@ Das Ergebnis zeigt, dass die Verfahren bis ca. x=0.03 unterschiedliche Ergebniss
 
 \subsubsection{h=0.004}
 Bis ca. x=0.01 laufen alle Kurven bis auf das des impliziten Euler Verfahrens unterschiedlich zur analytischen Lösung. Ab dort laufen die Kurven des Runge-Kutta-Verfahrens und der analytischen Lösung parallel während das implizite Euler Verfahren eine nahezu kongruente Kurve liefert. Während der ganzen Laufzeit liefert das explizite Euler-Verfahren sehr schwankende Werte, die sich mit einer Differenz von +/- 1 in der Nähe der analytischen Lösung befinden.
-\begin{figure}[htbp]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=1\linewidth]{a1_1_3}
 	\caption{h=0.004}
@@ -90,7 +102,7 @@ Bis ca. x=0.01 laufen alle Kurven bis auf das des impliziten Euler Verfahrens un
 
 \subsubsection{h=0.005}
 Bis ca. x=0.15 laufen alle Kurven kongruent. Ab dort schwanken die Werte des expliziten Euler-Verfahrens mit einer Differenz von ca. +/- 0.1 um die Werte der analytischen Lösung. Die Werte des Runge-Kutta-Verfahrens hingegen werden ab ca. x=0.15 exponentiell größer und die Werte des impliziten Eulers bleiben kongruent mit der analytischen Lösung.
-\begin{figure}[htbp]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=1\linewidth]{a1_1_4}
 	\caption{h=0.005}
@@ -106,9 +118,19 @@ $ y'' = 6 * (1 - y^{2}) * y' - y $, \\
 $ y(0) = 0 $, \\
 $ y'(0) = 1 $ \\
 
+
+
+Für diese DGL ist ein Schaltbild in Simulink zu entwerfen. Des weiteren sollen die Verfahren(Runge-Kutta 2. Ordnung und expliziter Euler) erarbeitet und Iterationsgleichungen für die jeweiligen Verfahren angegeben werden, dafür muss die DGL 2. Ordnung in zwei DGLn 1. Ordnung umgewandelt werden. Im Anschluss soll ein Programm entwickelt(\textit{vanderpol}) werden das das jedes Verfahren auf die DGL anwendet und in einem Plot zum Vergleich mit der gegebenen analytischen Lösung anzeigt.\\
+
+Das Programm (\textit{stiff}) soll mit zwei Parameter Varianten gestartet werden, die sich wie folgt beschreiben:
+\begin{itemize}
+	\item $h = 0.001,  t_{End} = 31 $
+	\item $h = 0.02,  t_{End} = 31 $
+\end{itemize}
+
 \subsection{Schaltbild}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=1\linewidth]{a1_2_schaltbild}
 	\caption{Simulink Schaltbild}
@@ -170,6 +192,16 @@ Es ist folgendes DGL-System gegeben: \\
 $x' = -10 * (x*y)$, $x(0) = 0,01$ \\
 $y' = (40 - z) * x - y$, $y(0) = 0,01$ \\
 $z' = x * y - 2,67 * z$, $z(0) = 0,00$\\
+
+Für dieses DGL System sollen die Iterationsgleichungen angegeben werden. Daraus wird ein Programm (\textit{lorenz}) entwickelt, das das DGL System löst und in zwei verschiedenen Plots sollen die Ergebnisse von $x(t)$ und von $z(t)$ dargestellt werden.
+Das DGL System soll des Weiteren mit Simulink gelöst werden.\\
+
+Das Programm soll mit folgenden Parametern gestartet werden:
+\begin{itemize}
+	\item $h = 0.002,  t_{End} = 120 $
+\end{itemize}
+
+Ein weiterer Vergleich soll stattfinden in dem die Funktion $y'(t)$ verändert wird. Sodass das System einmal mit $y' = (40 - z) * x - y$ und einmal mit $y' = (40.000000001 - z) * x - y$ gelöst wird. Die beiden Lösungen sollen gegenüber gestellt und verglichen werden.
 
 
 \subsection{Iterationsgleichungen}
