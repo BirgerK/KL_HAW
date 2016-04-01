@@ -34,7 +34,7 @@ Das Simulink-Schaltbild zu dieser Gleichung ist:
 \subsection{Iterationsgleichungen}
 Im Folgenden die Iterationsgleichungen der jeweiligen Verfahren.
 
-\subsubsection{Explitites Euler-Verfahren}
+\subsubsection{Explizites Euler-Verfahren}
 \begin{align}
 x_{n+1} = x_{n}+h \\
 y_{n+1} = y_{n}+h*f(x_{n},y_{n}) \\
@@ -42,7 +42,7 @@ y_{n+1} = y_{n}+h*(10-500y_{n}+5000x_{n})
 \end{align}
 
 \subsubsection{Implizites Euler-Verfahren}
-Das implizite Euler entspricht dem expliziten mit dem Unterschied das hier anstelle des yn ein yn+1 genutzt wird, dass mithilfe geeigneter Verfahren zur Nullstellenberechnung approximiert werden muss. 
+Das implizite Euler entspricht dem expliziten mit dem Unterschied das hier anstelle des $y_{n}$ ein $y_{n+1}$ genutzt wird, dass mithilfe geeigneter Verfahren zur Nullstellenberechnung approximiert werden muss. 
 \begin{align}
 x_{n+1} = x_{n}+h \\
 y_{n+1} = y_{n}+h*f(x_{n+1},y_{n+1}) \\
