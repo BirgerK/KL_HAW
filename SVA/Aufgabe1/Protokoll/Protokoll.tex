@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{float}
 
 \title{Formale Simulation und Verifikation verteilter Algorithmen  \\ Abgabe der Praktikumsaufgabe 1}
 
@@ -16,24 +17,23 @@
 \end{abstract}
 
 \section{Das Modell als Petrinetz}
-Zur Lösung der gestellten Aufgabe haben wir zwei Petri-Netze entwickelt. Beide stellen das Modell da, allerdings wurde das Modell unterschiedlich abstrahiert.
+Zur Lösung der gestellten Aufgabe haben wir zwei Petri-Netze entwickelt. Beide stellen das Modell dar, allerdings wurde das Modell unterschiedlich abstrahiert.
 
 In Variante A wurde der Algorithmus ausführlich implementiert. Dadurch gibt es eine erhöhte Anzahl von Stellen, Transitionen und Kanten.
 
 In Variante B ist der Algorithmus komprimierter und abstrakter dargestellt. Einige der Stellen und Transitionen aus Variante A sind hier zusammengefasst zu finden.
+
+Im Verlaufe dieses Dokumentes wird in der Regel von Modell A gesprochen. Das zweite Modell wird nur zum Vergleich herangezogen und in der weiteren Bearbeitung vernachlässigt.
+
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\linewidth]{petrinet.png}
+	\includegraphics[width=0.7\linewidth]{petrinet.png}
 	\caption{Variante A}
 	\label{fig:petri_net_A}
 \end{figure}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=1\linewidth]{altBitPro.png}
-	\caption{Variante B}
-	\label{fig:petri_net_B}
-\end{figure}
+
+
 
 \section{Erläuterung der Modellierung}
 \subsection{Variante A}
@@ -54,34 +54,110 @@ Der Empfänger wird nun den Erhalt der Nachricht an den Sender bestätigen. Dazu
 Sobald der Sender wieder sendebereit ist - wenn also ein Token in \textit{m1} ist - kann der Sender wechseln zum Senden von Nachrichten mit negativem Kontrollbit bzw. der Stelle \textit{m0}. Dort beginnt der Sende-Empfangs-Kreislauf wieder wie bereits für \textit{m1} erklärt.
 
 \subsection{Variante B}
-Diese Modellierung beinhaltet zwei autarke Schleifen die das Senden, eventuelle Verlieren und empfangen der Nachrichten modellieren. Diese Schleife gibt es je für die Nachrichten mit dem Kontrollbit 1 und dem für 0. 
+Diese Modellierung beinhaltet zwei autarke Schleifen die das Senden, eventuelle Verlieren und empfangen der Nachrichten modellieren. Diese Schleife gibt es je für die Nachrichten mit dem Kontrollbit 1 und dem für 0. Die Funktionalität ist in beiden Schleifen identisch weshalb hier nur eine Seite beschrieben werden soll.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{altBitPro.png}
+	\caption{Variante B}
+	\label{fig:petri_net_B}
+\end{figure}
 
 \section{Begründung der Korrektheit}
-\subsection{Variante A}
-Anforderung: \textit{Nachrichten können verloren gehen} \\
-Die beiden pipe-Stellen \textit{send\_pipe\_m1} und \textit{send\_pipe\_m0} können ihr Token undeterministsch die Stelle \textit{lose\_msg} oder \textit{receive\_m*}weitergeben. Dadurch ist sichergestellt, dass einige Nachrichten verloren gehen und einige Nachrichten ihr Ziel erreichen. Wieviele Nachrichten wo landen, hängt von der Simulationsumgebung ab.
+\textbf{Anforderung:} \textit{Es existiert ein Sender und ein Empfänger} \\
+Der Sender ist in diesem Netz modelliert durch \textit{m0, m1, send\_m1} und \textit{send\_m0}. Sie stellen gemeinsam das senden der Nachrichten dar. Der Empfänger wird durch \textit{recieve\_m1, ack\_m1, recieve\_m0} und \textit{ack\_m0} modeliert. Sie nehmen die Nachrichten aus dem Sender an und versenden die Bestätigungen.\\
 
-Anforderung: \textit{Nachrichten enthält Kontrollbit} \\
-Das Kontrollbit einer Nachricht wird hier repräsentiert durch die Stellen \textit{m1} und \textit{m0}. Wenn eine dieser Stellen schalten kann, wird die Nachricht mit dem jeweiligen Kontrollbit verschickt.
+\textbf{Anforderung:} \textit{In jede Richtung gibt es je einen Nachrichtenkanal} \\
+In diesem Modell werden der Sender und der Empfänger in jeweils zwei Teile aufgeteilt dargestellt. So dass sich zwei Schleifen ergeben die jeweils zwei Kanäle haben. Dies ist eine Modell Entscheidung zur besseren Darstellung des Kontrollbits. Jedoch sind \textit{send\_pipe\_m0} und \textit{send\_pipe\_m0} als ein Kanal zum Senden von Sender zu Empfänger gedacht und \textit{ack\_pipe\_m0} und \textit{ack\_pipe\_m0} als ein Kanal für die Bestätigung des Empfängers zum Sender.\\
 
-Anforderung: \textit{Nachricht wird wiederholt bis Empfang bestätigt wurde} \\
-Soll eine Nachricht mit Kontrollbit verschickt werden, wird die jeweilige Transition \textit{send\_m*} geschaltet. Diese Transition legt nicht nur die "Nachricht auf die Leitung", sondern teilt dem dazugehörigen \textit{m*} ein Token zu, sodass \textit{m*} wieder das Senden einer Nachricht initiieren kann. Dies wird solange wiederholt bis die Stelle \textit{was\_acked\_m*} schalten kann. Dadurch wird das "Sende-Token" von der aktuellen \textit{m*}-Stelle abgezogen und auf die jeweils andere \textit{m*}-Stelle übertragen, sodass ab dem Zeitpunkt Nachrichten mit dem anderen Kontrollbit verschickt werden.
+\textbf{Anforderung:} \textit{Nachrichten können verloren gehen} \\
+Die beiden pipe-Stellen \textit{send\_pipe\_m1} und \textit{send\_pipe\_m0} können ihr Token undeterministsch die Stelle \textit{lose\_msg} oder \textit{receive\_m*}weitergeben. Dadurch ist sichergestellt, dass einige Nachrichten verloren gehen und einige Nachrichten ihr Ziel erreichen. Wieviele Nachrichten wo landen, hängt von der Simulationsumgebung ab.\\
 
-Anforderung: \textit{Empfänger sendet bei Nachrichterhalt eine Bestätigung an den Sender} \\
-Dies wird modelliert durch die Stelle \textit{receive\_m*}. Diese kann schalten, sobald eine Nachricht erhalten wurde. Daraufhin wird in \textit{ack\_pipe\_m*} die Bestätigung "auf die Leitung zum Sender gelegt".
+\textbf{Anforderung:} \textit{Nachrichten können nicht verfälscht oder überholt werden} \\
+Die Nachrichten auf den Kanälen werden im Petrinetz als Token dargestellt. Diese Token können nicht verfälscht werden da sie keinen 'Inhalt' tragen. Das verfälschen von Nachrichten ist nicht modelliert worden.
+Das Überholen von Nachrichten hingegen ist schwieriger. In unseren Testdurchläufen in Snoopy schalten die Transitionen nicht immer automatisch wenn ausreichend Token in den notwendigen Stellen liegen. Sodass sich teilweise Token in Stellen sammeln. Laut Petrinetz Definition sollten Transitionen jedoch sofort schalten sobald die erforderlichen Token vorhanden sind. Somit dürfte laut Modell dieses Verhalten nicht auftreten und sich die Token nicht überholen dürfen. Da Snoopy aber dieses Verhalten an den Tag legt könnte es sein dass sich Token , also Nachrichten, überholen.\\
 
-Anforderung: \textit{Empfänger wiederholt Bestätigung bis eine Nachricht mit anderem Kontrollbit ankommt} \\
-Der Empfänger bestätigt jede Nachricht, die er bekommt. Sollte der Sender mehrfach Nachrichten mit demselben Kontrollbit schicken, wird für jede der Nachrichten eine Bestätigung an den Sender geschickt.
+\textbf{Anforderung:} \textit{Nachrichten enthält Kontrollbit} \\
+Das Kontrollbit einer Nachricht wird hier repräsentiert durch die Stellen \textit{m1} und \textit{m0}. Wenn eine dieser Stellen schalten kann, wird die Nachricht mit dem jeweiligen Kontrollbit verschickt.\\
 
-Anforderung: \textit{Bestätigungen können verloren werden} \\
-Sobald eine Bestätigung vom Empfänger "auf die Leitung gelegt" wird - Stelle \textit{ack\_pipe\_m*} - kann die Transition zur Stelle \textit{lose\_ack} geschaltet werden, wodurch die Bestätigungsnachricht "im Netzwerk verloren" wurde.
+\textbf{Anforderung:} \textit{Nachricht wird wiederholt bis Empfang bestätigt wurde} \\
+Soll eine Nachricht mit Kontrollbit verschickt werden, wird die jeweilige Transition \textit{send\_m*} geschaltet. Diese Transition legt nicht nur die "Nachricht auf die Leitung", sondern teilt dem dazugehörigen \textit{m*} ein Token zu, sodass \textit{m*} wieder das Senden einer Nachricht initiieren kann. Dies wird solange wiederholt bis die Stelle \textit{was\_acked\_m*} schalten kann. Dadurch wird das "Sende-Token" von der aktuellen \textit{m*}-Stelle abgezogen und auf die jeweils andere \textit{m*}-Stelle übertragen, sodass ab dem Zeitpunkt Nachrichten mit dem anderen Kontrollbit verschickt werden.\\
+
+\textbf{Anforderung:} \textit{Empfänger sendet bei Nachrichterhalt eine Bestätigung an den Sender} \\
+Dies wird modelliert durch die Stelle \textit{receive\_m*}. Diese kann schalten, sobald eine Nachricht erhalten wurde. Daraufhin wird in \textit{ack\_pipe\_m*} die Bestätigung "auf die Leitung zum Sender gelegt".\\
+
+\textbf{Anforderung:} \textit{Empfänger wiederholt Bestätigung bis eine Nachricht mit anderem Kontrollbit ankommt} \\
+Der Empfänger bestätigt jede Nachricht, die er bekommt. Sollte der Sender mehrfach Nachrichten mit demselben Kontrollbit schicken, wird für jede der Nachrichten eine Bestätigung an den Sender geschickt.\\
+
+\textbf{Anforderung:} \textit{Bestätigungen können verloren werden} \\
+Sobald eine Bestätigung vom Empfänger "auf die Leitung gelegt" wird - Stelle \textit{ack\_pipe\_m*} - kann die Transition zur Stelle \textit{lose\_ack} geschaltet werden, wodurch die Bestätigungsnachricht "im Netzwerk verloren" wurde.\\
 
 \section{Verlust der Nachrichten}
 
+Der Verlust der Nachrichten innerhalb der Modellierung wurde getestet in dem alle erzeugten Token gezählt wurden. Also alle Nachrichten die die Transition \textit{send\_m1} oder \textit{send\_m0} durchlaufen. Diese Zahl wurde als Randbedingung \textit{n} für drei Testdurchläufe genutzt. Die Stellen \textit{lose\_ack} und \textit{lose\_msg} zählen die jeweils verlorenen Pakete und Bestätigungen.
+Um einen Vergleich haben zu können wurde dieses Verfahren auch in Modell B durchgeführt und die Zahlen gegeneinander gehalten. Dabei ergab sich folgende Tabelle:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+  \hline
+  \textbf{Verlorene Pakete} & \textbf{Verlorene Bestätigungen} & \textbf{Gesamt}\\
+  \hline
+   30 & 8 & 38\\
+  \hline
+   25 & 9 & 34\\
+  \hline
+   23 & 12 & 35\\
+  \hline
+\end{tabular}
+	\caption{n = 50 drei Testdurchläufe Modell A}
+\end{table}
+
+Dabei ergibt sich eine durchschnittliche Verlustrate von ca. 71\%. Als Vergleich hierzu die Ergebnisse aus dem Modell B.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+  \hline
+  \textbf{Verlorene Pakete} & \textbf{Verlorene Bestätigungen} & \textbf{Gesamt}\\
+  \hline
+   24 & 17 & 41\\
+  \hline
+   19 & 21 & 40\\
+  \hline
+   21 & 22 & 43\\
+  \hline
+\end{tabular}
+	\caption{n = 50 drei Testdurchläufe Modell B}
+\end{table}
+
+Bei diesem Modell liegt die Verlustrate bei ca. 83\% und somit überraschender Weise 10\% höher als bei Modell A. Angenommen wurde, dass aufgrund der Eigenschaften der Stellen eine sehr starke Ähnlichkeit in den Verlusten liegt. Die Ergebnisse liegen jedoch relativ Konstant weit auseinander.
+
 \section{Verifizieren}
+Für das Modell sollen diverse Eigenschaften aus zwei Beispielnetzen und unserem Modell A Netz mit dem Charlie Model-Checker verifiziert werden. Dafür werden diverse in den jeweiligen Abschnitten aufgeführten CTL-Ausdrücke verwendet.
+ 
 \subsection{Ab Bestätigung 0-Zustand}
+
+\textit{Immer wenn der Sender im 1-Zustand ist, kommt irgendwann auch ein 1-Acknowledgement
+und ab dann (irgendwann) ist der Sender im 0-Zustand.}\\
+
+Dies lies sich durch folgenden CTL-Ausdruck verifizieren: \\
+
+$(m1 == 1) -> (EF (was\_acked\_m1 > 0) -> EF (m0 == 1));$
+
 \subsection{Solange 0-Zustand beliebig viele 0-Nachrichten}
+
+\textit{Wenn der Sender im 0-Zustand ist, können 0-Nachrichten solange gesendet werden bis der
+Sender im 1-Zustand ist.}\\
+
+Dies lies sich durch folgenden CTL-Ausdruck verifizieren: \\
+
 \subsection{1-Nachrichten dürfen nicht vom nächsten 1-Zyklus empfangen werden}
+
+\textit{1-Nachrichten, die gesendet wurden bevor oder während des 0-Bit Zyklus dürfen in dem
+folgenden 1-Zyklus nicht empfangen werden.}\\
+
+Dies lies sich durch folgenden CTL-Ausdruck verifizieren: \\
 
 \end{document}
 
