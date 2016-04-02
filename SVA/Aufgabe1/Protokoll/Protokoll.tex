@@ -152,6 +152,8 @@ Sender im 1-Zustand ist.}\\
 
 Dies lies sich durch folgenden CTL-Ausdruck verifizieren: \\
 
+$(m0 == 1) -> E(send\_pipe\_m0 > 0  U EG m1 == 1);$
+
 \subsection{1-Nachrichten dürfen nicht vom nächsten 1-Zyklus empfangen werden}
 
 \textit{1-Nachrichten, die gesendet wurden bevor oder während des 0-Bit Zyklus dürfen in dem
