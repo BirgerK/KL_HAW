@@ -27,6 +27,15 @@ public class main3 {
 
 
         // now write the model in XML form to a file
+        System.out.println("Default to file");
         model.write(System.out);
+
+        // now write the model in XML form to a file
+        System.out.println("Modified to file");
+        model.write(System.out, "RDF/XML-ABBREV");
+
+        // now write the model in N-TRIPLES form to a file
+        System.out.println("Triples to file");
+        model.write(System.out, "N-TRIPLES");
     }
 }
