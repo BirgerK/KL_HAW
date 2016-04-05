@@ -5,6 +5,8 @@ import org.apache.jena.vocabulary.DCTerms;
 
 import java.io.*;
 
+import static org.apache.jena.enhanced.BuiltinPersonalities.model;
+
 public class Read {
 
     public static void main(String[] args) throws FileNotFoundException {
@@ -26,7 +28,8 @@ public class Read {
 
         // print Lieblingsbuch
         if(theirLieblingsBuch != null) {
-            System.out.println("Ihr Lieblingsbuch ist: " + theirLieblingsBuch.getProperty(DCTerms.title));
+            System.out.println("Ihr Lieblingsbuch ist: " + theirLieblingsBuch.getProperty(DCTerms.title).getObject());
+            System.out.println("Das komplette Buch ist: " + resourceAsString(theirLieblingsBuch));
         } else {
             System.out.println("Sie haben kein Lieblingsbuch angegeben!");
         }
@@ -50,10 +53,36 @@ public class Read {
             Property  predicate = stmt.getPredicate();   // get the predicate
             RDFNode   object    = stmt.getObject();      // get the object
 
-            if(predicate.toString().toLowerCase().equals("subject") && object.toString().toLowerCase().contains("Architecture")) {
+            if(predicate.toString().equals(DCTerms.subject.toString()) && object.toString().toLowerCase().contains("architecture")) {
                 result = subject;
                 break;
             }
+        }
+
+        return result;
+    }
+
+    public static String resourceAsString(Resource resource) {
+        String result = "";
+
+        StmtIterator iter = resource.listProperties();
+
+        while (iter.hasNext()) {
+            Statement stmt      = iter.nextStatement();  // get next statement
+            Resource  subject   = stmt.getSubject();     // get the subject
+            Property  predicate = stmt.getPredicate();   // get the predicate
+            RDFNode   object    = stmt.getObject();      // get the object
+
+            result += subject.toString();
+            result += " " + predicate.toString() + " ";
+            if (object instanceof Resource) {
+                result += object.toString();
+            } else {
+                // object is a literal
+                result += " \"" + object.toString() + "\"";
+            }
+
+            result += " .";
         }
 
         return result;

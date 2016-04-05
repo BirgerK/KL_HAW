@@ -30,6 +30,17 @@
       "isbn-13": "978-3832197957",
       "author": "Michel Houellebecq",
       "subject": "Roman"
+    },
+    {
+      "title": "The Mythical Man-Month",
+      "author": "Frederick P. Brooks Jr.",
+      "subject": ""
+    },
+    {
+      "title": "Der Termin: Ein Roman über Projektmanagement",
+      "isbn-13": "978-3446414396",
+      "author": "Tom DeMarco",
+      "subject": "Architecture"
     }
   ]
 }
