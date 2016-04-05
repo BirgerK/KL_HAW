@@ -152,7 +152,7 @@ Sender im 1-Zustand ist.}\\
 
 Dies lies sich durch folgenden CTL-Ausdruck verifizieren: \\
 
-$(m0 == 1) -> E(send\_pipe\_m0 > 0  U EG m1 == 1);$
+$(m0 == 1) -> E((EG m0 == 1\ \&\&\ send\_pipe\_m0 == 1)  U EG (m1 == 1\ \&\&\ m0 == 0));$
 
 \subsection{1-Nachrichten dürfen nicht vom nächsten 1-Zyklus empfangen werden}
 
@@ -161,5 +161,6 @@ folgenden 1-Zyklus nicht empfangen werden.}\\
 
 Dies lies sich durch folgenden CTL-Ausdruck verifizieren: \\
 
+$(m0 == 1\ \&\&\ m1 == 0) -> (EG (m0 == 0\ \&\&\ m1 == 1\ \&\&\ send\_pipe\_m1 == 0\ \&\&\ receive\_m1 == 0));$
 \end{document}
 
