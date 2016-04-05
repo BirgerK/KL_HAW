@@ -10,7 +10,7 @@ import static org.apache.jena.enhanced.BuiltinPersonalities.model;
 public class Read {
 
     public static void main(String[] args) throws FileNotFoundException {
-        String input = "./output.rdf";
+        String input = "./.rdf";
         if(args.length == 0 && input.length() == 0) {
             System.out.println("It's empty");
             System.exit(1);
