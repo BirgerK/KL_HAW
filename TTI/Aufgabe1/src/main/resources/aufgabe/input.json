@@ -1,0 +1,35 @@
+{
+  "books": [
+    {
+      "title": "Der Seelenbrecher",
+      "isbn-13": "978-3426637920",
+      "author": "Sebastian Fitzek",
+      "subject": "Roman - Psychothriller"
+    },
+    {
+      "title": "Ein ganz neues Leben",
+      "isbn-13": "978-3805250948",
+      "author": "Jojo Moyes",
+      "subject": "Roman"
+    },
+    {
+      "title": "Honigtot",
+      "isbn-13": "978-3492307253",
+      "author": "Hanni Münzer",
+      "subject": "Roman, Honigtot-Saga, Band 1"
+    },
+    {
+      "title": "Das Rosie-Projekt (Hochkaräter)",
+      "isbn-13": "978-3596197002",
+      "author": "Graeme Simon",
+      "subject": "Roman",
+      "description": "Der große SPIEGEL-Bestseller über den unwahrscheinlichsten romantischen Helden aller Zeiten"
+    },
+    {
+      "title": "Unterwerfung",
+      "isbn-13": "978-3832197957",
+      "author": "Michel Houellebecq",
+      "subject": "Roman"
+    }
+  ]
+}
