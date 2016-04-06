@@ -3,6 +3,16 @@
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{float}
+\usepackage[ngerman, english]{babel} 
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks,
+	citecolor=black,
+	filecolor=black,
+	linkcolor=black,
+	urlcolor=black,
+}
+\selectlanguage{ngerman}
 
 \title{Modellierung dynamischer Systeme  \\ Abgabe der Praktikumsaufgabe 1}
 
@@ -11,10 +21,8 @@
 \begin{document}
 
 \maketitle
-
-\begin{abstract}
-
-\end{abstract}
+\selectlanguage{ngerman}
+\tableofcontents
 
 \section{Teilaufgabe 1 - Steife Differentialgleichungen}
 Es ist folgende DGL gegeben:\\
@@ -239,7 +247,7 @@ Gelöst durch das Runge-Kutta-Verfahren 2ter Ordnung.
 	\label{fig:a1_3_schaltbild}
 \end{figure}
 
-\subsection{Vergleich der Simulationen}
+\subsection{Vergleich der Simulationen} \label{subsec:vergleich}
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\linewidth]{a1_3_2}
@@ -247,6 +255,26 @@ Gelöst durch das Runge-Kutta-Verfahren 2ter Ordnung.
 	\label{fig:a1_3_2}
 \end{figure}
 
-Durch das ausführen der zweiten Funktion y = ... mit 40.000000001 anstatt von 40 ergibt sich obenstehende Verschiebung zwischen den beiden Funktionen. Die Grafik zeigt die Lösungen des Systems mit diesem marginalen Unterschied. Aufgrund von Rundungsfehlern scheint sich die Berechnung des Systems so stark zu verändern dass sich dies in der Grafik sichtbar niederschlägt.
+Durch das ausführen der zweiten Funktion y = ... mit 40.000000001 anstatt von 40 ergibt sich obenstehende Verschiebung zwischen den beiden Funktionen. Die Grafik zeigt die Lösungen des Systems mit diesem marginalen Unterschied. Da es sich bei diesem System um ein chaotisches handelt zeigt es auch die klassischen Eigenschaften eines chaotischen Systems. So sorgt eine kleine Änderung der Start Parameter für deutlich größere Änderungen im Ergebnis.
+
+\subsection{3D Plot zum weiteren Vergleich}
+
+Betrachtet man den 3D Plot der drei Funktionen beschreibt sich die Form des Lorenz Attraktors in diesem chaotischen Systems. Die folgende Abbildung \ref{fig:a1_3_3} veranschaulicht dieses Bild.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\linewidth]{a1_3_3}
+	\caption{3D Plot des chaotischen Systems}
+	\label{fig:a1_3_3}
+\end{figure}
+
+Im Vergleich dazu, die Darstellung des chaotischen Systems mit der leichten Änderung wie in Abschnitt \ref{subsec:vergleich} beschrieben siehe Abbildung \ref{fig:a1_3_4}. Hier liegen beide Systeme nebeneinander, das orange dargestellte ist das System mit der leichten Veränderung in der y-Funktion. Hier bemerkenswert ist, dass obwohl sich die Graphen in der Darstellung \ref{fig:a1_3_2} stark verschieben nehmen sie in der 3D Version in etwa den gleichen Raum ein und fügen sich recht schlüssig ineinander.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\linewidth]{a1_3_4}
+	\caption{3D Plot der chaotischen Systeme im Vergleich}
+	\label{fig:a1_3_4}
+\end{figure}
 
 \end{document}
