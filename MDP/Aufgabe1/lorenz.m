@@ -15,6 +15,9 @@ legend('x(t)');
 subplot(2,1,2);
 plot(t,z_values)
 legend('z(t)');
+subplot(1,1,1);
+plot3(x_values,y_values,z_values)
+legend('Lorenz Attraktor');
 
 result = lorenz_helper(y_modified);
 x1_values = result(:,2);

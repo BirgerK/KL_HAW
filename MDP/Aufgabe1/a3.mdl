@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.6"
+    ComputedModelVersion    "1.7"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -32,7 +32,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [86.0, 126.0, 1076.0, 655.0]
+      Location		      [67.0, 26.0, 1326.0, 832.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -56,7 +56,7 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[1042.0, 482.0]
+	Extents			[1292.0, 659.0]
 	ZoomFactor		[1.0]
 	Offset			[0.0, 0.0]
       }
@@ -68,9 +68,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "birger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Mar 29 19:57:42 2016"
-  RTWModifiedTimeStamp	  381182260
-  ModelVersionFormat	  "1.%<AutoIncrement:6>"
+  LastModifiedDate	  "Wed Apr 06 14:02:02 2016"
+  RTWModifiedTimeStamp	  381852113
+  ModelVersionFormat	  "1.%<AutoIncrement:7>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -121,7 +121,7 @@ Model {
     $ObjectID		    6
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "a3"
-    overrideMode_	    [0U]
+    overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
       Dimension		      1
@@ -907,10 +907,21 @@ Model {
     Block {
       BlockType		      Terminator
     }
+    Block {
+      BlockType		      ToWorkspace
+      VariableName	      "simulink_output"
+      MaxDataPoints	      "1000"
+      Decimation	      "1"
+      SaveFormat	      "Array"
+      Save2DSignal	      "Inherit from input (this choice will be removed - see release notes)"
+      FixptAsFi		      off
+      NumInputs		      "1"
+      SampleTime	      "0"
+    }
   }
   System {
     Name		    "a3"
-    Location		    [86, 126, 1162, 781]
+    Location		    [67, 26, 1393, 858]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -924,7 +935,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "7"
+    SIDHighWatermark	    "12"
     Block {
       BlockType		      SubSystem
       Name		      "MATLAB Function"
@@ -1385,8 +1396,51 @@ Model {
       "22],'ColorOrder',[0.0745098039215686 0.623529411764706 1;1 0.411764705882353 0.16078431372549;1 1 0.066666666666"
       "6667;0.717647058823529 0.274509803921569 1;0.392156862745098 0.831372549019608 0.0745098039215686;0.058823529411"
       "7647 1 1;1 0.0745098039215686 0.650980392156863])),extmgr.Configuration('Tools','Plot Navigation',true),extmgr.C"
-      "onfiguration('Tools','Measurements',true,'Version','2016a')),'Version','2016a','OpenAtMdlStart',true)"
+      "onfiguration('Tools','Measurements',true,'Version','2016a')),'Version','2016a','Position',[948 369 560 420],'Ope"
+      "nAtMdlStart',true)"
       NumInputPorts	      "3"
+    }
+    Block {
+      BlockType		      ToWorkspace
+      Name		      "To Workspace"
+      SID		      "10"
+      Ports		      [1]
+      Position		      [440, 270, 500, 300]
+      ZOrder		      10
+      VariableName	      "x"
+      MaxDataPoints	      "inf"
+      SaveFormat	      "Timeseries"
+      Save2DSignal	      "3-D array (concatenate along third dimension)"
+      FixptAsFi		      on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      ToWorkspace
+      Name		      "To Workspace1"
+      SID		      "11"
+      Ports		      [1]
+      Position		      [440, 325, 500, 355]
+      ZOrder		      11
+      VariableName	      "y"
+      MaxDataPoints	      "inf"
+      SaveFormat	      "Timeseries"
+      Save2DSignal	      "3-D array (concatenate along third dimension)"
+      FixptAsFi		      on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      ToWorkspace
+      Name		      "To Workspace2"
+      SID		      "12"
+      Ports		      [1]
+      Position		      [440, 380, 500, 410]
+      ZOrder		      12
+      VariableName	      "z"
+      MaxDataPoints	      "inf"
+      SaveFormat	      "Timeseries"
+      Save2DSignal	      "3-D array (concatenate along third dimension)"
+      FixptAsFi		      on
+      SampleTime	      "-1"
     }
     Block {
       BlockType		      Integrator
@@ -1421,8 +1475,18 @@ Model {
       Points		      [31, 0; 0, 90]
       Branch {
 	ZOrder			24
-	DstBlock		"Scope"
-	DstPort			1
+	Points			[51, 0]
+	Branch {
+	  ZOrder		  58
+	  Points		  [0, 95]
+	  DstBlock		  "To Workspace"
+	  DstPort		  1
+	}
+	Branch {
+	  ZOrder		  57
+	  DstBlock		  "Scope"
+	  DstPort		  1
+	}
       }
       Branch {
 	ZOrder			23
@@ -1480,8 +1544,18 @@ Model {
       }
       Branch {
 	ZOrder			26
-	DstBlock		"Scope"
-	DstPort			2
+	Points			[45, 0]
+	Branch {
+	  ZOrder		  64
+	  Points		  [0, 140]
+	  DstBlock		  "To Workspace1"
+	  DstPort		  1
+	}
+	Branch {
+	  ZOrder		  63
+	  DstBlock		  "Scope"
+	  DstPort		  2
+	}
       }
     }
     Line {
@@ -1515,9 +1589,18 @@ Model {
       }
       Branch {
 	ZOrder			29
-	Points			[0, -95]
-	DstBlock		"Scope"
-	DstPort			3
+	Points			[0, -95; 40, 0]
+	Branch {
+	  ZOrder		  62
+	  Points		  [0, 185]
+	  DstBlock		  "To Workspace2"
+	  DstPort		  1
+	}
+	Branch {
+	  ZOrder		  61
+	  DstBlock		  "Scope"
+	  DstPort		  3
+	}
       }
     }
     Line {
@@ -1567,10 +1650,7 @@ Stateflow {
     firstTransition	    9
     firstJunction	    8
     viewObj		    2
-    visible		    1
     machine		    1
-    subviewS {
-    }
     ssIdHighWaterMark	    7
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
@@ -1743,10 +1823,7 @@ Stateflow {
     firstTransition	    18
     firstJunction	    17
     viewObj		    11
-    visible		    1
     machine		    1
-    subviewS {
-    }
     ssIdHighWaterMark	    7
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
@@ -1919,10 +1996,7 @@ Stateflow {
     firstTransition	    27
     firstJunction	    26
     viewObj		    20
-    visible		    1
     machine		    1
-    subviewS {
-    }
     ssIdHighWaterMark	    7
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
