@@ -69,6 +69,7 @@ h = r - r_{E} \\
 \vec{e}_{SE} = \dfrac{1}{\sqrt{x^2 + y^2}}* \begin{pmatrix}x\\y\end{pmatrix} = \dfrac{1}{r} * \begin{pmatrix}x\\y\end{pmatrix}
 \end{align}
 
+%TODO: Formeln ergänzen!
 \subsection{Hinweise bei der Lösung mit MatLab}
 \begin{itemize}
 \item Die Simulation soll den Namen \textit{Erdorbits} haben.
@@ -90,6 +91,32 @@ Im zweiten Experiment beträgt die Simulationszeit $1 * 10^6s$ betragen. Es soll
 
 \subsection{Durchführung 3}
 Im dritten Experiment sollen die Werte $\gamma = 30^\circ$ und $\Theta = 0^\circ$ angenommen werden. Es sollen $h_{0}$ und $v_{0}$ so bestimmt werden, dass die Kreisbahn des Satelliten genau 1 Tag dauert. (Tipp: $h_{0} \approx 40000 km$ und $v_{0} \approx 3 km *s ^{-1}$)
+
+%TODO: Es fehlt ein Diagramm das zeigt, wie der Mond zur Erde besteht und wie der Winkel dort benannte wird.
+\section{Teilaufgabe 2}
+Zu dieser Teilaufgabe wird das Simulink-Modell aus Teilaufgabe 1 kopiert. Nun soll der Satellit nicht mehr um die Erde kreisen, sondern zusätzlich auch um den Mond.
+
+Zur Visualisierung des Modells wurde ein MatLab-Skript \textit{ErdMondBahn.m} bereitgestellt.
+
+\subsection{Zusätzliche Konstanten}
+Mondposition(fest)
+\begin{align}
+x_{M} = (0,380000)^T km
+\end{align}
+
+Mondmasse
+\begin{align}
+m_{M} = 7,3480 * 10^{22} kg
+\end{align}
+
+\subsection{Änderungen am Modell}
+Im kopierten Simulink-Modell muss die EM-Funktion \textit{Beschleunigung} angepasst werden. %TODO: Wie muss sie angepasst werden?
+Die Simulationszeit wird nun nicht mehr in Stunden, sondern in Tagen angegeben.
+
+\subsection{Durchführung}
+Es sind die Werte $\gamma_{0} = 30^\circ$ und $h_{0} = 150km$ gegeben.
+
+Es müssen die Werte $v_{0}$ und $\Theta$ bestimmt werden, sodass der Satellit in einer 8-förmigen Schleife von der Erde startend um den Mond fliegt und zur Erde zurück fliegt. Es ist zu ermitteln, wie lange die Mission dauert.
 
 
 \end{document}
