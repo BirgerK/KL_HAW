@@ -2,12 +2,12 @@ Model {
   Name			  "a1"
   Version		  8.7
   MdlSubVersion		  1
-  SavedCharacterEncoding  "US-ASCII"
+  SavedCharacterEncoding  "windows-1252"
   GraphicalInterface {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.47"
+    ComputedModelVersion    "1.50"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -22,7 +22,7 @@ Model {
   MinMaxOverflowArchiveMode "Overwrite"
   FPTRunName		  "Run 1"
   MaxMDLFileLineLength	  120
-  LastSavedArchitecture	  "maci64"
+  LastSavedArchitecture	  "win64"
   Object {
     $PropName		    "BdWindowsInfo"
     $ObjectID		    1
@@ -56,9 +56,9 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[1646.0, 779.0]
-	ZoomFactor		[1.25]
-	Offset			[-19.15937499999982, 3.891923570632116]
+	Extents			[1630.0, 777.0]
+	ZoomFactor		[0.8]
+	Offset			[-162.75, -212.64999999999998]
       }
     }
   }
@@ -66,11 +66,11 @@ Model {
   Creator		  "birger"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "birger"
+  LastModifiedBy	  "Mooni"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Apr 14 17:07:51 2016"
-  RTWModifiedTimeStamp	  382554466
-  ModelVersionFormat	  "1.%<AutoIncrement:47>"
+  LastModifiedDate	  "Thu Apr 14 17:25:42 2016"
+  RTWModifiedTimeStamp	  382555517
+  ModelVersionFormat	  "1.%<AutoIncrement:50>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -121,7 +121,7 @@ Model {
     $ObjectID		    6
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "a1"
-    overrideMode_	    [0U]
+    overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
       Dimension		      1
@@ -971,7 +971,7 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "125"
+    ZoomFactor		    "80"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "29"
     Block {
@@ -2052,10 +2052,9 @@ Stateflow {
     decomposition	    CLUSTER_STATE
     eml {
       isEML		      1
-      script		      "function v0vec = fcn(v0,Theta,x0)\n%#codegen\n\nrad = Theta * pi / 180;\n\n%Einheitsvektoren n un"
-      "d t\nn = x0 / norm(x0);  %x0 auf Laenge 1\nt = [n(2); -n(1)]; %senkrecht auf x0 mit Laenge 1\n\n%Komponenten vn "
-      "und vt\nvt = v0 * cos(rad);\nvn = v0 * sin(rad);\n\n%v0Welt aus laenge * richtung (in m/s)\nv0vec = (vt * t) + ("
-      "vn * n);"
+      script		      "function v0vec = fcn(v0,Theta,x0)\n\n%Einheitsvektoren n und t\nn = x0 / norm(x0);  %x0 auf Laeng"
+      "e 1\nt = [n(2); -n(1)]; %senkrecht auf x0 mit Laenge 1\n\n%Komponenten vn und vt\nvt = v0 * cosd(Theta);\nvn = v"
+      "0 * sind(Theta);\n\n%v0Welt aus laenge * richtung (in m/s)\nv0vec = (vt * t) + (vn * n);"
       editorLayout	      "100 M4x1[10 5 700 500]"
     }
   }
@@ -2231,8 +2230,8 @@ Stateflow {
     decomposition	    CLUSTER_STATE
     eml {
       isEML		      1
-      script		      "function x0 = fcn(gamma,h0,rE)\n%#codegen\n\nr = rE + h0;\nrad = gamma * pi / 180;\nx0 = [r*cos(r"
-      "ad); r*sin(rad)];"
+      script		      "function x0 = fcn(gamma,h0,rE)\n\nr = rE + h0; %Hypothenuse\nx0 = [cosd(gamma) * r ; sind(gamma) "
+      "* r ];"
       editorLayout	      "100 M4x1[10 5 700 500]"
     }
   }
@@ -2557,10 +2556,7 @@ Stateflow {
     firstTransition	    35
     firstJunction	    34
     viewObj		    29
-    visible		    1
     machine		    1
-    subviewS {
-    }
     ssIdHighWaterMark	    6
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
