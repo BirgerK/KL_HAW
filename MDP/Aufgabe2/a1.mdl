@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.50"
+    ComputedModelVersion    "1.51"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -32,7 +32,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [0.0, 23.0, 1680.0, 952.0]
+      Location		      [11.0, 46.0, 1680.0, 952.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -66,11 +66,11 @@ Model {
   Creator		  "birger"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "Mooni"
+  LastModifiedBy	  "Birger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Apr 14 17:25:42 2016"
-  RTWModifiedTimeStamp	  382555517
-  ModelVersionFormat	  "1.%<AutoIncrement:50>"
+  LastModifiedDate	  "Thu Apr 14 19:53:11 2016"
+  RTWModifiedTimeStamp	  382564391
+  ModelVersionFormat	  "1.%<AutoIncrement:51>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -171,7 +171,7 @@ Model {
 	  $ObjectID		  8
 	  Version		  "1.16.2"
 	  StartTime		  "0.0"
-	  StopTime		  "86400"
+	  StopTime		  "5555"
 	  AbsTol		  "auto"
 	  FixedStep		  "auto"
 	  InitialStep		  "auto"
@@ -959,7 +959,7 @@ Model {
   }
   System {
     Name		    "a1"
-    Location		    [0, 23, 1680, 975]
+    Location		    [11, 46, 1691, 998]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -2024,10 +2024,7 @@ Stateflow {
     firstTransition	    9
     firstJunction	    8
     viewObj		    2
-    visible		    1
     machine		    1
-    subviewS {
-    }
     ssIdHighWaterMark	    7
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
@@ -2379,10 +2376,7 @@ Stateflow {
     firstTransition	    27
     firstJunction	    26
     viewObj		    20
-    visible		    1
     machine		    1
-    subviewS {
-    }
     ssIdHighWaterMark	    7
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
