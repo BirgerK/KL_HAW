@@ -494,7 +494,7 @@
       </node>
       <node id="2549" net="1">
         <attribute name="Name" id="2550" net="1">
-          <![CDATA[gewaehlt]]>
+          <![CDATA[gewaehlt2]]>
           <graphics count="1">
             <graphic xoff="25.00" yoff="20.00" x="85.00" y="80.00" id="2551" net="1" show="1" grparent="2563" state="1" pen="0,0,0" brush="255,255,255"/>
           </graphics>
@@ -516,7 +516,7 @@
           <graphics count="0"/>
         </attribute>
         <attribute name="Comment" id="2557" net="1">
-          <![CDATA[]]>
+          <![CDATA[//old name:gewaehlt]]>
           <graphics count="1">
             <graphic yoff="40.00" x="60.00" y="100.00" id="2558" net="1" show="1" grparent="2563" state="1" pen="0,0,0" brush="255,255,255"/>
           </graphics>
@@ -848,7 +848,7 @@
       </node>
       <node id="1248" net="1">
         <attribute name="Name" id="1249" net="1">
-          <![CDATA[gewaehlt]]>
+          <![CDATA[gewaehlt1]]>
           <graphics count="1">
             <graphic xoff="17.00" yoff="59.00" x="37.00" y="519.00" id="1250" net="1" show="1" grparent="1258" state="1" pen="0,0,0" brush="255,255,255"/>
           </graphics>
@@ -864,7 +864,7 @@
           <graphics count="0"/>
         </attribute>
         <attribute name="Comment" id="1254" net="1">
-          <![CDATA[]]>
+          <![CDATA[//old name:gewaehlt]]>
           <graphics count="1">
             <graphic xoff="40.00" x="60.00" y="460.00" id="1255" net="1" show="1" grparent="1258" state="1" pen="0,0,0" brush="255,255,255"/>
           </graphics>
@@ -1014,7 +1014,7 @@
         <attribute name="Comment" id="631" net="1">
           <![CDATA[]]>
           <graphics count="1">
-            <graphic xoff="40.00" yoff="-0.00" x="570.84" y="639.44" id="632" net="1" show="1" grparent="635" state="1" pen="0,0,0" brush="255,255,255"/>
+            <graphic xoff="40.00" x="570.84" y="639.44" id="632" net="1" show="1" grparent="635" state="1" pen="0,0,0" brush="255,255,255"/>
           </graphics>
         </attribute>
         <attribute name="ExpressionList" type="ColList" id="633" net="1">
@@ -1055,13 +1055,13 @@
         <attribute name="Multiplicity" id="961" net="1">
           <![CDATA[1]]>
           <graphics count="1">
-            <graphic xoff="5.00" yoff="5.00" x="405.12" y="424.97" id="962" net="1" show="0" grparent="967" state="1" pen="0,0,0" brush="255,255,255"/>
+            <graphic xoff="5.00" yoff="5.00" x="405.12" y="424.98" id="962" net="1" show="0" grparent="967" state="1" pen="0,0,0" brush="255,255,255"/>
           </graphics>
         </attribute>
         <attribute name="Comment" id="963" net="1">
           <![CDATA[]]>
           <graphics count="1">
-            <graphic xoff="40.00" x="440.12" y="419.97" id="964" net="1" show="1" grparent="967" state="1" pen="0,0,0" brush="255,255,255"/>
+            <graphic xoff="40.00" x="440.12" y="419.98" id="964" net="1" show="1" grparent="967" state="1" pen="0,0,0" brush="255,255,255"/>
           </graphics>
         </attribute>
         <attribute name="ExpressionList" type="ColList" id="965" net="1">
@@ -1086,7 +1086,7 @@
             </colList_body>
           </colList>
           <graphics count="1">
-            <graphic xoff="5.00" yoff="5.00" x="405.12" y="424.97" id="966" net="1" show="1" grparent="967" state="1" pen="0,0,0" brush="255,255,255"/>
+            <graphic xoff="5.00" yoff="5.00" x="405.12" y="424.98" id="966" net="1" show="1" grparent="967" state="1" pen="0,0,0" brush="255,255,255"/>
           </graphics>
         </attribute>
         <graphics count="1">
@@ -1198,13 +1198,13 @@
         <attribute name="Multiplicity" id="1131" net="1">
           <![CDATA[1]]>
           <graphics count="1">
-            <graphic xoff="5.00" yoff="5.00" x="214.96" y="424.85" id="1132" net="1" show="0" grparent="1137" state="1" pen="0,0,0" brush="255,255,255"/>
+            <graphic xoff="5.00" yoff="5.00" x="214.97" y="424.85" id="1132" net="1" show="0" grparent="1137" state="1" pen="0,0,0" brush="255,255,255"/>
           </graphics>
         </attribute>
         <attribute name="Comment" id="1133" net="1">
           <![CDATA[]]>
           <graphics count="1">
-            <graphic xoff="40.00" x="249.96" y="419.85" id="1134" net="1" show="1" grparent="1137" state="1" pen="0,0,0" brush="255,255,255"/>
+            <graphic xoff="40.00" x="249.97" y="419.85" id="1134" net="1" show="1" grparent="1137" state="1" pen="0,0,0" brush="255,255,255"/>
           </graphics>
         </attribute>
         <attribute name="ExpressionList" type="ColList" id="1135" net="1">
@@ -1229,7 +1229,7 @@
             </colList_body>
           </colList>
           <graphics count="1">
-            <graphic xoff="20.00" yoff="20.00" x="229.96" y="439.85" id="1136" net="1" show="1" grparent="1137" state="1" pen="0,0,0" brush="255,255,255"/>
+            <graphic xoff="20.00" yoff="20.00" x="229.97" y="439.85" id="1136" net="1" show="1" grparent="1137" state="1" pen="0,0,0" brush="255,255,255"/>
           </graphics>
         </attribute>
         <graphics count="1">
@@ -1820,13 +1820,13 @@
         <attribute name="Multiplicity" id="2590" net="1">
           <![CDATA[1]]>
           <graphics count="1">
-            <graphic xoff="5.00" yoff="5.00" x="165.04" y="225.15" id="2591" net="1" show="0" grparent="2596" state="1" pen="0,0,0" brush="255,255,255"/>
+            <graphic xoff="5.00" yoff="5.00" x="165.03" y="225.15" id="2591" net="1" show="0" grparent="2596" state="1" pen="0,0,0" brush="255,255,255"/>
           </graphics>
         </attribute>
         <attribute name="Comment" id="2592" net="1">
           <![CDATA[]]>
           <graphics count="1">
-            <graphic xoff="40.00" x="200.04" y="220.15" id="2593" net="1" show="1" grparent="2596" state="1" pen="0,0,0" brush="255,255,255"/>
+            <graphic xoff="40.00" x="200.03" y="220.15" id="2593" net="1" show="1" grparent="2596" state="1" pen="0,0,0" brush="255,255,255"/>
           </graphics>
         </attribute>
         <attribute name="ExpressionList" type="ColList" id="2594" net="1">
@@ -1851,7 +1851,7 @@
             </colList_body>
           </colList>
           <graphics count="1">
-            <graphic xoff="5.00" yoff="5.00" x="165.04" y="225.15" id="2595" net="1" show="1" grparent="2596" state="1" pen="0,0,0" brush="255,255,255"/>
+            <graphic xoff="5.00" yoff="5.00" x="165.03" y="225.15" id="2595" net="1" show="1" grparent="2596" state="1" pen="0,0,0" brush="255,255,255"/>
           </graphics>
         </attribute>
         <graphics count="1">
@@ -1961,13 +1961,13 @@
         <attribute name="Multiplicity" id="2637" net="1">
           <![CDATA[1]]>
           <graphics count="1">
-            <graphic xoff="5.00" yoff="5.00" x="103.54" y="43.54" id="2638" net="1" show="0" grparent="2643" state="1" pen="0,0,0" brush="255,255,255"/>
+            <graphic xoff="5.00" yoff="5.00" x="103.53" y="43.53" id="2638" net="1" show="0" grparent="2643" state="1" pen="0,0,0" brush="255,255,255"/>
           </graphics>
         </attribute>
         <attribute name="Comment" id="2639" net="1">
           <![CDATA[]]>
           <graphics count="1">
-            <graphic xoff="40.00" x="138.54" y="38.54" id="2640" net="1" show="1" grparent="2643" state="1" pen="0,0,0" brush="255,255,255"/>
+            <graphic xoff="40.00" x="138.53" y="38.53" id="2640" net="1" show="1" grparent="2643" state="1" pen="0,0,0" brush="255,255,255"/>
           </graphics>
         </attribute>
         <attribute name="ExpressionList" type="ColList" id="2641" net="1">
@@ -1992,7 +1992,7 @@
             </colList_body>
           </colList>
           <graphics count="1">
-            <graphic xoff="5.00" yoff="5.00" x="103.54" y="43.54" id="2642" net="1" show="1" grparent="2643" state="1" pen="0,0,0" brush="255,255,255"/>
+            <graphic xoff="5.00" yoff="5.00" x="103.53" y="43.53" id="2642" net="1" show="1" grparent="2643" state="1" pen="0,0,0" brush="255,255,255"/>
           </graphics>
         </attribute>
         <graphics count="1">
@@ -2071,7 +2071,7 @@ nach Links? Reicht es an die Kanten die Variablen namen zu schreiben um festzuha
           </graphics>
         </attribute>
         <graphics count="1">
-          <graphic x="800.00" y="880.00" id="1550" net="1" show="1" w="803.00" h="180.00" state="1" pen="255,255,255" brush="255,255,255"/>
+          <graphic x="800.00" y="880.00" id="1550" net="1" show="1" w="834.00" h="170.00" state="1" pen="255,255,255" brush="255,255,255"/>
         </graphics>
       </metadata>
     </metadataclass>
