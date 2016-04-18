@@ -121,5 +121,81 @@ Es sind die Werte $\gamma_{0} = 30^\circ$ und $h_{0} = 150km$ gegeben.
 
 Es müssen die Werte $v_{0}$ und $\Theta$ bestimmt werden, sodass der Satellit in einer 8-förmigen Schleife von der Erde startend um den Mond fliegt und zur Erde zurück fliegt. Es ist zu ermitteln, wie lange die Mission dauert.
 
+\section{Teilaufgabe 3}
+In dieser Teilaufgabe gilt es, die Bewegung einer Pendelkonstruktion zu berechnen. Der Versuchsaufbau ist in Diagramm \ref{fig:3_Versuchsaufbau} zu sehen. In diesem Aufbau übt immer nur eine der Federn Zugkraft auf die Seiltrommel aus, während die andere Feder keine Kraft ausübt. Befindet sich das Pendel in senkrechter Position, dann übt keine der Federn eine Kraft aus. Der Einfluss der Pendelstange und der Seiltrommel werden nicht beachtet.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\linewidth]{./3_Versuchsaufbau}
+\caption{}
+\label{fig:3_Versuchsaufbau}
+\end{figure}
+
+\subsection{Konfigurierbare Parameter}
+Es sind folgende Parameter in der Simulation konfigurierbar:
+\begin{itemize}
+\item Pendelmasse $m$[kg]
+\item Abstand $L$[m]
+\item Quadermaße $w$[m] und $h$[m]
+\item Trommelradius $r$ [m]
+\item Auslenkung des Pendels zu Versuchsbeginn $\varphi$[$^\circ$]
+\item Federkonstanten $c_{1}$[N/m] und $c_{2}$[N/m]
+\end{itemize}
+
+\subsection{Ausgabe der Simulation}
+Das Ergebnis der Simulation soll $varphi(t)$ sein. Die erhaltenen Werte sollen als Graph im Koordinatensystem, sowie als virtuelles Modell visualisiert werden.
+
+Für das virtuelle Modell wird eine WRL-Datei bereitgestellt, die man in Simulink integrieren kann.
+
+\subsection{Hinweise bei der Modellierung}
+Bevor die Simulation in MatLab nachgestellt wird, sind zuvor einige Dinge zu tun.
+
+In einem Freikörperbild des Pendels sollen die angreifenden Kräfte angetragen werden. Dazu gehört die Erdanziehungskraft, die man mithilfe von $varphi$ in ihre Tangetial- und Normalenkomponenten zerlegen kann, und das jeweils angreifende Drehmoment.
+
+Außerdem muss das Massenträgheitsmoment für die quaderförmige Pendelmasse angegeben werden.
+
+Dann muss eine DGL aufgestellt werden, die die Bewegung des Pendels berechnet.
+
+Zum Schluss muss das Modell in Simulink abgebildet werden.
+
+\subsection{Versuchsdurchführung}
+Der Versuch wird unter folgenden Randbedingungen durchgeführt: $L=1m,\ m=10kg,\ r=0.3m,\ w=0.3m,\ h=0.2m,\ c_{1}=5000N/m,\ c_{2}=500\ 000N/m,\ \varphi(0)=45^\circ$
+Es ist das resultierende $\varphi(t)$ als Graph darzustellen.
+
+Außerdem ist die bereits erwähnte \textit{CrazyPendlm.wrl} in Simulink zu integrieren, um das virtuelle Modell zu erhalten. Es ist darauf zu achten, dass die Sample-Time der VR-Sind auf 0.005 gesetzt wird.
+
+\section{Teilaufgabe 4}
+In dieser Teilaufgabe wird ein schwingungsgedämpfter Tisch simuliert. Der Versuchsaufbau ist in Diagramm \ref{fig:4_Versuchsaufbau} zu sehen. Der Startbewegungsimpuls wird über \textit{u} gegeben. Die Massen $m_{1}$ und $m_{2}$ reagieren darauf mit den Auslenkungen $m_{1}$ und $m_{2}$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\linewidth]{./4_Versuchsaufbau}
+\caption{}
+\label{fig:4_Versuchsaufbau}
+\end{figure}
+
+\subsection{Konfigurierbare Parameter}
+Es sind folgende Parameter in der Simulation konfigurierbar:
+\begin{itemize}
+\item Tischplattenmasse $m_{1}$[kg]
+\item Gegenmasse $m_{2}$[kg]
+\item Federkonstante $c_{1}$[N/m]
+\item Federkonstante $c_{2}$[N/m]
+\item Dämpfer $d$[Ns/m]
+\end{itemize}
+
+\subsection{Ausgabe der Simulation}
+Das Ergebnis der Simulation soll der Graph von $x_{1}(t)$ sein.
+
+\subsection{Hinweise bei der Modellierung}
+Zunächst müssen an einem Freikörperbild alle angreifenden Kräfte angetragen werden. In diesem Versuch gibt es ausschließlich senkrecht wirkende Kräfte. Dazu gehören jeweils die Erdanziehungskräfte, die auf die Massen $m_{1}$ und $m_{2}$ wirken. Außerdem die Kräfte der Federn, die jeweils in Richtung Boden ziehen. Zuletzt gibt es die Kräfte der Dämpfer, die beiden Massen "auseinander drücken".
+
+Außerdem sind die DGLn für die Massen $m_{1}$ und $m_{2}$ aufzustellen und die Ruhelagen der Massen zu bestimmen. Das ist der Moment, wenn in dem Versuchsaufbau keine Bewegung mehr stattfindet und alle Kräfte ausgeglichen sind.
+
+\subsection{Versuchsdurchführung}
+Der Versuch wird unter folgenden Randbedingungen durchgeführt: $c_{1} = 15\ 000N7m,\ c_{2}=10\ 000N/m,\ d=600Ns/m,\ m_{1}=60kg,\ m_{2}=450kg$
+Es ist das resultierende $x_{1}(t)$ als Graph darzustellen.
+
+Die Startbewegung des Versuchs ist $u=1mm$.
 
 \end{document}
