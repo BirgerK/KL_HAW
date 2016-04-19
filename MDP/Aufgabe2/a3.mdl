@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.8"
+    ComputedModelVersion    "1.9"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -68,9 +68,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Birger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Apr 19 21:16:47 2016"
-  RTWModifiedTimeStamp	  383001401
-  ModelVersionFormat	  "1.%<AutoIncrement:8>"
+  LastModifiedDate	  "Tue Apr 19 21:27:37 2016"
+  RTWModifiedTimeStamp	  383001754
+  ModelVersionFormat	  "1.%<AutoIncrement:9>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -171,7 +171,7 @@ Model {
 	  $ObjectID		  8
 	  Version		  "1.16.2"
 	  StartTime		  "0.0"
-	  StopTime		  "10.0"
+	  StopTime		  "1000"
 	  AbsTol		  "auto"
 	  FixedStep		  "auto"
 	  InitialStep		  "auto"
@@ -1265,20 +1265,20 @@ Model {
       ScopeSpecificationString "Simulink.scopes.TimeScopeBlockCfg('CurrentConfiguration', extmgr.ConfigurationSet(extm"
       "gr.Configuration('Core','General UI',true),extmgr.Configuration('Core','Source UI',true),extmgr.Configuration('S"
       "ources','WiredSimulink',true),extmgr.Configuration('Visuals','Time Domain',true,'SerializedDisplays',{struct('Mi"
-      "nYLimReal','-10.07626','MaxYLimReal','51.11958','YLabelReal','','MinYLimMag','0.00000','MaxYLimMag','51.11958','"
+      "nYLimReal','-10.07919','MaxYLimReal','51.11991','YLabelReal','','MinYLimMag','0.00000','MaxYLimMag','51.11991','"
       "LegendVisibility','off','XGrid',true,'YGrid',true,'PlotMagPhase',false,'AxesColor',[0 0 0],'AxesTickColor',[0.68"
       "6274509803922 0.686274509803922 0.686274509803922],'ColorOrder',[1 1 0.0666666666666667;0.0745098039215686 0.623"
       "529411764706 1;1 0.411764705882353 0.16078431372549;0.392156862745098 0.831372549019608 0.0745098039215686;0.717"
       "647058823529 0.274509803921569 1;0.0588235294117647 1 1;1 0.0745098039215686 0.650980392156863],'Title','%<Signa"
-      "lLabel>','LinePropertiesCache',{{}},'UserDefinedChannelNames',{{}},'NumLines',0,'LineNames',{{[]}},'ShowContent'"
-      ",true,'Placement',1)},'DisplayPropertyDefaults',struct('MinYLimReal','-10.07626','MaxYLimReal','51.11958','YLabe"
-      "lReal','','MinYLimMag','0.00000','MaxYLimMag','51.11958','LegendVisibility','off','XGrid',true,'YGrid',true,'Plo"
-      "tMagPhase',false,'AxesColor',[0 0 0],'AxesTickColor',[0.686274509803922 0.686274509803922 0.686274509803922],'Co"
-      "lorOrder',[0.0745098039215686 0.623529411764706 1;1 0.411764705882353 0.16078431372549;1 1 0.0666666666666667;0."
-      "717647058823529 0.274509803921569 1;0.392156862745098 0.831372549019608 0.0745098039215686;0.0588235294117647 1 "
-      "1;1 0.0745098039215686 0.650980392156863])),extmgr.Configuration('Tools','Plot Navigation',true),extmgr.Configur"
-      "ation('Tools','Measurements',true,'Version','2016a')),'Version','2016a','Position',[1332 530 560 420],'VisibleAt"
-      "ModelOpen','on')"
+      "lLabel>','LinePropertiesCache',{{}},'UserDefinedChannelNames',{{}},'NumLines',1,'LineNames',{{'Bogenmaß -> °'}},"
+      "'ShowContent',true,'Placement',1)},'DisplayPropertyDefaults',struct('MinYLimReal','-10.07919','MaxYLimReal','51."
+      "11991','YLabelReal','','MinYLimMag','0.00000','MaxYLimMag','51.11991','LegendVisibility','off','XGrid',true,'YGr"
+      "id',true,'PlotMagPhase',false,'AxesColor',[0 0 0],'AxesTickColor',[0.686274509803922 0.686274509803922 0.6862745"
+      "09803922],'ColorOrder',[0.0745098039215686 0.623529411764706 1;1 0.411764705882353 0.16078431372549;1 1 0.066666"
+      "6666666667;0.717647058823529 0.274509803921569 1;0.392156862745098 0.831372549019608 0.0745098039215686;0.058823"
+      "5294117647 1 1;1 0.0745098039215686 0.650980392156863])),extmgr.Configuration('Tools','Plot Navigation',true,'On"
+      "ceAtStop',false,'PreviousZoomMode','Pan','PreviousAutoscale','X'),extmgr.Configuration('Tools','Measurements',tr"
+      "ue,'Version','2016a')),'Version','2016a','Position',[253 65 1576 875])"
     }
     Block {
       BlockType		      Signum
