@@ -112,6 +112,46 @@ a = \Sigma{F}_{SE}
 \section{Teilaufgabe 2 - Mondumkreisung}
 
 \section{Teilaufgabe 3 - Crazy Pendulum}
+In dieser Teilaufgabe gilt es, die Bewegung einer Pendelkonstruktion zu berechnen. Der Versuchsaufbau ist in Abb. \ref{fig:3_Versuchsaufbau} zu sehen. In diesem Aufbau übt immer nur eine der Federn Zugkraft auf die Seiltrommel aus, während die andere Feder keine Kraft ausübt. Befindet sich das Pendel in senkrechter Position, dann übt keine der Federn eine Kraft aus. Der Einfluss der Pendelstange und der Seiltrommel werden nicht beachtet.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\linewidth]{./3_Versuchsaufbau}
+\caption{}
+\label{fig:3_Versuchsaufbau}
+\end{figure}
+
+\subsection{Formeln}
+$c$ ist abhängig von $\varphi(t)$: es gilt entweder $c_{1}$ oder $c_{2}$.
+\begin{align}
+M_{p} = m \cdot g \cdot sin(\varphi) \cdot (L + \dfrac{h}{2})\\
+M_{s} = -\varphi \cdot c \cdot r^2\\
+M_{g} = M_{p} + M_{s}\\
+J_{p} = \dfrac{1}{12} \cdot m \cdot (h^2 + w^2)\\
+J_{g} = J_{p} + m \cdot (L + \dfrac{h}{2})^2\\
+a = M_{g}/J_{g}
+\end{align}
+$a$ wird in der Einheit $Grad/s^2$ angegeben.
+
+\subsection{Simulink-Modell}
+Die Berechnung von $a$ erfolgt in der Embedded-MatLab-Function \textit{fcn}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\linewidth]{./3_Modell}
+\caption{}
+\label{fig:3_Modell}
+\end{figure}
+
+\subsection{Plot des Ergebnis}
+Die Abbildung \ref{fig:3_Plot} zeigt $\varphi(t)$ des Modells als Plot. Die Abstände und Maximalstellen der Kurve verändern sich während der Laufzeit nicht nennenswert. Sie bleiben nahezu gleich, eine Veränderung ist nur an der dritten Nachkommastelle zu sehen.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\linewidth]{./3_Plot}
+\caption{}
+\label{fig:3_Plot}
+\end{figure}
 
 \section{Teilaufgabe 4 - Schwingungsgedämpfter Tisch}
 
