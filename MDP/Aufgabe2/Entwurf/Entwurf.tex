@@ -35,7 +35,7 @@ Abbildung \ref{fig:1_BezeichnerDiagramm} illustriert das Modell sowie die jeweil
 \subsection{Gegebene Formeln und Konstanten}
 Kraft auf den Satelliten
 \begin{align}
-\vec{F}_{S} = G * \dfrac{m_{E} * m_{S}}{r^2} * \vec{e}_{SE}
+\vec{F}_{S} = G \cdot \dfrac{m_{E} \cdot m_{S}}{r^2} \cdot \vec{e}_{SE}
 \end{align}
 
 Erdradius
@@ -45,21 +45,21 @@ r_{E} = 6378 km
 
 Erdmasse
 \begin{align}
-m_{E} = 5,9736 * 10^{24} kg
+m_{E} = 5,9736 \cdot 10^{24} kg
 \end{align}
 
 Gravitationskonstante
 \begin{align}
-G = 66,743 * 10^{-12} m^{3} kg^{-1} s^{-2}
+G = 66,743 \cdot 10^{-12} m^{3} kg^{-1} s^{-2}
 \end{align}
 
 \subsection{Konfigurierbare Parameter}
 Folgende Parameter müssen mindestens bei der Simulation konfigurierbar sein:
 \begin{itemize}
-\item $v_{0}$
-\item $\Theta$
-\item $\gamma$
-\item $h_{0}$
+\item $v_{0}$ Startgeschwindigkeit $[km/s]$
+\item $\Theta$ Startflugwinkel $[\circ]$
+\item $\gamma$ Startwinkel $[\circ]$
+\item $h_{0}$ Starthöhe $[km]$
 \end{itemize}
 
 \subsection{Erdachte Formeln}
@@ -67,7 +67,7 @@ Folgende Formeln wurden selbst erdacht, und sollen bei der Lösung behilflich se
 \begin{align}
 r = \sqrt{x^2 + y^2} \\
 h = r - r_{E} \\
-\vec{e}_{SE} = \dfrac{1}{\sqrt{x^2 + y^2}}* \begin{pmatrix}x\\y\end{pmatrix} = \dfrac{1}{r} * \begin{pmatrix}x\\y\end{pmatrix}
+\vec{e}_{SE} = \dfrac{1}{\sqrt{x^2 + y^2}}\cdot \begin{pmatrix}x\\y\end{pmatrix} = \dfrac{1}{r} \cdot \begin{pmatrix}x\\y\end{pmatrix}
 \end{align}
 
 \subsection{Hinweise bei der Lösung mit MatLab}
@@ -84,13 +84,13 @@ h = r - r_{E} \\
 \end{itemize}
 
 \subsection{Durchführung 1}
-Im ersten Experiment sollen die Werte $\gamma = 30^\circ,\ h_{0} = 400km$ und $\Theta=0^\circ$ angenommen werden. Die Startgeschwindigkeit $v_{0}$ soll so bestimmt werden, dass der Satellit in einer Kreisbahn auf gleicher Höhe fliegt (Tipp: ca. $7,4 - 8,5 km*s^{-1}$). Außerdem soll bestimmt werden, wie lange eine Erdumkreisung dann dauert (Tipp: ca. $1 - 2h$).
+Im ersten Experiment sollen die Werte $\gamma = 30^\circ,\ h_{0} = 400km$ und $\Theta=0^\circ$ angenommen werden. Die Startgeschwindigkeit $v_{0}$ soll so bestimmt werden, dass der Satellit in einer Kreisbahn auf gleicher Höhe fliegt (Tipp: ca. $7,4 - 8,5 km\cdots^{-1}$). Außerdem soll bestimmt werden, wie lange eine Erdumkreisung dann dauert (Tipp: ca. $1 - 2h$).
 
 \subsection{Durchführung 2}
-Im zweiten Experiment sollen die Werte $\gamma = 30^\circ,\ h_{0} = 400km$ und $\Theta=0^\circ$ angenommen werden und die Simulationszeit beträgt $1 * 10^6s$. Es soll $v_{0}$ bestimmt werden, sodass der Satellit gerade der Erde entflieht (Tipp: ca. $10 - 11 km*s^{-1}$).
+Im zweiten Experiment sollen die Werte $\gamma = 30^\circ,\ h_{0} = 400km$ und $\Theta=0^\circ$ angenommen werden und die Simulationszeit beträgt $1 \cdot 10^6s$. Es soll $v_{0}$ bestimmt werden, sodass der Satellit gerade der Erde entflieht (Tipp: ca. $10 - 11 km\cdots^{-1}$).
 
 \subsection{Durchführung 3}
-Im dritten Experiment sollen die Werte $\gamma = 30^\circ$ und $\Theta = 0^\circ$ angenommen werden. Es sollen $h_{0}$ und $v_{0}$ so bestimmt werden, dass die Kreisbahn des Satelliten genau 1 Tag dauert. (Tipp: $h_{0} \approx 40000 km$ und $v_{0} \approx 3 km *s ^{-1}$)
+Im dritten Experiment sollen die Werte $\gamma = 30^\circ$ und $\Theta = 0^\circ$ angenommen werden. Es sollen $h_{0}$ und $v_{0}$ so bestimmt werden, dass die Kreisbahn des Satelliten genau 1 Tag dauert. (Tipp: $h_{0} \approx 40000 km$ und $v_{0} \approx 3 km \cdots ^{-1}$)
 
 \subsection{Hinweis zu Durchführungen}
 Die Ergebnisse der Experimente können entweder durch Ausprobieren im Modell erreicht werden, oder durch Berechnung mit einer Formel.
@@ -104,12 +104,12 @@ Zur Visualisierung des Modells wurde ein MatLab-Skript \textit{ErdMondBahn.m} be
 \subsection{Zusätzliche Konstanten}
 Mondposition(fest)
 \begin{align}
-x_{M} = (0,380000)^T km
+x_{M} = (0,-380000)^T km
 \end{align}
 
 Mondmasse
 \begin{align}
-m_{M} = 7,3480 * 10^{22} kg
+m_{M} = 7,3480 \cdot 10^{22} kg
 \end{align}
 
 \subsection{Änderungen am Modell}
@@ -122,7 +122,7 @@ Es sind die Werte $\gamma_{0} = 30^\circ$ und $h_{0} = 150km$ gegeben.
 Es müssen die Werte $v_{0}$ und $\Theta$ bestimmt werden, sodass der Satellit in einer 8-förmigen Schleife von der Erde startend um den Mond fliegt und zur Erde zurück fliegt. Es ist zu ermitteln, wie lange die Mission dauert.
 
 \section{Teilaufgabe 3}
-In dieser Teilaufgabe gilt es, die Bewegung einer Pendelkonstruktion zu berechnen. Der Versuchsaufbau ist in Diagramm \ref{fig:3_Versuchsaufbau} zu sehen. In diesem Aufbau übt immer nur eine der Federn Zugkraft auf die Seiltrommel aus, während die andere Feder keine Kraft ausübt. Befindet sich das Pendel in senkrechter Position, dann übt keine der Federn eine Kraft aus. Der Einfluss der Pendelstange und der Seiltrommel werden nicht beachtet.
+In dieser Teilaufgabe gilt es, die Bewegung einer Pendelkonstruktion zu berechnen. Der Versuchsaufbau ist in Abb. \ref{fig:3_Versuchsaufbau} zu sehen. In diesem Aufbau übt immer nur eine der Federn Zugkraft auf die Seiltrommel aus, während die andere Feder keine Kraft ausübt. Befindet sich das Pendel in senkrechter Position, dann übt keine der Federn eine Kraft aus. Der Einfluss der Pendelstange und der Seiltrommel werden nicht beachtet.
 
 \begin{figure}[H]
 \centering
@@ -165,7 +165,7 @@ Es ist das resultierende $\varphi(t)$ als Graph darzustellen.
 Außerdem ist die bereits erwähnte \textit{CrazyPendlm.wrl} in Simulink zu integrieren, um das virtuelle Modell zu erhalten. Es ist darauf zu achten, dass die Sample-Time der VR-Sind auf 0.005 gesetzt wird.
 
 \section{Teilaufgabe 4}
-In dieser Teilaufgabe wird ein schwingungsgedämpfter Tisch simuliert. Der Versuchsaufbau ist in Diagramm \ref{fig:4_Versuchsaufbau} zu sehen. Der Startbewegungsimpuls wird über \textit{u} gegeben. Die Massen $m_{1}$ und $m_{2}$ reagieren darauf mit den Auslenkungen $m_{1}$ und $m_{2}$.
+In dieser Teilaufgabe wird ein schwingungsgedämpfter Tisch simuliert. Der Versuchsaufbau ist in Abb. \ref{fig:4_Versuchsaufbau} zu sehen. Der Startbewegungsimpuls wird über \textit{u} gegeben. Die Massen $m_{1}$ und $m_{2}$ reagieren darauf mit den Auslenkungen $m_{1}$ und $m_{2}$.
 
 \begin{figure}[H]
 \centering
