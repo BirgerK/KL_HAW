@@ -69,7 +69,7 @@ Folgende Parameter müssen mindestens bei der Simulation konfigurierbar sein:
 \subsection{Funktionen}
 Im Folgenden werden die benötigten Funktionen erklärt.
 
-\subsection{Startposition}
+\subsubsection{Startposition}
 Die Funktion Startposition berechnet den Startpositionsvektor $x0$ aus den gegeben Parametern $\gamma (^\circ)$ ,der Starthöhe $h0$ (km) und der Konstante Erdradius.
 
 Dafür verwenden wir eine Formel die sich aus der Geometrie ableitet da hier mithilfe der Winkel die Ankathete und Gegenkathete der Hypotenuse von $r + h0$ berechnet werden aus denen sich die Position ableiten lässt.
@@ -84,7 +84,7 @@ Die Funktion $vStart$ berechnet den Startgeschwindigkeitsvektor $\vec{v0}$ aus d
 
 Um den Vektor bestimmen zu können werden zuerst die Einheitsvektoren in Tangential- und Normalrichtung ($\vec{t}, \vec{n}$ aus $x0$ konstruiert. Danach werden die Tangential- und Normalkomponenten der Startgeschwindigkeit ($v_t , v_n$) berechnet. Aus diesen Parametern lässt sich dann die Startgeschwindigkeit zusammenbauen.
 
-Die genaue Durchfürhung findet sich im MatLab Code
+Die genaue Durchführung findet sich im MatLab Code
 
 \subsubsection{Beschleunigung}
 Diese Funktion berechnet aus der Satellitenposition $\vec{x}$ die Satellitenbeschleunigung.
@@ -104,12 +104,66 @@ Wobei hier $m$ die Masse des Satelliten ist und sich heraus kürzt. Daraus folgt
 a = \Sigma{F}_{SE}
 \end{align}
 
+Daraus ergibt sich
 
+\begin{align}
+a = G \cdot \dfrac{m_E \cdot m_S }{r^2_{SE}} \cdot \vec{e_{SE}}
+\end{align}
+
+hierbei ist $m_E$ die Masse der Erde, $m_S$ die Masse des Satelliten, $G$ die Gravitationskonstante, $\vec{e_{SE}}$  der Einheitsvektor vom Satelliten zur Erde und $r_{SE}$ der Abstand vom Erdmittelpunkt zum Satelliten. Auch hier ist die Masse des Satelliten vernachlässigbar und wird in der Berechnung nicht berücksichtigt.
 
 \subsubsection{Kontakt}
 
+Der Kontakt ist eine recht simple Funktion deren Aufgabe es ist festzustellen ob der Satellit einen Erdkontakt hergestellt hat. Dies wird verwendet um die Simulation zu beenden wenn der Satellit abgestürzt ist.
+
+Die Funktion benutzt den aktuellen Positionsvektor des Satelliten $\vec{x}$ um daraus zu bestimmen ob die aktuelle Höhe größer ist als der Radius der Erde $r_E$.
+
+\subsection{Simulink-Modell}
+
+Das folgende Modell veranschaulicht das Simulink-Modell das die Simulation durchführt.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\linewidth]{./Weltraum_1}
+\caption{Simulink Modell für die Erdumrundung}
+\label{fig:1_BezeichnerDiagramm}
+\end{figure}
+
+\subsection{Verschsdurchführungen}
+Es wurden drei Versuchse durchgeführt um mit unterschiedlichen Anfangsparametern diverses Verhalten zu provozieren.
+
+\subsubsection{Versuch 1 - Gleichmäßige Kreisbahn}
+
+Dieser Versuch wurde mit den Versuchsparametern $\delta = 30^\circ, h_0 = 400km \Theta = 0^\circ $ durchgeführt.
+
+
+\subsubsection{Versuch 2 - Entfliehung der Erde}
+In diesem Versuch soll der Parameter $v_0$ bestimmt werden, sodass der Satellit gerade der Erde etflieht. Dafür werden folgende Startparameter 
+ $\delta = 30^\circ, h_0 = 400km \Theta = 0^\circ $ und eine Simulationszeit $1 \cdot 10^6$ von angenommen werden.
+
+
+\subsubsection{Versuch 3 - Erdumrundung innerhalb eines Tages}
+In diesem Versuch sollen die Parameter $h_0$ und $v_0$ so gewählt werden, dass der Satellit genau einen Tag benötigt um die Erde zu umkreisen.
+
+Es ergab sich, dass der Versuch mit den folgenden Parametern durchgeführt werden muss um das gewünschte Ergebnis zu erreichen.
+ $\delta = 30\circ, h_0 =  \Theta = 0^\circ $ 
+
 
 \section{Teilaufgabe 2 - Mondumkreisung}
+In der Teilaufgabe 2 ging es darum das Modell aus Aufgabe 1 so umzubauen, dass der Satellit nicht mehr nur um die Erde sondern nun auch um den Mond kreist. Dafür wurden folgende Parameter hinzugefügt:
+
+Mondposition(fest)
+\begin{align}
+x_{M} = (0,-380000)^T km
+\end{align}
+
+Mondmasse
+\begin{align}
+m_{M} = 7,3480 \cdot 10^{22} kg
+\end{align}
+
+Dabei ist zu beachten, dass der Mond als feststehend angesehen wird.
+
 
 \section{Teilaufgabe 3 - Crazy Pendulum}
 In dieser Teilaufgabe gilt es, die Bewegung einer Pendelkonstruktion zu berechnen. Der Versuchsaufbau ist in Abb. \ref{fig:3_Versuchsaufbau} zu sehen. In diesem Aufbau übt immer nur eine der Federn Zugkraft auf die Seiltrommel aus, während die andere Feder keine Kraft ausübt. Befindet sich das Pendel in senkrechter Position, dann übt keine der Federn eine Kraft aus. Der Einfluss der Pendelstange und der Seiltrommel werden nicht beachtet.
