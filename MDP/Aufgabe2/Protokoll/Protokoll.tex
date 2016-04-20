@@ -121,6 +121,22 @@ In dieser Teilaufgabe gilt es, die Bewegung einer Pendelkonstruktion zu berechne
 \label{fig:3_Versuchsaufbau}
 \end{figure}
 
+\subsection{Gegebene Versuchskonfiguration}
+Dieser Versuch wurde mit folgenden Parametern durchgeführt:
+\begin{itemize}
+\item $L = 1m$
+\item $m = 10kg$
+\item $r = 0.3m$
+\item $w = 0.3m$
+\item $h = 0.2m$
+\item $c_{1} = 5000 N/m$
+\item $c_{2} = 500\ 000N/m$
+\item $\varphi(0) = 45^\circ$
+\end{itemize}
+
+\subsection{Freikörperbild}
+%TODO: zeichnen und einfügen
+
 \subsection{Formeln}
 $c$ ist abhängig von $\varphi(t)$: es gilt entweder $c_{1}$ oder $c_{2}$.
 \begin{align}
@@ -154,6 +170,80 @@ Die Abbildung \ref{fig:3_Plot} zeigt $\varphi(t)$ des Modells als Plot. Die Abst
 \end{figure}
 
 \section{Teilaufgabe 4 - Schwingungsgedämpfter Tisch}
+In dieser Teilaufgabe wird ein schwingungsgedämpfter Tisch simuliert. Der Versuchsaufbau ist in Abb. \ref{fig:4_Versuchsaufbau} zu sehen. Der Startbewegungsimpuls wird über \textit{u} gegeben. Die Massen $m_{1}$ und $m_{2}$ reagieren darauf mit den Auslenkungen $x_{1}$ und $x_{2}$.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\linewidth]{./4_Versuchsaufbau}
+\caption{}
+\label{fig:4_Versuchsaufbau}
+\end{figure}
+
+\subsection{Gegebene Versuchskonfiguration}
+Dieser Versuch wurde mit folgenden Parametern durchgeführt:
+\begin{itemize}
+\item $c_{1} = 15\ 000 N/m$
+\item $c_{2} = 10\ 000 N/m$
+\item $d = 600 Ns/m$
+\item $m_{1} = 60 kg$
+\item $m_{2} = 450 kg$
+\end{itemize}
+
+\subsection{Freikörperbild}
+%TODO: zeichnen und rein damit
+
+\subsection{Formeln}
+Folgende Formeln werden zur Berechnung der einzelnen Komponenten verwendet:
+
+\begin{align}
+\Delta x_{1} = x_{1} - u\\
+\Delta x_{2} = x_{2} - u\\
+\Delta v = v_{1} - v_{2}\\
+F_{G1} = m_{1} \cdot g\\
+F_{G2} = m_{2} \cdot g\\
+F_{c1} = 2 \cdot \Delta x_{1} \cdot c_{1}\\
+F_{c2} = 2 \cdot \Delta x_{2} \cdot c_{2}\\
+F_{D} = 2 \cdot \Delta v \cdot d
+\end{align}
+
+Ruhelage Tisch:
+\begin{align}
+x_{1}(0) = - \dfrac{m_{1} \cdot g}{c_{1} \cdot 2}
+\end{align}
+
+Ruhelage Gegengewicht:
+\begin{align}
+x_{2}(0) = - \dfrac{m_{2} \cdot g}{c_{2} \cdot 2}
+\end{align}
+
+Beschleunigung Tisch:
+\begin{align}
+a_{1} = \frac{-F_{G1} - F_{D} - F_{c1}}{m_{1}}
+\end{align}
+
+Beschleunigung Gegengewicht:
+\begin{align}
+a_{2} = \frac{-F_{G2} + F_{D} - F_{c2}}{m_{2}}
+\end{align}
+
+\subsection{Simulink-Modell}
+Die Berechnung von $x_{1}(t)$ erfolgt in folgendem Simulink-Modell:
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\linewidth]{./4_Modell}
+\caption{}
+\label{fig:4_Modell}
+\end{figure}
+
+\subsection{Plot des Ergebnis}
+Die Abbildung \ref{fig:4_Plot} zeigt wie sich die Auslenkung von $x_{1}$ durch den Anstoß von $u$ verändert, bis der Tisch sich wieder in seiner Ruheposition befindet.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\linewidth]{./4_Plot}
+\caption{}
+\label{fig:4_Plot}
+\end{figure}
 
 \end{document}
