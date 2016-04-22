@@ -130,7 +130,7 @@ Das folgende Modell veranschaulicht das Simulink-Modell das die Simulation durch
 \end{figure}
 
 \subsection{Verschsdurchführungen}
-Es wurden drei Versuchse durchgeführt um mit unterschiedlichen Anfangsparametern diverses Verhalten zu provozieren.
+Es wurden drei Versuche durchgeführt um mit unterschiedlichen Anfangsparametern diverses Verhalten zu provozieren.
 
 \subsubsection{Versuch 1 - Gleichmäßige Kreisbahn}
 
@@ -164,6 +164,43 @@ m_{M} = 7,3480 \cdot 10^{22} kg
 
 Dabei ist zu beachten, dass der Mond als feststehend angesehen wird.
 
+\subsection{Veränderungen am Modell - Beschleunigung}
+Um der Simulation eine Mondumkreisung hinzuzufügen muss die Funktion Beschleunigung modifiziert werden in dem der jetzigen Formel der Einfluss des Mondes hinzugefügt wird.
+
+Die Beschleunigungs-Formel der Erde beschreibt sich als:
+
+\begin{align}
+a = G \cdot \dfrac{m_E \cdot m_S }{r^2_{SE}} \cdot \vec{e_{SE}}
+\end{align}
+
+Die Formel des Mondes wäre dann
+
+\begin{align}
+a = G \cdot \dfrac{m_M \cdot m_S }{r^2_{SM}} \cdot \vec{e_{SM}}
+\end{align}
+
+dabei ist $m_M$ die Masse des Mondes, $r_{SM}$ die Entfernung des Satelliten zum Mond und $ \vec{e_{SM}}$ der Einheitsvektor vom Satelliten zum Mond.
+Aus der Formel zur Berechnung der Kraft
+
+\begin{align}
+\Sigma{F} = m \cdot a
+\end{align}
+
+Ergibt sich wie bereits vorher die Berechnung, nur das hier die Kräfte addiert werden die auf den Satelliten wirken.
+
+\begin{align}
+a = \Sigma{F}_{SE} + \Sigma{F}_{SM}
+\end{align}
+
+Somit wird, genau wie für die Erde auch für den Mond die Kraft berechnet die auf den Satelliten wirkt und addiert. Daraus ergibt sich die Beschleunigung.
+
+
+\subsection{Durchführung}
+
+Für die Darstellung der Simulation wird das bereitgestellte Matlab-Script $ErdMondBahn.m$ genutzt und die Simulation mit den Voreinstellungen 
+ $\delta = 30^\circ, h_0 = 150km$
+ 
+Mit einer Startgeschwindigeit $v0 = $ und einem Flugwinkel von $\Theta = 0^\circ = $ fliegt der Satellit eine 8-förmige Schleife um den Mond und zurück zur Erde. Dabei dauert die Mondmission ---- Tage.
 
 \section{Teilaufgabe 3 - Crazy Pendulum}
 In dieser Teilaufgabe gilt es, die Bewegung einer Pendelkonstruktion zu berechnen. Der Versuchsaufbau ist in Abb. \ref{fig:3_Versuchsaufbau} zu sehen. In diesem Aufbau übt immer nur eine der Federn Zugkraft auf die Seiltrommel aus, während die andere Feder keine Kraft ausübt. Befindet sich das Pendel in senkrechter Position, dann übt keine der Federn eine Kraft aus. Der Einfluss der Pendelstange und der Seiltrommel werden nicht beachtet.

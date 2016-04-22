@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.51"
+    ComputedModelVersion    "1.52"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -32,7 +32,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [11.0, 46.0, 1680.0, 952.0]
+      Location		      [-8.0, -8.0, 1616.0, 876.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -56,7 +56,7 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[1630.0, 777.0]
+	Extents			[1566.0, 701.0]
 	ZoomFactor		[0.8]
 	Offset			[-162.75, -212.64999999999998]
       }
@@ -66,11 +66,11 @@ Model {
   Creator		  "birger"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "Birger"
+  LastModifiedBy	  "Mooni"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Apr 14 19:53:11 2016"
-  RTWModifiedTimeStamp	  382564391
-  ModelVersionFormat	  "1.%<AutoIncrement:51>"
+  LastModifiedDate	  "Fri Apr 22 11:53:32 2016"
+  RTWModifiedTimeStamp	  383226798
+  ModelVersionFormat	  "1.%<AutoIncrement:52>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -959,7 +959,7 @@ Model {
   }
   System {
     Name		    "a1"
-    Location		    [11, 46, 1691, 998]
+    Location		    [-8, -8, 1608, 868]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1528,7 +1528,7 @@ Model {
       SID		      "1"
       Position		      [10, 355, 40, 385]
       ZOrder		      1
-      Value		      "7.67"
+      Value		      "7.65"
     }
     Block {
       BlockType		      SubSystem
@@ -2199,10 +2199,7 @@ Stateflow {
     firstTransition	    18
     firstJunction	    17
     viewObj		    11
-    visible		    1
     machine		    1
-    subviewS {
-    }
     ssIdHighWaterMark	    7
     decomposition	    CLUSTER_CHART
     type		    EML_CHART

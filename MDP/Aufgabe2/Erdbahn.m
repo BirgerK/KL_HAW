@@ -1,12 +1,12 @@
 % Zeichnet die Erde und die Satellitenbahn
 % Satellitenbahn:  x_Sat, y_Sat
 
+x_Sat
+y_Sat
 clf reset;                 % alte Plots entfernen 
-
 plot(x_Sat, y_Sat, 'red'); % zeichne Satellitenbahn
 axis equal;                % gleicher Maßstab in x- und y-Richtung
 hold on;                   % weitere Objekte in figure zeichnen
-
 % --- Erde zeichnen -------
 rE=6378137; % Erdradius [m] 
 
