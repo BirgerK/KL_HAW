@@ -134,12 +134,28 @@ Es wurden drei Versuche durchgeführt um mit unterschiedlichen Anfangsparametern
 
 \subsubsection{Versuch 1 - Gleichmäßige Kreisbahn}
 
-Dieser Versuch wurde mit den Versuchsparametern $\delta = 30^\circ, h_0 = 400km \Theta = 0^\circ $ durchgeführt.
+Dieser Versuch wurde mit den Versuchsparametern $\delta = 30^\circ, h_0 = 400km \Theta = 0^\circ $ durchgeführt. Dabei beschreibt der Satellit bei einer Startgeschwindigkeit $v_0$ von $7,65 \dfrac{km}{s}$ und einer Simulationszeit von $1,543h$  wie in Abb. \ref{fig:1_Kreisbahn} zu sehen eine Kreisbahn um die Erde.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\linewidth]{./1_kreisbahn}
+\caption{Eine Kreisbahn um die Erde}
+\label{fig:1_Kreisbahn}
+\end{figure}
 
 
 \subsubsection{Versuch 2 - Entfliehung der Erde}
-In diesem Versuch soll der Parameter $v_0$ bestimmt werden, sodass der Satellit gerade der Erde etflieht. Dafür werden folgende Startparameter 
+In diesem Versuch soll der Parameter $v_0$ bestimmt werden, sodass der Satellit gerade der Erde entflieht. Dafür werden folgende Startparameter 
  $\delta = 30^\circ, h_0 = 400km \Theta = 0^\circ $ und eine Simulationszeit $1 \cdot 10^6$ von angenommen werden.
+ 
+ Das gewünschte Verhalten zeigt sich bei einer Startgeschwindigkeit $v_0$ von  $10,85 \dfrac{km}{s}$ und einer Simulationszeit von $1 \cdot 10^6$ wie in Abb. \ref{fig:1_Entfliehung}.
+ 
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\linewidth]{./1_entfliehung}
+\caption{Der Satellit entflieht gerade der Erde}
+\label{fig:1_Entfliehung}
+\end{figure} 
 
 
 \subsubsection{Versuch 3 - Erdumrundung innerhalb eines Tages}
@@ -147,7 +163,15 @@ In diesem Versuch sollen die Parameter $h_0$ und $v_0$ so gewählt werden, dass 
 
 Es ergab sich, dass der Versuch mit den folgenden Parametern durchgeführt werden muss um das gewünschte Ergebnis zu erreichen.
  $\delta = 30\circ, h_0 =  \Theta = 0^\circ $ 
+ 
+ Um die Erde in genau einem Tag zu umrunden haben wir die Parameter $h_0 = 38.000 km$ und $v_0 = 2,85 \dfrac{km}{s}$ genutzt. Das Ergebnis ist in Abb. \ref{fig:1_einTagKreisbahn} dargestellt.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\linewidth]{./1_einTagKreisbahn}
+\caption{Der Satellit umkreist innerhalb eines Tages die Erde}
+\label{fig:1_einTagKreisbahn}
+\end{figure}
 
 \section{Teilaufgabe 2 - Mondumkreisung}
 In der Teilaufgabe 2 ging es darum das Modell aus Aufgabe 1 so umzubauen, dass der Satellit nicht mehr nur um die Erde sondern nun auch um den Mond kreist. Dafür wurden folgende Parameter hinzugefügt:
@@ -200,7 +224,14 @@ Somit wird, genau wie für die Erde auch für den Mond die Kraft berechnet die a
 Für die Darstellung der Simulation wird das bereitgestellte Matlab-Script $ErdMondBahn.m$ genutzt und die Simulation mit den Voreinstellungen 
  $\delta = 30^\circ, h_0 = 150km$
  
-Mit einer Startgeschwindigeit $v0 = $ und einem Flugwinkel von $\Theta = 0^\circ = $ fliegt der Satellit eine 8-förmige Schleife um den Mond und zurück zur Erde. Dabei dauert die Mondmission ---- Tage.
+Mit einer Startgeschwindigkeit $v0 = 10,95$ und einem Flugwinkel von $\Theta = 26^\circ = $ fliegt der Satellit eine 8-förmige Schleife um den Mond und zurück zur Erde. Dabei dauert die Mondmission 9 Tage. Folgende Abbildung veranschaulicht das Ergebnis.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\linewidth]{./2_MondErdeAcht}
+\caption{Der Satellit fliegt eine acht zum Mond und wieder zur Erde zurück}
+\label{fig:2_MondErdeAcht}
+\end{figure}
 
 \section{Teilaufgabe 3 - Crazy Pendulum}
 In dieser Teilaufgabe gilt es, die Bewegung einer Pendelkonstruktion zu berechnen. Der Versuchsaufbau ist in Abb. \ref{fig:3_Versuchsaufbau} zu sehen. In diesem Aufbau übt immer nur eine der Federn Zugkraft auf die Seiltrommel aus, während die andere Feder keine Kraft ausübt. Befindet sich das Pendel in senkrechter Position, dann übt keine der Federn eine Kraft aus. Der Einfluss der Pendelstange und der Seiltrommel werden nicht beachtet.

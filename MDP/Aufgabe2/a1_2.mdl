@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.56"
+    ComputedModelVersion    "1.58"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -32,7 +32,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [11.0, 4.0, 1612.0, 912.0]
+      Location		      [-8.0, -8.0, 1616.0, 876.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -56,7 +56,7 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[1562.0, 737.0]
+	Extents			[1566.0, 701.0]
 	ZoomFactor		[0.8]
 	Offset			[-162.75, -212.64999999999998]
       }
@@ -68,9 +68,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Mooni"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Apr 19 11:19:14 2016"
-  RTWModifiedTimeStamp	  382965471
-  ModelVersionFormat	  "1.%<AutoIncrement:56>"
+  LastModifiedDate	  "Mon Apr 25 16:12:18 2016"
+  RTWModifiedTimeStamp	  383500725
+  ModelVersionFormat	  "1.%<AutoIncrement:58>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -171,7 +171,7 @@ Model {
 	  $ObjectID		  8
 	  Version		  "1.16.2"
 	  StartTime		  "0.0"
-	  StopTime		  "5555"
+	  StopTime		  "780000"
 	  AbsTol		  "auto"
 	  FixedStep		  "auto"
 	  InitialStep		  "auto"
@@ -959,7 +959,7 @@ Model {
   }
   System {
     Name		    "a1_2"
-    Location		    [11, 4, 1623, 916]
+    Location		    [-8, -8, 1608, 868]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -979,7 +979,7 @@ Model {
       Name		      "Beschleunigung"
       SID		      "9"
       Ports		      [5, 1]
-      Position		      [530, 221, 600, 269]
+      Position		      [505, 221, 575, 269]
       ZOrder		      9
       LibraryVersion	      "1.32"
       ErrorFcn		      "Stateflow.Translate.translate"
@@ -1467,7 +1467,7 @@ Model {
       SID		      "2"
       Position		      [10, 415, 40, 445]
       ZOrder		      2
-      Value		      "0"
+      Value		      "26"
     }
     Block {
       BlockType		      Clock
@@ -1491,7 +1491,7 @@ Model {
       SID		      "4"
       Position		      [10, 230, 40, 260]
       ZOrder		      4
-      Value		      "400"
+      Value		      "150"
     }
     Block {
       BlockType		      Gain
@@ -1548,7 +1548,7 @@ Model {
       SID		      "30"
       Position		      [10, 125, 40, 155]
       ZOrder		      30
-      Value		      "[0, -380000]"
+      Value		      "[0, -380000000]"
     }
     Block {
       BlockType		      Constant
@@ -1575,7 +1575,7 @@ Model {
       SID		      "1"
       Position		      [10, 355, 40, 385]
       ZOrder		      1
-      Value		      "7.67"
+      Value		      "10.95"
     }
     Block {
       BlockType		      SubSystem
@@ -1916,7 +1916,7 @@ Model {
 	}
 	Branch {
 	  ZOrder		  21
-	  Points		  [0, -46; -376, 0; 0, 41]
+	  Points		  [0, -46; -355, 0; 0, 23; -52, 0; 0, 18]
 	  DstBlock		  "Beschleunigung"
 	  DstPort		  1
 	}
@@ -1941,7 +1941,7 @@ Model {
       ZOrder		      15
       SrcBlock		      "Beschleunigung"
       SrcPort		      1
-      Points		      [9, 0]
+      Points		      [34, 0]
       Branch {
 	ZOrder			45
 	DstBlock		"y to workspace2"
@@ -2262,10 +2262,7 @@ Stateflow {
     firstTransition	    18
     firstJunction	    17
     viewObj		    11
-    visible		    1
     machine		    1
-    subviewS {
-    }
     ssIdHighWaterMark	    7
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
