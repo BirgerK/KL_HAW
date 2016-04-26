@@ -126,10 +126,10 @@ Das folgende Modell veranschaulicht das Simulink-Modell das die Simulation durch
 \centering
 \includegraphics[width=1\linewidth]{./Weltraum_1}
 \caption{Simulink Modell für die Erdumrundung}
-\label{fig:1_BezeichnerDiagramm}
+\label{fig:Weltraum}
 \end{figure}
 
-\subsection{Verschsdurchführungen}
+\subsection{Versuchsdurchführungen}
 Es wurden drei Versuche durchgeführt um mit unterschiedlichen Anfangsparametern diverses Verhalten zu provozieren.
 
 \subsubsection{Versuch 1 - Gleichmäßige Kreisbahn}
@@ -318,8 +318,8 @@ Dieser Versuch wurde mit folgenden Parametern durchgeführt:
 Folgende Formeln werden zur Berechnung der einzelnen Komponenten verwendet:
 
 \begin{align}
-\Delta x_{1} = x_{1} - u\\
-\Delta x_{2} = x_{2} - u\\
+\Delta x_{1} = u - x_{1} \\
+\Delta x_{2} = u - x_{2}\\
 \Delta v = v_{1} - v_{2}\\
 F_{G1} = m_{1} \cdot g\\
 F_{G2} = m_{2} \cdot g\\
@@ -330,22 +330,22 @@ F_{D} = 2 \cdot \Delta v \cdot d
 
 Ruhelage Tisch:
 \begin{align}
-x_{1}(0) = - \dfrac{m_{1} \cdot g}{c_{1} \cdot 2}
+x_{1}(0) = \dfrac{m_{1} \cdot g}{c_{1} \cdot 2}
 \end{align}
 
 Ruhelage Gegengewicht:
 \begin{align}
-x_{2}(0) = - \dfrac{m_{2} \cdot g}{c_{2} \cdot 2}
+x_{2}(0) = \dfrac{m_{2} \cdot g}{c_{2} \cdot 2}
 \end{align}
 
 Beschleunigung Tisch:
 \begin{align}
-a_{1} = \frac{-F_{G1} - F_{D} - F_{c1}}{m_{1}}
+a_{1} = \frac{-F_{G1} - F_{D} + F_{c1}}{m_{1}}
 \end{align}
 
 Beschleunigung Gegengewicht:
 \begin{align}
-a_{2} = \frac{-F_{G2} + F_{D} - F_{c2}}{m_{2}}
+a_{2} = \frac{-F_{G2} + F_{D} + F_{c2}}{m_{2}}
 \end{align}
 
 \subsection{Simulink-Modell}
