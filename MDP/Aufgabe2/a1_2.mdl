@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.58"
+    ComputedModelVersion    "1.60"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -32,7 +32,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [-8.0, -8.0, 1616.0, 876.0]
+      Location		      [-8.0, 0.0, 1616.0, 876.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -68,9 +68,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Mooni"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Apr 25 16:12:18 2016"
-  RTWModifiedTimeStamp	  383500725
-  ModelVersionFormat	  "1.%<AutoIncrement:58>"
+  LastModifiedDate	  "Tue Apr 26 10:33:52 2016"
+  RTWModifiedTimeStamp	  383567631
+  ModelVersionFormat	  "1.%<AutoIncrement:60>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -959,7 +959,7 @@ Model {
   }
   System {
     Name		    "a1_2"
-    Location		    [-8, -8, 1608, 868]
+    Location		    [-8, 0, 1608, 876]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1301,7 +1301,7 @@ Model {
     }
     Block {
       BlockType		      Display
-      Name		      "Simulationszeit [h]\n"
+      Name		      "Simulationszeit [d]\n"
       SID		      "20"
       Ports		      [1]
       Position		      [655, 545, 745, 575]
@@ -1564,7 +1564,7 @@ Model {
       SID		      "21"
       Position		      [560, 545, 590, 575]
       ZOrder		      20
-      Gain		      "1/3600"
+      Gain		      "1/86400"
       ParamDataTypeStr	      "Inherit: Inherit via internal rule"
       OutDataTypeStr	      "Inherit: Inherit via internal rule"
       SaturateOnIntegerOverflow	off
@@ -1989,7 +1989,7 @@ Model {
       ZOrder		      26
       SrcBlock		      "s -> h"
       SrcPort		      1
-      DstBlock		      "Simulationszeit [h]\n"
+      DstBlock		      "Simulationszeit [d]\n"
       DstPort		      1
     }
     Line {
@@ -2436,10 +2436,7 @@ Stateflow {
     firstTransition	    29
     firstJunction	    28
     viewObj		    20
-    visible		    1
     machine		    1
-    subviewS {
-    }
     ssIdHighWaterMark	    9
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
