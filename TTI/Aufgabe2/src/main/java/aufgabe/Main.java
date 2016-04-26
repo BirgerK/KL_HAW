@@ -1,9 +1,13 @@
 package aufgabe;
 
 import org.apache.jena.rdf.model.*;
+import org.apache.jena.util.iterator.ExtendedIterator;
+import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -107,8 +111,8 @@ public class Main {
 
         Resource stonesour = model.createResource(instanceNS + "stonesour", band);
         RDFNode[] stonesourMembers = new RDFNode[2];
-        slipknotMembers[0] = coreyTaylor;
-        slipknotMembers[1] = jamesRoot;
+        stonesourMembers[0] = coreyTaylor;
+        stonesourMembers[1] = jamesRoot;
         RDFList stonesourMembersList = model.createList(stonesourMembers);
         stonesour.addProperty(name, "Stonesour");
         stonesour.addProperty(members, stonesourMembersList);
@@ -157,11 +161,41 @@ public class Main {
 
 
         writeModel(model);
+
+
+        InfModel inf = ModelFactory.createRDFSModel(model);
+        List<Resource> songsWithCoreyTaylor = new ArrayList<Resource>();
+        ResIterator bandsWithMembers = inf.listResourcesWithProperty(members);
+
+        while (bandsWithMembers.hasNext()) {
+            Resource tempBandWithMembers = bandsWithMembers.next();
+            ExtendedIterator<RDFNode> bandMembers = tempBandWithMembers.getProperty(members).getObject().as(RDFList.class).iterator();
+
+            while (bandMembers.hasNext()) {
+                Resource tempBandMember = bandMembers.next().as(Resource.class);
+                if (tempBandMember.equals(coreyTaylor)) {
+                    ResIterator songsByBand = inf.listResourcesWithProperty(interpretProperty, tempBandWithMembers);
+
+                    while (songsByBand.hasNext()) {
+                        Resource tempInterpretedStuffByBand = songsByBand.next();
+                        if (isSong(tempInterpretedStuffByBand)) {
+                            songsWithCoreyTaylor.add(tempInterpretedStuffByBand);
+                        }
+                    }
+                }
+            }
+        }
+
+        System.out.println(songsWithCoreyTaylor);
     }
 
     public static void writeModel(Model model) {
         System.out.println("created model");
         model.write(System.out);
         System.out.println();
+    }
+
+    public static boolean isSong(Resource resource) {
+        return resource.getProperty(RDF.type).getObject().toString().equals(termsNS + "Song");
     }
 }
