@@ -1,0 +1,37 @@
+
+
+Lied
+	Titel - Wert
+	Interpret - Klasse Interpret
+	Genre - Klassen, mehrere
+	Album - Klasse
+	Erscheinungsjahr - Jahr
+	Mitwirkende Interpreten - Klasse Interpret
+	Sprache
+	
+Interpret
+	 Musiker
+		Name
+		Geburtsdatum
+		Nationalität
+		Geburtstadt
+		Geschlecht
+
+	Band
+		Name
+		Mitglieder - Musiker
+		Gründungsdatum
+		Genre
+
+Album
+	Name
+	Interpret
+	Erscheinungsjahr
+	Genre
+	Besetzung?
+	Studio
+	Label
+	
+Genre
+	Obergenre
+	Name
