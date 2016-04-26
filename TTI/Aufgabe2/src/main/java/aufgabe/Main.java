@@ -161,11 +161,31 @@ public class Main {
 
 
         writeModel(model);
+        
+        
+        InfModel infModel = ModelFactory.createRDFSModel(model);
+		 
+        //########### Statements ###############
+        
+        //Search Song with language english
+		ResIterator iter1 = infModel.listResourcesWithProperty(language, "English");
+		while(iter1.hasNext()){
+			Statement songStatement1 = iter1.nextResource().getProperty(title);
+			RDFNode songName1 = songStatement1.getObject();
+			System.out.println(songName1);
+		}
+        
+        //Search Songs released in Year 2004
+		ResIterator iter = infModel.listResourcesWithProperty(releaseYear, "2004");
+		while(iter.hasNext()){
+			Statement songStatement = iter.nextResource().getProperty(title);
+			RDFNode songName = songStatement.getObject();
+			System.out.println(songName);
+		}
 
-
-        InfModel inf = ModelFactory.createRDFSModel(model);
+        //Mega CoreyTaylor-Search!
         List<Resource> songsWithCoreyTaylor = new ArrayList<Resource>();
-        ResIterator bandsWithMembers = inf.listResourcesWithProperty(members);
+        ResIterator bandsWithMembers = infModel.listResourcesWithProperty(members);
 
         while (bandsWithMembers.hasNext()) {
             Resource tempBandWithMembers = bandsWithMembers.next();
@@ -174,7 +194,7 @@ public class Main {
             while (bandMembers.hasNext()) {
                 Resource tempBandMember = bandMembers.next().as(Resource.class);
                 if (tempBandMember.equals(coreyTaylor)) {
-                    ResIterator songsByBand = inf.listResourcesWithProperty(interpretProperty, tempBandWithMembers);
+                    ResIterator songsByBand = infModel.listResourcesWithProperty(interpretProperty, tempBandWithMembers);
 
                     while (songsByBand.hasNext()) {
                         Resource tempInterpretedStuffByBand = songsByBand.next();
