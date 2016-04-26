@@ -4,6 +4,8 @@ import org.apache.jena.rdf.model.*;
 import org.apache.jena.vocabulary.RDFS;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -107,8 +109,8 @@ public class Main {
 
         Resource stonesour = model.createResource(instanceNS + "stonesour", band);
         RDFNode[] stonesourMembers = new RDFNode[2];
-        slipknotMembers[0] = coreyTaylor;
-        slipknotMembers[1] = jamesRoot;
+        stonesourMembers[0] = coreyTaylor;
+        stonesourMembers[1] = jamesRoot;
         RDFList stonesourMembersList = model.createList(stonesourMembers);
         stonesour.addProperty(name, "Stonesour");
         stonesour.addProperty(members, stonesourMembersList);
@@ -157,6 +159,28 @@ public class Main {
 
 
         writeModel(model);
+        
+        
+        InfModel infModel = ModelFactory.createRDFSModel(model);
+		 
+        //########### Statements ###############
+        
+        //Search Song with language english
+		ResIterator iter1 = infModel.listResourcesWithProperty(language, "English");
+		while(iter1.hasNext()){
+			Statement songStatement1 = iter1.nextResource().getProperty(title);
+			RDFNode songName1 = songStatement1.getObject();
+			System.out.println(songName1);
+		}
+        
+        //Search Songs released in Year 2004
+		ResIterator iter = infModel.listResourcesWithProperty(releaseYear, "2004");
+		while(iter.hasNext()){
+			Statement songStatement = iter.nextResource().getProperty(title);
+			RDFNode songName = songStatement.getObject();
+			System.out.println(songName);
+		}
+		
     }
 
     public static void writeModel(Model model) {

@@ -28,7 +28,6 @@ Album
 	Interpret
 	Erscheinungsjahr
 	Genre
-	Besetzung?
 	Studio
 	Label
 	
