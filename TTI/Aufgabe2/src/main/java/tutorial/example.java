@@ -22,6 +22,7 @@ public class example {
         //create a resource of type A with property subProp
         Resource a = model.createResource(instanceNS + "a", classB)
                 .addProperty(subProp, "foo");
+
         //create an RDFS model which contains explicit statements as well as those that can be inferred
         InfModel inf = ModelFactory.createRDFSModel(model);
         //retrieve resource "http://example.com/instances#a from the RDFS model
