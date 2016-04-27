@@ -5,6 +5,7 @@
 \usepackage{float}
 \usepackage[ngerman, english]{babel} 
 \usepackage{hyperref}
+\usepackage{siunitx}
 \hypersetup{
 	colorlinks,
 	citecolor=black,
@@ -27,7 +28,7 @@
 
 
 \section{Teilaufgabe 1 - Erdumkreisung, Fluchtgeschwindigkeit und geostationäre Bahn}
-In dieser Aufgabe ist es das Ziel den Flug eines Satelliten zu modellieren die von einer Trägerrakete in eine Startposition $x0$ gebracht wird. Von dort soll der Satellit antriebslos mit einer Geschwindigkeit von $v0$ und einem Flugwinkel $\Theta$ weiterfliegen und die Erde umrunden. Ab der antriebslosen Phase $x0$ startet unsere Simulation. Dabei haben wir wie vorgegeben den Einfluss des Satelliten auf die Erde vernachlässigt und die Simulation mithilfe des gegeben MatLab-Skripts $Erdbahn.m$ visualisiert. Die gegeben Werte werden in Abb \ref{fig:1_BezeichnerDiagramm} veranschaulicht. Für die Simulation wurde aus den gegeben Werten und angeforderten Funktionen ein Simulink Schaltbild entworfen das die Simulation durchführt.
+In dieser Aufgabe ist es das Ziel den Flug eines Satelliten zu modellieren die von einer Trägerrakete in eine Startposition $x0$ gebracht wird. Von dort soll der Satellit antriebslos mit einer Geschwindigkeit von $v0$ und einem Flugwinkel $\Theta$ weiterfliegen und die Erde umrunden. Ab der antriebslosen Phase $x0$ startet unsere Simulation. Dabei haben wir wie vorgegeben den Einfluss des Satelliten auf die Erde vernachlässigt und die Simulation mithilfe des gegeben MatLab-Skripts $Erdbahn.m$ visualisiert. Die gegeben Werte werden in Abb \ref{fig:1_BezeichnerDiagramm} veranschaulicht. Für die Simulation wurde aus den gegeben Werten und angeforderten Funktionen ein Simulink Schaltbild entworfen das die Simulation durchführt. 
 
 \begin{figure}[H]
 \centering
@@ -44,12 +45,12 @@ Kraft auf den Satelliten
 
 Erdradius
 \begin{align}
-r_{E} = 6378 km
+r_{E} = \SI{6378}{\km}
 \end{align}
 
 Erdmasse
 \begin{align}
-m_{E} = 5,9736 \cdot 10^{24} kg
+m_{E} = 5,9736 \cdot 10^{24} \si{\kg}
 \end{align}
 
 Gravitationskonstante
@@ -60,17 +61,17 @@ G = 66,743 \cdot 10^{-12} m^{3} kg^{-1} s^{-2}
 \subsection{Konfigurierbare Parameter}
 Folgende Parameter müssen mindestens bei der Simulation konfigurierbar sein:
 \begin{itemize}
-\item $v_{0}$ Startgeschwindigkeit $[km/s]$
+\item $v_{0}$ Startgeschwindigkeit [\si[per-mode=fraction]{\km\per\second}]
 \item $\Theta$ Flugwinkel $[^\circ]$
 \item $\delta$ Startwinkel $[^\circ]$
-\item $h_{0}$ Starthöhe $[km]$
+\item $h_{0}$ Starthöhe [km]
 \end{itemize}
 
 \subsection{Funktionen}
 Im Folgenden werden die benötigten Funktionen erklärt.
 
 \subsubsection{Startposition}
-Die Funktion Startposition berechnet den Startpositionsvektor $x0$ aus den gegeben Parametern $\gamma (^\circ)$ ,der Starthöhe $h0$ (km) und der Konstante Erdradius.
+Die Funktion Startposition berechnet den Startpositionsvektor $x0$ aus den gegeben Parametern $\delta (^\circ)$ ,der Starthöhe $h0$ (km) und der Konstante Erdradius.
 
 Dafür verwenden wir eine Formel die sich aus der Geometrie ableitet da hier mithilfe der Winkel die Ankathete und Gegenkathete der Hypotenuse von $r + h0$ berechnet werden aus denen sich die Position ableiten lässt.
 
@@ -95,7 +96,7 @@ Die Kräfte die auf den Satelliten wirken summieren sich.
 Daraus ergibt sich 
 
 \begin{align}
-a = \dfrac{\Sigma{F}}{m}
+a = \dfrac{\Sigma F}{m}
 \end{align}
 
 Wobei hier $m$ die Masse des Satelliten ist und sich heraus kürzt. Daraus folgt:
@@ -134,7 +135,7 @@ Es wurden drei Versuche durchgeführt um mit unterschiedlichen Anfangsparametern
 
 \subsubsection{Versuch 1 - Gleichmäßige Kreisbahn}
 
-Dieser Versuch wurde mit den Versuchsparametern $\delta = 30^\circ, h_0 = 400km \Theta = 0^\circ $ durchgeführt. Dabei beschreibt der Satellit bei einer Startgeschwindigkeit $v_0$ von $7,65 \dfrac{km}{s}$ und einer Simulationszeit von $1,543h$  wie in Abb. \ref{fig:1_Kreisbahn} zu sehen eine Kreisbahn um die Erde.
+Dieser Versuch wurde mit den Versuchsparametern $\delta = 30^\circ, h_0 = \SI{400}{\km}, \Theta = 0^\circ $ durchgeführt. Dabei beschreibt der Satellit bei einer Startgeschwindigkeit $v_0$ von $ \SI[per-mode=fraction]{7,65}{\km\per\second}$ und einer Simulationszeit von $ \SI{1,543}{\hour}$  wie in Abb. \ref{fig:1_Kreisbahn} zu sehen eine Kreisbahn um die Erde.
 
 \begin{figure}[H]
 \centering
@@ -146,9 +147,9 @@ Dieser Versuch wurde mit den Versuchsparametern $\delta = 30^\circ, h_0 = 400km 
 
 \subsubsection{Versuch 2 - Entfliehung der Erde}
 In diesem Versuch soll der Parameter $v_0$ bestimmt werden, sodass der Satellit gerade der Erde entflieht. Dafür werden folgende Startparameter 
- $\delta = 30^\circ, h_0 = 400km \Theta = 0^\circ $ und eine Simulationszeit $1 \cdot 10^6$ von angenommen werden.
+ $\delta = 30^\circ, h_0 = \SI{400}{\km} \Theta = 0^\circ $ und eine Simulationszeit $1 \cdot 10^6$ von angenommen werden.
  
- Das gewünschte Verhalten zeigt sich bei einer Startgeschwindigkeit $v_0$ von  $10,85 \dfrac{km}{s}$ und einer Simulationszeit von $1 \cdot 10^6$ wie in Abb. \ref{fig:1_Entfliehung}.
+ Das gewünschte Verhalten zeigt sich bei einer Startgeschwindigkeit $v_0$ von $ \SI[per-mode=fraction]{10,85}{\km\per\second}$ und einer Simulationszeit von $1 \cdot 10^6$ wie in Abb. \ref{fig:1_Entfliehung}.
  
 \begin{figure}[H]
 \centering
@@ -161,10 +162,10 @@ In diesem Versuch soll der Parameter $v_0$ bestimmt werden, sodass der Satellit 
 \subsubsection{Versuch 3 - Erdumrundung innerhalb eines Tages}
 In diesem Versuch sollen die Parameter $h_0$ und $v_0$ so gewählt werden, dass der Satellit genau einen Tag benötigt um die Erde zu umkreisen.
 
-Es ergab sich, dass der Versuch mit den folgenden Parametern durchgeführt werden muss um das gewünschte Ergebnis zu erreichen.
- $\delta = 30\circ, h_0 =  \Theta = 0^\circ $ 
+Es ergab sich, dass der Versuch mit den folgenden Parametern durchgeführt werden muss um das gewünschte Ergebnis zu erreichen.\\
+ $\delta = 30^\circ, \Theta = 0^\circ $ 
  
- Um die Erde in genau einem Tag zu umrunden haben wir die Parameter $h_0 = 38.000 km$ und $v_0 = 2,85 \dfrac{km}{s}$ genutzt. Das Ergebnis ist in Abb. \ref{fig:1_einTagKreisbahn} dargestellt.
+Um die Erde in genau einem Tag zu umrunden haben wir die Parameter $h_0 = \SI{38.000}{\km}$ und $v_0 = \SI[per-mode=fraction]{2,85}{\km\per\second}$genutzt. Das Ergebnis ist in Abb. \ref{fig:1_einTagKreisbahn} dargestellt.
 
 \begin{figure}[H]
 \centering
@@ -178,12 +179,12 @@ In der Teilaufgabe 2 ging es darum das Modell aus Aufgabe 1 so umzubauen, dass d
 
 Mondposition(fest)
 \begin{align}
-x_{M} = (0,-380000)^T km
+x_{M} = (0,-380000)^T \si{\km}
 \end{align}
 
 Mondmasse
 \begin{align}
-m_{M} = 7,3480 \cdot 10^{22} kg
+m_{M} = 7,3480 \cdot 10^{22} \si{\kg}
 \end{align}
 
 Dabei ist zu beachten, dass der Mond als feststehend angesehen wird.
@@ -222,9 +223,9 @@ Somit wird, genau wie für die Erde auch für den Mond die Kraft berechnet die a
 \subsection{Durchführung}
 
 Für die Darstellung der Simulation wird das bereitgestellte Matlab-Script $ErdMondBahn.m$ genutzt und die Simulation mit den Voreinstellungen 
- $\delta = 30^\circ, h_0 = 150km$
+ $\delta = 30^\circ, h_0 = \SI{150}{\km}$
  
-Mit einer Startgeschwindigkeit $v0 = 10,95$ und einem Flugwinkel von $\Theta = 26^\circ = $ fliegt der Satellit eine 8-förmige Schleife um den Mond und zurück zur Erde. Dabei dauert die Mondmission 9 Tage. Folgende Abbildung veranschaulicht das Ergebnis.
+Mit einer Startgeschwindigkeit $v0 = 10,95$ und einem Flugwinkel von $\Theta = 26^\circ $ fliegt der Satellit eine 8-förmige Schleife um den Mond und zurück zur Erde. Dabei dauert die Mondmission 9 Tage. Folgende Abbildung veranschaulicht das Ergebnis.
 
 \begin{figure}[H]
 \centering
@@ -246,18 +247,24 @@ In dieser Teilaufgabe gilt es, die Bewegung einer Pendelkonstruktion zu berechne
 \subsection{Gegebene Versuchskonfiguration}
 Dieser Versuch wurde mit folgenden Parametern durchgeführt:
 \begin{itemize}
-\item $L = 1m$
-\item $m = 10kg$
-\item $r = 0.3m$
-\item $w = 0.3m$
-\item $h = 0.2m$
-\item $c_{1} = 5000 N/m$
-\item $c_{2} = 500\ 000N/m$
+\item $L = \SI{1}{\metre}$
+\item $m = \SI{10}{\kg}$
+\item $r = \SI{0.3}{\metre}$
+\item $w = \SI{0.3}{\metre}$
+\item $h = \SI{0.2}{\metre}$
+\item $c_{1} = \SI[per-mode=fraction]{5000}{\newton\per\metre}$
+\item $c_{2} = \SI[per-mode=fraction]{500 000}{\newton\per\metre}$
 \item $\varphi(0) = 45^\circ$
 \end{itemize}
 
 \subsection{Freikörperbild}
-%TODO: zeichnen und einfügen
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\linewidth]{./3_Freikoerperbild}
+\caption{Freikörperbild des Crazy Pendulums}
+\label{fig:3_Freikoerperbild}
+\end{figure}
 
 \subsection{Formeln}
 $c$ ist abhängig von $\varphi(t)$: es gilt entweder $c_{1}$ oder $c_{2}$.
@@ -304,22 +311,28 @@ In dieser Teilaufgabe wird ein schwingungsgedämpfter Tisch simuliert. Der Versu
 \subsection{Gegebene Versuchskonfiguration}
 Dieser Versuch wurde mit folgenden Parametern durchgeführt:
 \begin{itemize}
-\item $c_{1} = 15\ 000 N/m$
-\item $c_{2} = 10\ 000 N/m$
-\item $d = 600 Ns/m$
-\item $m_{1} = 60 kg$
-\item $m_{2} = 450 kg$
+\item $c_{1} = \SI[per-mode=fraction]{15 000}{\newton\per\metre}$
+\item $c_{2} = \SI[per-mode=fraction]{10 000}{\newton\per\metre}$
+\item $d = \SI[per-mode=fraction]{600}{\newton\second\per\metre}$
+\item $m_{1} = \SI{60}{\kg}$
+\item $m_{2} = \SI{450}{\kg}$
 \end{itemize}
 
 \subsection{Freikörperbild}
-%TODO: zeichnen und rein damit
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\linewidth]{./4_Freikoerperbild}
+\caption{Freikörperbild des Schwingungstisches}
+\label{fig:4_Freikoerperbild}
+\end{figure}
 
 \subsection{Formeln}
 Folgende Formeln werden zur Berechnung der einzelnen Komponenten verwendet:
 
 \begin{align}
-\Delta x_{1} = u - x_{1} \\
-\Delta x_{2} = u - x_{2}\\
+\Delta x_{1} = x_{1} - u \\
+\Delta x_{2} = x_{2} - u\\
 \Delta v = v_{1} - v_{2}\\
 F_{G1} = m_{1} \cdot g\\
 F_{G2} = m_{2} \cdot g\\
@@ -340,12 +353,12 @@ x_{2}(0) = \dfrac{m_{2} \cdot g}{c_{2} \cdot 2}
 
 Beschleunigung Tisch:
 \begin{align}
-a_{1} = \frac{-F_{G1} - F_{D} + F_{c1}}{m_{1}}
+a_{1} = \frac{-F_{G1} - F_{D} - F_{c1}}{m_{1}}
 \end{align}
 
 Beschleunigung Gegengewicht:
 \begin{align}
-a_{2} = \frac{-F_{G2} + F_{D} + F_{c2}}{m_{2}}
+a_{2} = \frac{-F_{G2} + F_{D} - F_{c2}}{m_{2}}
 \end{align}
 
 \subsection{Simulink-Modell}
@@ -363,9 +376,16 @@ Die Abbildung \ref{fig:4_Plot} zeigt wie sich die Auslenkung von $x_{1}$ durch d
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.5\linewidth]{./4_Plot}
-\caption{}
+\includegraphics[width=0.8\linewidth]{./4_Plot_x1}
+\caption{Plot der Schwingung der Tischplatte}
 \label{fig:4_Plot}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\linewidth]{./4_Plot_x2}
+\caption{Plot der Schwingung des Gegengewichts}
+\label{fig:4_Plot_x2}
 \end{figure}
 
 \end{document}
