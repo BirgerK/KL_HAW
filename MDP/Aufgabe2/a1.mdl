@@ -2,12 +2,12 @@ Model {
   Name			  "a1"
   Version		  8.7
   MdlSubVersion		  1
-  SavedCharacterEncoding  "windows-1252"
+  SavedCharacterEncoding  "US-ASCII"
   GraphicalInterface {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.52"
+    ComputedModelVersion    "1.53"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -22,7 +22,7 @@ Model {
   MinMaxOverflowArchiveMode "Overwrite"
   FPTRunName		  "Run 1"
   MaxMDLFileLineLength	  120
-  LastSavedArchitecture	  "win64"
+  LastSavedArchitecture	  "maci64"
   Object {
     $PropName		    "BdWindowsInfo"
     $ObjectID		    1
@@ -32,7 +32,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [-8.0, -8.0, 1616.0, 876.0]
+      Location		      [0.0, 23.0, 1616.0, 876.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -56,9 +56,9 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[1566.0, 701.0]
-	ZoomFactor		[0.8]
-	Offset			[-162.75, -212.64999999999998]
+	Extents			[1582.0, 703.0]
+	ZoomFactor		[1.0]
+	Offset			[-21.75, -52.39999999999975]
       }
     }
   }
@@ -66,11 +66,11 @@ Model {
   Creator		  "birger"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "Mooni"
+  LastModifiedBy	  "birger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Apr 22 11:53:32 2016"
-  RTWModifiedTimeStamp	  383226798
-  ModelVersionFormat	  "1.%<AutoIncrement:52>"
+  LastModifiedDate	  "Wed Apr 27 12:47:22 2016"
+  RTWModifiedTimeStamp	  383662035
+  ModelVersionFormat	  "1.%<AutoIncrement:53>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -959,7 +959,7 @@ Model {
   }
   System {
     Name		    "a1"
-    Location		    [-8, -8, 1608, 868]
+    Location		    [0, 23, 1616, 899]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -971,7 +971,7 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "80"
+    ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "29"
     Block {
@@ -1309,7 +1309,7 @@ Model {
 	SIDHighWatermark	"20"
 	Block {
 	  BlockType		  Inport
-	  Name			  "gamma"
+	  Name			  "delta"
 	  SID			  "7::1"
 	  Position		  [20, 101, 40, 119]
 	  ZOrder		  -1
@@ -1378,7 +1378,7 @@ Model {
 	}
 	Line {
 	  ZOrder		  14
-	  SrcBlock		  "gamma"
+	  SrcBlock		  "delta"
 	  SrcPort		  1
 	  Points		  [120, 0]
 	  DstBlock		  " SFunction "
@@ -2199,7 +2199,10 @@ Stateflow {
     firstTransition	    18
     firstJunction	    17
     viewObj		    11
+    visible		    1
     machine		    1
+    subviewS {
+    }
     ssIdHighWaterMark	    7
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
@@ -2224,7 +2227,7 @@ Stateflow {
     decomposition	    CLUSTER_STATE
     eml {
       isEML		      1
-      script		      "function x0 = fcn(gamma,h0,rE)\n\nr = rE + h0; %Hypothenuse\nx0 = [cosd(gamma) * r ; sind(gamma) "
+      script		      "function x0 = fcn(delta,h0,rE)\n\nr = rE + h0; %Hypothenuse\nx0 = [cosd(delta) * r ; sind(delta) "
       "* r ];"
       editorLayout	      "100 M4x1[10 5 700 500]"
     }
@@ -2232,7 +2235,7 @@ Stateflow {
   data {
     id			    13
     ssIdNumber		    4
-    name		    "gamma"
+    name		    "delta"
     linkNode		    [11 0 14]
     scope		    INPUT_DATA
     machine		    1
