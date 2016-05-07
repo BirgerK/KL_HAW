@@ -1,0 +1,6 @@
+Netzeigenschaften die für den Korrektheitsnachweis unerlässlich sind:
+1. Wenn ein Token kleiner ist als der eigene(im Client gespeichterte) wird er nicht weitergereicht
+2. Wenn ein Token größer ist als der eigene (im Client gespeichterte) wird er weitergereicht
+3. Wenn der Token größer ist als der eigene (im Client gespeichterte) wird dieser als eigener gespeichert
+4. Wenn der Gewählttoken kommt wird nur noch dieser weitergegeben
+5. Wenn der Gewählttoken kam liegt auf dem Clienten (Interner Speicher) kein Token mehr --> Vergleich dadurch unmöglich
