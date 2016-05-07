@@ -326,7 +326,7 @@
       </node>
       <node id="5443" net="1">
         <attribute name="Name" id="5444" net="1">
-          <![CDATA[gewaehlt]]>
+          <![CDATA[gewaehlt2]]>
           <graphics count="1">
             <graphic xoff="25.00" yoff="20.00" x="1065.00" y="300.00" id="5445" net="1" show="1" grparent="5457" state="1" pen="0,0,0" brush="255,255,255"/>
           </graphics>
@@ -454,7 +454,7 @@
       </node>
       <node id="6976" net="1">
         <attribute name="Name" id="6977" net="1">
-          <![CDATA[]]>
+          <![CDATA[gewaehlt1]]>
           <graphics count="1">
             <graphic xoff="25.00" yoff="20.00" x="545.00" y="640.00" id="6978" net="1" show="1" grparent="6990" state="1" pen="0,0,0" brush="255,255,255"/>
           </graphics>
@@ -621,7 +621,7 @@
                   <![CDATA[Main]]>
                 </colList_col>
                 <colList_col nr="1">
-                  <![CDATA[x > y & x<>6]]>
+                  <![CDATA[x>y&x<>check]]>
                 </colList_col>
               </colList_row>
             </colList_body>
@@ -725,7 +725,7 @@
                   <![CDATA[Main]]>
                 </colList_col>
                 <colList_col nr="1">
-                  <![CDATA[x = 6]]>
+                  <![CDATA[x=check]]>
                 </colList_col>
               </colList_row>
             </colList_body>
@@ -881,7 +881,7 @@
                   <![CDATA[Main]]>
                 </colList_col>
                 <colList_col nr="1">
-                  <![CDATA[x > y & x<>6]]>
+                  <![CDATA[x>y&x<>check]]>
                 </colList_col>
               </colList_row>
             </colList_body>
@@ -985,7 +985,7 @@
                   <![CDATA[Main]]>
                 </colList_col>
                 <colList_col nr="1">
-                  <![CDATA[x = 6]]>
+                  <![CDATA[x=check]]>
                 </colList_col>
               </colList_row>
             </colList_body>
@@ -1089,7 +1089,7 @@
                   <![CDATA[Main]]>
                 </colList_col>
                 <colList_col nr="1">
-                  <![CDATA[x > y & x<>6]]>
+                  <![CDATA[x>y&x<>check]]>
                 </colList_col>
               </colList_row>
             </colList_body>
@@ -1193,7 +1193,7 @@
                   <![CDATA[Main]]>
                 </colList_col>
                 <colList_col nr="1">
-                  <![CDATA[x = 6]]>
+                  <![CDATA[x=check]]>
                 </colList_col>
               </colList_row>
             </colList_body>
@@ -1349,7 +1349,7 @@
                   <![CDATA[Main]]>
                 </colList_col>
                 <colList_col nr="1">
-                  <![CDATA[]]>
+                  <![CDATA[x=check]]>
                 </colList_col>
               </colList_row>
             </colList_body>
