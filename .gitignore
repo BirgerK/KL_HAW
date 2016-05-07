@@ -31,3 +31,6 @@ hs_err_pid*
 *.autosave
 *.db
 slprj
+.settings
+.project
+.classpath
