@@ -4180,7 +4180,7 @@
           <graphics count="0"/>
         </attribute>
         <attribute name="ConstantList" type="ColList" id="4230" net="1">
-          <colList row_count="7" col_count="4" active_row="0" active_col="0">
+          <colList row_count="5" col_count="4" active_row="0" active_col="0">
             <colList_head>
               <colList_colLabel>
                 <![CDATA[]]>
@@ -4240,34 +4240,6 @@
               </colList_row>
               <colList_row nr="3">
                 <colList_col nr="0">
-                  <![CDATA[id4]]>
-                </colList_col>
-                <colList_col nr="1">
-                  <![CDATA[int]]>
-                </colList_col>
-                <colList_col nr="2">
-                  <![CDATA[4]]>
-                </colList_col>
-                <colList_col nr="3">
-                  <![CDATA[]]>
-                </colList_col>
-              </colList_row>
-              <colList_row nr="4">
-                <colList_col nr="0">
-                  <![CDATA[id5]]>
-                </colList_col>
-                <colList_col nr="1">
-                  <![CDATA[int]]>
-                </colList_col>
-                <colList_col nr="2">
-                  <![CDATA[5]]>
-                </colList_col>
-                <colList_col nr="3">
-                  <![CDATA[]]>
-                </colList_col>
-              </colList_row>
-              <colList_row nr="5">
-                <colList_col nr="0">
                   <![CDATA[check]]>
                 </colList_col>
                 <colList_col nr="1">
@@ -4280,7 +4252,7 @@
                   <![CDATA[Das Ende]]>
                 </colList_col>
               </colList_row>
-              <colList_row nr="6">
+              <colList_row nr="4">
                 <colList_col nr="0">
                   <![CDATA[init]]>
                 </colList_col>
