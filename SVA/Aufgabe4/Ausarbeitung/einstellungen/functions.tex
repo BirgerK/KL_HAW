@@ -1,0 +1,119 @@
+%Definiert einen einfachen Link 
+%#1 = Das Label auf das gelink werden soll
+\newcommand{\namedLink}[1]{$\rightarrow$\titleref{#1}
+}
+
+
+%Definiert einen Link auf einen Glossareintrag
+%#1 = Das Label des Glossareintrages auf den gelinkt werden soll siehe in #9 in \glossarEintrag
+\newcommand{\glossarLink}[1]{\namedLink{Glossar:#1}
+}
+
+
+
+
+%define Funktion fuer Glosareintrag
+\newcommand{\glossarEintrag}[9]{
+%#1 = EintragName
+%#2 = Synonyme
+%#3 = Bedeutung (was bedeuted das Wort)
+%#4 = Abgrenzung(von welchem begriff abregenzen)
+%#5 = Gueltigkeit wielange existiert dieses Objekt.
+%#6 = der eindeutige identifier dieses objekts (Veranstaltung => Veranstaltungsid) 
+%#7 = Unklarheiten. known unkowns, was ist noch unklar an diesem Objekt
+%#8 = Querverweise auf welche anderen Glossareinträge bezieht sich dieser
+%#9 = Labeltext
+
+	\subsection{#1} \label{Glossar:#9}
+	\begin{tabular}{|l|p{\breiteGlossarSpalte}|}
+		\hline
+			\textbf{Begriff und Synonyma} & \textbf{#1} #2 \\ 
+		\hline
+ 			\textbf{Bedeutung} & #3 \\ 
+ 		\hline
+ 			\textbf{Abgrenzung} & #4 \\
+ 		\hline
+ 			\textbf{Gültigkeit} & #5 \\
+ 		\hline
+ 			\textbf{Bezeichnung} & #6\\
+ 		\hline
+ 			\textbf{Unklarheiten} & #7 \\
+ 		\hline
+ 			\textbf{Querverweise} & #8\\
+ 		\hline
+	\end{tabular}
+  
+}
+
+\newcommand{\datentypDefinition}[4]{
+	\subsubsection{#1}
+	\begin{tabular}{|l|p{\breiteEntitaetSpalte}|}
+		\hline
+			\textbf{Datentyp} & #1 \\ 
+
+		\hline
+			
+		\hline
+ 			\textbf{Beschreibung} & #2 \\ 
+ 		\hline
+ 			\textbf{Wertebereich} & #3 \\
+ 		\hline
+ 			\textbf{GUI-Darstellung} & #4 \\
+ 		\hline
+	\end{tabular}
+}
+
+%define Funktion fuer Eintitätserläuterungsbox
+\newcommand{\entitaetBox}[6]{
+%#1 = EintragName
+%#2 = Attribute
+%#3 = Schlüssel
+%#4 = Beziehungen
+%#5 = Generalisierungen
+%#6 = Spezialisierungen
+\subsubsection{#1}
+	\begin{tabular}{|l|p{\breiteEntitaetSpalte}|}
+		\hline
+			\textbf{Begriff/Konzept} & #1 \\ 
+
+		\hline
+			
+		\hline
+ 			\textbf{Attribute} & #2 \\ 
+ 		\hline
+ 			\textbf{Schlüssel} & #3 \\
+ 		\hline
+ 			\textbf{Beziehungen} & #4 \\
+ 		\hline
+ 			\textbf{Generalisierungen} & #5\\
+ 		\hline
+ 			\textbf{Spezialisierungen} & #6 \\
+ 		\hline
+	\end{tabular}
+}
+
+\newcommand{\feldEintrag}[6]{
+%#1 = Beschreibung
+%#2 = Optional oder Pflichtfeld
+%#3 = Verwendetes Widget (Textbox, Auswahlfeld, etc)
+%#4 = Format der Eingabe
+%#5 = (Fachlicher) Datentyp
+%#6 = Defaultwert
+
+	\begin{tabular}{|l|p{\breiteFeldSpalte}|}
+		\hline
+			\textbf{Beschreibung} & #1 \\ 
+		\hline
+ 			\textbf{Optional oder Pflichtfeld?} & #2 \\ 
+ 		\hline
+ 			\textbf{Widget} & #3 \\
+ 		\hline
+ 			\textbf{Format} & #4 \\
+ 		\hline
+ 			\textbf{Datentyp} & #5\\
+ 		\hline
+ 			\textbf{Defaultwert} & #6 \\
+ 		\hline
+	\end{tabular}
+  
+}

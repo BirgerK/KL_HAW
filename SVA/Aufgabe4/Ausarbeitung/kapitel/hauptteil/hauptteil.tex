@@ -1,0 +1,46 @@
+%---------------------------------------------------------------------------------------------------
+% Hauptteil
+%---------------------------------------------------------------------------------------------------
+\section{Hauptteil} 
+
+\subsection{Der Token Ring Algorithmus}
+Der Token Ring Algorithmus ist ein Wahlalgorithmus der von Chang und Roberts im Jahre 1979 entworfen wurde. Er kann verteilt auf mehreren Clienten verwendet werden die in einer Ring Topologie miteinander verbunden sind. Das Ziel des Algorithmus ist, bei Ausfall des Master-Clienten im Netz einen neuen zu wählen.
+
+\textbf{Voraussetzungen}
+\begin{itemize}
+	\item Jeder Client kennt seinen Nachfolger
+	\item Jeder Client hat eine eindeutige ID
+	\item ...
+\end{itemize}
+
+\textbf{Ablauf}\\
+Der Algorithmus startet wenn der Master-Client ausfällt. Der Client der den Ausfall bemerkt startet die Wahl in dem er seinem Nachfolger eine Nachricht mit seiner ID und der Info dass es sich um eine Wahl handelt schickt. Dieser nimmt die Nachricht und überprüft ob seine eigene ID darin vor kommt. Wenn nicht hängt er seine eigene ID hinten an und schickt sie an seinen Nachfolger.
+Wenn ein Client feststellt, dass seine eigene ID bereits in der Nachricht vorhanden ist nimmt er die höchste ID und sendet eine "Gewählt" Nachricht mit der höchsten ID herum. Jeder wird somit benachrichtigt was die höchste ID ist. Kommt die "Gewählt" Nachricht wieder an wird sie gestoppt und die Wahl beendet.
+
+\textbf{Eigenschaften}\\
+ Laufzeit
+Welche Grundlegenden Eigenschaften hat der Algorithmus
+was tut er und warum, wofür?
+
+\subsection{Modellierung}
+Wie haben wir ihn modelliert
+-Gefärbtes netz
+- Ids
+- Guards
+
+\subsubsection{Das Netz}
+Hier Netzbild einbinden
+
+\subsection{Spezifikation}
+Wie lassen sich die Grundlegenden Eigenschaften des Algorithmus auf Netzeigenschaften Mappen?
+eigenschaften mit Pseudo CTL erklären?
+Eigenschaften auf dem Netz zeigen
+Eigenschaften auf dem Erreichbarkeitgraph zeigen?
+Wie beweist man das?
+
+
+\subsection{Korrektheit}
+Warum ist der Algorithmus korrekt
+- Determinismus
+- es kann immer nur eine Transition schalten es gibt keine Parallelität
+- Erreichbarkeitsgraph zeigen und erklären
