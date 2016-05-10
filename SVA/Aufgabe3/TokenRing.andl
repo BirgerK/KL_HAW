@@ -1,0 +1,331 @@
+pn [TokenRing]
+{
+places:
+    P1_0 = 0;
+    P1_1 = 1;
+    P1_2 = 0;
+    P1_3 = 0;
+    P1_4 = 0;
+    P2_0 = 0;
+    P2_1 = 0;
+    P2_2 = 0;
+    P2_3 = 1;
+    P2_4 = 0;
+    P3_0 = 0;
+    P3_1 = 0;
+    P3_2 = 1;
+    P3_3 = 0;
+    P3_4 = 0;
+    Pipe1_0 = 1;
+    Pipe1_1 = 0;
+    Pipe1_2 = 0;
+    Pipe1_3 = 0;
+    Pipe1_4 = 0;
+    Pipe2_0 = 0;
+    Pipe2_1 = 0;
+    Pipe2_2 = 0;
+    Pipe2_3 = 0;
+    Pipe2_4 = 0;
+    Pipe3_0 = 0;
+    Pipe3_1 = 0;
+    Pipe3_2 = 0;
+    Pipe3_3 = 0;
+    Pipe3_4 = 0;
+    gewaehlt1_0 = 0;
+    gewaehlt1_1 = 0;
+    gewaehlt1_2 = 0;
+    gewaehlt1_3 = 0;
+    gewaehlt1_4 = 0;
+    gewaehlt2_0 = 0;
+    gewaehlt2_1 = 0;
+    gewaehlt2_2 = 0;
+    gewaehlt2_3 = 0;
+    gewaehlt2_4 = 0;
+    gewaehlt3_0 = 0;
+    gewaehlt3_1 = 0;
+    gewaehlt3_2 = 0;
+    gewaehlt3_3 = 0;
+    gewaehlt3_4 = 0;
+
+transitions:
+    bestaetigung_1_4_0
+        : 
+        : [gewaehlt1_0 + 1] & [Pipe2_4 + 1] & [Pipe1_4 - 1] & [P1_0 - 1];
+    bestaetigung_1_4_1
+        : 
+        : [gewaehlt1_1 + 1] & [Pipe2_4 + 1] & [Pipe1_4 - 1] & [P1_1 - 1];
+    bestaetigung_1_4_2
+        : 
+        : [gewaehlt1_2 + 1] & [Pipe2_4 + 1] & [Pipe1_4 - 1] & [P1_2 - 1];
+    bestaetigung_1_4_3
+        : 
+        : [gewaehlt1_3 + 1] & [Pipe2_4 + 1] & [Pipe1_4 - 1] & [P1_3 - 1];
+    bestaetigung_1_4_4
+        : 
+        : [gewaehlt1_4 + 1] & [Pipe2_4 + 1] & [Pipe1_4 - 1] & [P1_4 - 1];
+    bestaetigung_2_4_0
+        : 
+        : [gewaehlt2_0 + 1] & [Pipe3_4 + 1] & [Pipe2_4 - 1] & [P2_0 - 1];
+    bestaetigung_2_4_1
+        : 
+        : [gewaehlt2_1 + 1] & [Pipe3_4 + 1] & [Pipe2_4 - 1] & [P2_1 - 1];
+    bestaetigung_2_4_2
+        : 
+        : [gewaehlt2_2 + 1] & [Pipe3_4 + 1] & [Pipe2_4 - 1] & [P2_2 - 1];
+    bestaetigung_2_4_3
+        : 
+        : [gewaehlt2_3 + 1] & [Pipe3_4 + 1] & [Pipe2_4 - 1] & [P2_3 - 1];
+    bestaetigung_2_4_4
+        : 
+        : [gewaehlt2_4 + 1] & [Pipe3_4 + 1] & [Pipe2_4 - 1] & [P2_4 - 1];
+    bestaetigung_3_4_0
+        : 
+        : [gewaehlt3_0 + 1] & [Pipe1_4 + 1] & [Pipe3_4 - 1] & [P3_0 - 1];
+    bestaetigung_3_4_1
+        : 
+        : [gewaehlt3_1 + 1] & [Pipe1_4 + 1] & [Pipe3_4 - 1] & [P3_1 - 1];
+    bestaetigung_3_4_2
+        : 
+        : [gewaehlt3_2 + 1] & [Pipe1_4 + 1] & [Pipe3_4 - 1] & [P3_2 - 1];
+    bestaetigung_3_4_3
+        : 
+        : [gewaehlt3_3 + 1] & [Pipe1_4 + 1] & [Pipe3_4 - 1] & [P3_3 - 1];
+    bestaetigung_3_4_4
+        : 
+        : [gewaehlt3_4 + 1] & [Pipe1_4 + 1] & [Pipe3_4 - 1] & [P3_4 - 1];
+    gleich_1_0_0
+        : 
+        : [P1_0 + 1] & [Pipe2_4 + 1] & [Pipe1_0 - 1] & [P1_0 - 1];
+    gleich_1_1_1
+        : 
+        : [P1_1 + 1] & [Pipe2_4 + 1] & [Pipe1_1 - 1] & [P1_1 - 1];
+    gleich_1_2_2
+        : 
+        : [P1_2 + 1] & [Pipe2_4 + 1] & [Pipe1_2 - 1] & [P1_2 - 1];
+    gleich_1_3_3
+        : 
+        : [P1_3 + 1] & [Pipe2_4 + 1] & [Pipe1_3 - 1] & [P1_3 - 1];
+    gleich_1_4_4
+        : 
+        : [P1_4 + 1] & [Pipe2_4 + 1] & [Pipe1_4 - 1] & [P1_4 - 1];
+    gleich_2_0_0
+        : 
+        : [Pipe3_4 + 1] & [P2_0 + 1] & [Pipe2_0 - 1] & [P2_0 - 1];
+    gleich_2_1_1
+        : 
+        : [Pipe3_4 + 1] & [P2_1 + 1] & [Pipe2_1 - 1] & [P2_1 - 1];
+    gleich_2_2_2
+        : 
+        : [Pipe3_4 + 1] & [P2_2 + 1] & [Pipe2_2 - 1] & [P2_2 - 1];
+    gleich_2_3_3
+        : 
+        : [Pipe3_4 + 1] & [P2_3 + 1] & [Pipe2_3 - 1] & [P2_3 - 1];
+    gleich_2_4_4
+        : 
+        : [Pipe3_4 + 1] & [P2_4 + 1] & [Pipe2_4 - 1] & [P2_4 - 1];
+    gleich_3_0_0
+        : 
+        : [Pipe1_4 + 1] & [P3_0 + 1] & [Pipe3_0 - 1] & [P3_0 - 1];
+    gleich_3_1_1
+        : 
+        : [Pipe1_4 + 1] & [P3_1 + 1] & [Pipe3_1 - 1] & [P3_1 - 1];
+    gleich_3_2_2
+        : 
+        : [Pipe1_4 + 1] & [P3_2 + 1] & [Pipe3_2 - 1] & [P3_2 - 1];
+    gleich_3_3_3
+        : 
+        : [Pipe1_4 + 1] & [P3_3 + 1] & [Pipe3_3 - 1] & [P3_3 - 1];
+    gleich_3_4_4
+        : 
+        : [Pipe1_4 + 1] & [P3_4 + 1] & [Pipe3_4 - 1] & [P3_4 - 1];
+    groesser_1_1_0
+        : 
+        : [P1_1 + 1] & [Pipe2_1 + 1] & [Pipe1_1 - 1] & [P1_0 - 1];
+    groesser_1_2_0
+        : 
+        : [P1_2 + 1] & [Pipe2_2 + 1] & [Pipe1_2 - 1] & [P1_0 - 1];
+    groesser_1_2_1
+        : 
+        : [P1_2 + 1] & [Pipe2_2 + 1] & [Pipe1_2 - 1] & [P1_1 - 1];
+    groesser_1_3_0
+        : 
+        : [P1_3 + 1] & [Pipe2_3 + 1] & [Pipe1_3 - 1] & [P1_0 - 1];
+    groesser_1_3_1
+        : 
+        : [P1_3 + 1] & [Pipe2_3 + 1] & [Pipe1_3 - 1] & [P1_1 - 1];
+    groesser_1_3_2
+        : 
+        : [P1_3 + 1] & [Pipe2_3 + 1] & [Pipe1_3 - 1] & [P1_2 - 1];
+    groesser_2_1_0
+        : 
+        : [Pipe3_1 + 1] & [P2_1 + 1] & [Pipe2_1 - 1] & [P2_0 - 1];
+    groesser_2_2_0
+        : 
+        : [Pipe3_2 + 1] & [P2_2 + 1] & [Pipe2_2 - 1] & [P2_0 - 1];
+    groesser_2_2_1
+        : 
+        : [Pipe3_2 + 1] & [P2_2 + 1] & [Pipe2_2 - 1] & [P2_1 - 1];
+    groesser_2_3_0
+        : 
+        : [Pipe3_3 + 1] & [P2_3 + 1] & [Pipe2_3 - 1] & [P2_0 - 1];
+    groesser_2_3_1
+        : 
+        : [Pipe3_3 + 1] & [P2_3 + 1] & [Pipe2_3 - 1] & [P2_1 - 1];
+    groesser_2_3_2
+        : 
+        : [Pipe3_3 + 1] & [P2_3 + 1] & [Pipe2_3 - 1] & [P2_2 - 1];
+    groesser_3_1_0
+        : 
+        : [Pipe1_1 + 1] & [P3_1 + 1] & [Pipe3_1 - 1] & [P3_0 - 1];
+    groesser_3_2_0
+        : 
+        : [Pipe1_2 + 1] & [P3_2 + 1] & [Pipe3_2 - 1] & [P3_0 - 1];
+    groesser_3_2_1
+        : 
+        : [Pipe1_2 + 1] & [P3_2 + 1] & [Pipe3_2 - 1] & [P3_1 - 1];
+    groesser_3_3_0
+        : 
+        : [Pipe1_3 + 1] & [P3_3 + 1] & [Pipe3_3 - 1] & [P3_0 - 1];
+    groesser_3_3_1
+        : 
+        : [Pipe1_3 + 1] & [P3_3 + 1] & [Pipe3_3 - 1] & [P3_1 - 1];
+    groesser_3_3_2
+        : 
+        : [Pipe1_3 + 1] & [P3_3 + 1] & [Pipe3_3 - 1] & [P3_2 - 1];
+    kleiner_1_0_1
+        : 
+        : [P1_1 + 1] & [Pipe2_1 + 1] & [Pipe1_0 - 1] & [P1_1 - 1];
+    kleiner_1_0_2
+        : 
+        : [P1_2 + 1] & [Pipe2_2 + 1] & [Pipe1_0 - 1] & [P1_2 - 1];
+    kleiner_1_0_3
+        : 
+        : [P1_3 + 1] & [Pipe2_3 + 1] & [Pipe1_0 - 1] & [P1_3 - 1];
+    kleiner_1_0_4
+        : 
+        : [P1_4 + 1] & [Pipe2_4 + 1] & [Pipe1_0 - 1] & [P1_4 - 1];
+    kleiner_1_1_2
+        : 
+        : [P1_2 + 1] & [Pipe2_2 + 1] & [Pipe1_1 - 1] & [P1_2 - 1];
+    kleiner_1_1_3
+        : 
+        : [P1_3 + 1] & [Pipe2_3 + 1] & [Pipe1_1 - 1] & [P1_3 - 1];
+    kleiner_1_1_4
+        : 
+        : [P1_4 + 1] & [Pipe2_4 + 1] & [Pipe1_1 - 1] & [P1_4 - 1];
+    kleiner_1_2_3
+        : 
+        : [P1_3 + 1] & [Pipe2_3 + 1] & [Pipe1_2 - 1] & [P1_3 - 1];
+    kleiner_1_2_4
+        : 
+        : [P1_4 + 1] & [Pipe2_4 + 1] & [Pipe1_2 - 1] & [P1_4 - 1];
+    kleiner_1_3_4
+        : 
+        : [P1_4 + 1] & [Pipe2_4 + 1] & [Pipe1_3 - 1] & [P1_4 - 1];
+    kleiner_2_0_1
+        : 
+        : [Pipe3_1 + 1] & [P2_1 + 1] & [Pipe2_0 - 1] & [P2_1 - 1];
+    kleiner_2_0_2
+        : 
+        : [Pipe3_2 + 1] & [P2_2 + 1] & [Pipe2_0 - 1] & [P2_2 - 1];
+    kleiner_2_0_3
+        : 
+        : [Pipe3_3 + 1] & [P2_3 + 1] & [Pipe2_0 - 1] & [P2_3 - 1];
+    kleiner_2_0_4
+        : 
+        : [Pipe3_4 + 1] & [P2_4 + 1] & [Pipe2_0 - 1] & [P2_4 - 1];
+    kleiner_2_1_2
+        : 
+        : [Pipe3_2 + 1] & [P2_2 + 1] & [Pipe2_1 - 1] & [P2_2 - 1];
+    kleiner_2_1_3
+        : 
+        : [Pipe3_3 + 1] & [P2_3 + 1] & [Pipe2_1 - 1] & [P2_3 - 1];
+    kleiner_2_1_4
+        : 
+        : [Pipe3_4 + 1] & [P2_4 + 1] & [Pipe2_1 - 1] & [P2_4 - 1];
+    kleiner_2_2_3
+        : 
+        : [Pipe3_3 + 1] & [P2_3 + 1] & [Pipe2_2 - 1] & [P2_3 - 1];
+    kleiner_2_2_4
+        : 
+        : [Pipe3_4 + 1] & [P2_4 + 1] & [Pipe2_2 - 1] & [P2_4 - 1];
+    kleiner_2_3_4
+        : 
+        : [Pipe3_4 + 1] & [P2_4 + 1] & [Pipe2_3 - 1] & [P2_4 - 1];
+    kleiner_3_0_1
+        : 
+        : [P3_1 + 1] & [Pipe1_1 + 1] & [Pipe3_0 - 1] & [P3_1 - 1];
+    kleiner_3_0_2
+        : 
+        : [P3_2 + 1] & [Pipe1_2 + 1] & [Pipe3_0 - 1] & [P3_2 - 1];
+    kleiner_3_0_3
+        : 
+        : [P3_3 + 1] & [Pipe1_3 + 1] & [Pipe3_0 - 1] & [P3_3 - 1];
+    kleiner_3_0_4
+        : 
+        : [P3_4 + 1] & [Pipe1_4 + 1] & [Pipe3_0 - 1] & [P3_4 - 1];
+    kleiner_3_1_2
+        : 
+        : [P3_2 + 1] & [Pipe1_2 + 1] & [Pipe3_1 - 1] & [P3_2 - 1];
+    kleiner_3_1_3
+        : 
+        : [P3_3 + 1] & [Pipe1_3 + 1] & [Pipe3_1 - 1] & [P3_3 - 1];
+    kleiner_3_1_4
+        : 
+        : [P3_4 + 1] & [Pipe1_4 + 1] & [Pipe3_1 - 1] & [P3_4 - 1];
+    kleiner_3_2_3
+        : 
+        : [P3_3 + 1] & [Pipe1_3 + 1] & [Pipe3_2 - 1] & [P3_3 - 1];
+    kleiner_3_2_4
+        : 
+        : [P3_4 + 1] & [Pipe1_4 + 1] & [Pipe3_2 - 1] & [P3_4 - 1];
+    kleiner_3_3_4
+        : 
+        : [P3_4 + 1] & [Pipe1_4 + 1] & [Pipe3_3 - 1] & [P3_4 - 1];
+    terminiert_1_0_4
+        : 
+        : [gewaehlt1_0 + 1] & [Pipe1_4 - 1] & [gewaehlt1_0 - 1];
+    terminiert_1_1_4
+        : 
+        : [gewaehlt1_1 + 1] & [Pipe1_4 - 1] & [gewaehlt1_1 - 1];
+    terminiert_1_2_4
+        : 
+        : [gewaehlt1_2 + 1] & [Pipe1_4 - 1] & [gewaehlt1_2 - 1];
+    terminiert_1_3_4
+        : 
+        : [gewaehlt1_3 + 1] & [Pipe1_4 - 1] & [gewaehlt1_3 - 1];
+    terminiert_1_4_4
+        : 
+        : [gewaehlt1_4 + 1] & [Pipe1_4 - 1] & [gewaehlt1_4 - 1];
+    terminiert_2_0_4
+        : 
+        : [gewaehlt2_0 + 1] & [Pipe2_4 - 1] & [gewaehlt2_0 - 1];
+    terminiert_2_1_4
+        : 
+        : [gewaehlt2_1 + 1] & [Pipe2_4 - 1] & [gewaehlt2_1 - 1];
+    terminiert_2_2_4
+        : 
+        : [gewaehlt2_2 + 1] & [Pipe2_4 - 1] & [gewaehlt2_2 - 1];
+    terminiert_2_3_4
+        : 
+        : [gewaehlt2_3 + 1] & [Pipe2_4 - 1] & [gewaehlt2_3 - 1];
+    terminiert_2_4_4
+        : 
+        : [gewaehlt2_4 + 1] & [Pipe2_4 - 1] & [gewaehlt2_4 - 1];
+    terminiert_3_0_4
+        : 
+        : [gewaehlt3_0 + 1] & [Pipe3_4 - 1] & [gewaehlt3_0 - 1];
+    terminiert_3_1_4
+        : 
+        : [gewaehlt3_1 + 1] & [Pipe3_4 - 1] & [gewaehlt3_1 - 1];
+    terminiert_3_2_4
+        : 
+        : [gewaehlt3_2 + 1] & [Pipe3_4 - 1] & [gewaehlt3_2 - 1];
+    terminiert_3_3_4
+        : 
+        : [gewaehlt3_3 + 1] & [Pipe3_4 - 1] & [gewaehlt3_3 - 1];
+    terminiert_3_4_4
+        : 
+        : [gewaehlt3_4 + 1] & [Pipe3_4 - 1] & [gewaehlt3_4 - 1];
+
+}
