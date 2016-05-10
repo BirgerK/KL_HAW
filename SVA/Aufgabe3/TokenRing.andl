@@ -95,49 +95,49 @@ transitions:
         : [gewaehlt3_4 + 1] & [Pipe1_4 + 1] & [Pipe3_4 - 1] & [P3_4 - 1];
     gleich_1_0_0
         : 
-        : [P1_0 + 1] & [Pipe2_4 + 1] & [Pipe1_0 - 1] & [P1_0 - 1];
+        : [Pipe2_4 + 1] & [gewaehlt1_0 + 1] & [Pipe1_0 - 1] & [P1_0 - 1];
     gleich_1_1_1
         : 
-        : [P1_1 + 1] & [Pipe2_4 + 1] & [Pipe1_1 - 1] & [P1_1 - 1];
+        : [Pipe2_4 + 1] & [gewaehlt1_1 + 1] & [Pipe1_1 - 1] & [P1_1 - 1];
     gleich_1_2_2
         : 
-        : [P1_2 + 1] & [Pipe2_4 + 1] & [Pipe1_2 - 1] & [P1_2 - 1];
+        : [Pipe2_4 + 1] & [gewaehlt1_2 + 1] & [Pipe1_2 - 1] & [P1_2 - 1];
     gleich_1_3_3
         : 
-        : [P1_3 + 1] & [Pipe2_4 + 1] & [Pipe1_3 - 1] & [P1_3 - 1];
+        : [Pipe2_4 + 1] & [gewaehlt1_3 + 1] & [Pipe1_3 - 1] & [P1_3 - 1];
     gleich_1_4_4
         : 
-        : [P1_4 + 1] & [Pipe2_4 + 1] & [Pipe1_4 - 1] & [P1_4 - 1];
+        : [Pipe2_4 + 1] & [gewaehlt1_4 + 1] & [Pipe1_4 - 1] & [P1_4 - 1];
     gleich_2_0_0
         : 
-        : [Pipe3_4 + 1] & [P2_0 + 1] & [Pipe2_0 - 1] & [P2_0 - 1];
+        : [Pipe3_4 + 1] & [gewaehlt2_0 + 1] & [Pipe2_0 - 1] & [P2_0 - 1];
     gleich_2_1_1
         : 
-        : [Pipe3_4 + 1] & [P2_1 + 1] & [Pipe2_1 - 1] & [P2_1 - 1];
+        : [Pipe3_4 + 1] & [gewaehlt2_1 + 1] & [Pipe2_1 - 1] & [P2_1 - 1];
     gleich_2_2_2
         : 
-        : [Pipe3_4 + 1] & [P2_2 + 1] & [Pipe2_2 - 1] & [P2_2 - 1];
+        : [Pipe3_4 + 1] & [gewaehlt2_2 + 1] & [Pipe2_2 - 1] & [P2_2 - 1];
     gleich_2_3_3
         : 
-        : [Pipe3_4 + 1] & [P2_3 + 1] & [Pipe2_3 - 1] & [P2_3 - 1];
+        : [Pipe3_4 + 1] & [gewaehlt2_3 + 1] & [Pipe2_3 - 1] & [P2_3 - 1];
     gleich_2_4_4
         : 
-        : [Pipe3_4 + 1] & [P2_4 + 1] & [Pipe2_4 - 1] & [P2_4 - 1];
+        : [Pipe3_4 + 1] & [gewaehlt2_4 + 1] & [Pipe2_4 - 1] & [P2_4 - 1];
     gleich_3_0_0
         : 
-        : [Pipe1_4 + 1] & [P3_0 + 1] & [Pipe3_0 - 1] & [P3_0 - 1];
+        : [Pipe1_4 + 1] & [gewaehlt3_0 + 1] & [Pipe3_0 - 1] & [P3_0 - 1];
     gleich_3_1_1
         : 
-        : [Pipe1_4 + 1] & [P3_1 + 1] & [Pipe3_1 - 1] & [P3_1 - 1];
+        : [Pipe1_4 + 1] & [gewaehlt3_1 + 1] & [Pipe3_1 - 1] & [P3_1 - 1];
     gleich_3_2_2
         : 
-        : [Pipe1_4 + 1] & [P3_2 + 1] & [Pipe3_2 - 1] & [P3_2 - 1];
+        : [Pipe1_4 + 1] & [gewaehlt3_2 + 1] & [Pipe3_2 - 1] & [P3_2 - 1];
     gleich_3_3_3
         : 
-        : [Pipe1_4 + 1] & [P3_3 + 1] & [Pipe3_3 - 1] & [P3_3 - 1];
+        : [Pipe1_4 + 1] & [gewaehlt3_3 + 1] & [Pipe3_3 - 1] & [P3_3 - 1];
     gleich_3_4_4
         : 
-        : [Pipe1_4 + 1] & [P3_4 + 1] & [Pipe3_4 - 1] & [P3_4 - 1];
+        : [Pipe1_4 + 1] & [gewaehlt3_4 + 1] & [Pipe3_4 - 1] & [P3_4 - 1];
     groesser_1_1_0
         : 
         : [P1_1 + 1] & [Pipe2_1 + 1] & [Pipe1_1 - 1] & [P1_0 - 1];
