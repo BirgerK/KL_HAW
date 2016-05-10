@@ -59,3 +59,31 @@ EF(
     Pipe1_1==0 & Pipe1_2==0 & Pipe1_3==0 & Pipe1_4==1
   )
 );
+/*
+Sixth
+P2 is getting check-token and has to terminate algorithm
+*/
+EF(
+  (Pipe2_4==1 & Pipe2_1==0 & Pipe2_2==0 & Pipe2_3==0) &
+  AX(
+    P2_1==0 & P2_2==0 & P2_3==0 & gewaehlt2_3==1 &
+    (
+      (Pipe1_1==0 & Pipe1_2==0 & Pipe1_3==0) &
+      (Pipe2_1==0 & Pipe2_2==0 & Pipe2_3==0) &
+      (Pipe3_1==0 & Pipe3_2==0 & Pipe3_3==0)
+    ) &
+    (
+      gewaehlt1_3==1 & gewaehlt2_3==1 & gewaehlt3_3==1
+    )
+  )
+);
+/*
+Eighth
+At Start-Time every Client has its own token
+*/
+EF(
+  P1_1==1 & P2_3==1 & P3_2 == 1 &
+  (Pipe1_0==1 & Pipe1_1==0 & Pipe1_2==0 & Pipe1_3==0 & Pipe1_4==0)&
+  (Pipe2_0==0 & Pipe2_1==0 & Pipe2_2==0 & Pipe2_3==0 & Pipe2_4==0) &
+  (Pipe3_0==0 & Pipe3_1==0 & Pipe3_2==0 & Pipe3_3==0 & Pipe3_4==0)
+);
