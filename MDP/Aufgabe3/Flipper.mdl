@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.115"
+    ComputedModelVersion    "1.116"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -68,9 +68,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "birger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed May 11 14:02:07 2016"
-  RTWModifiedTimeStamp	  384876119
-  ModelVersionFormat	  "1.%<AutoIncrement:115>"
+  LastModifiedDate	  "Wed May 11 15:12:25 2016"
+  RTWModifiedTimeStamp	  384880345
+  ModelVersionFormat	  "1.%<AutoIncrement:116>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1065,7 +1065,7 @@ Stateflow {
     id			    2
     name		    "Schiefer Flipper"
     windowPosition	    [192 97 1641 935]
-    viewLimits		    [-131.738 968.262 -156.086 435.914]
+    viewLimits		    [-131.738 968.262 -156.086 492.714]
     zoomFactor		    0.8
     screen		    [1 1 1280 800 1]
     treeNode		    [0 8 0 0]
@@ -1073,9 +1073,7 @@ Stateflow {
     viewObj		    2
     visible		    1
     machine		    1
-    subviewS {
-    }
-    ssIdHighWaterMark	    63
+    ssIdHighWaterMark	    65
     decomposition	    CLUSTER_CHART
     firstData		    20
     updateMethod	    CONTINUOUS
@@ -1100,9 +1098,9 @@ Stateflow {
     eml {
       isEML		      1
       script		      "function Init\n\n% Hindernis und Pfosten fuer Waende\nHnd = [6;2.5];\np1 = [0;5];\np2 = [5;0];\np"
-      "3 = [9;0];\np4 = [10;7];\n\n% Kugel\nx1 = [4;5];\nv1 = [0;0];\n\n% Nomale und Tangentiale der Waende\nt1 = (p2-p"
-      "1) / norm(p2-p1);\nn1 = [-t1(2,1); t1(1,1)];\nt2 = (p3-p2) / norm(p3-p2);\nn2 = [-t2(2,1) ; t2(1,1)];\nt3 = (p4-"
-      "p3) / norm(p4-p3);\nn3 = [-t3(2,1) ; t3(1,1)];"
+      "3 = [9;0];\np4 = [10;7];\n\n% Kugel\nx1 = [4;5];\nv1 = [0;0];\n\n% Normale und Tangentiale der Waende\nt1 = (p2-"
+      "p1) / norm(p2-p1);\nn1 = [-t1(2,1); t1(1,1)];\nt2 = (p3-p2) / norm(p3-p2);\nn2 = [-t2(2,1) ; t2(1,1)];\nt3 = (p4"
+      "-p3) / norm(p4-p3);\nn3 = [-t3(2,1) ; t3(1,1)];"
       editorLayout	      "100 M4x1[10 5 700 500]"
     }
   }
