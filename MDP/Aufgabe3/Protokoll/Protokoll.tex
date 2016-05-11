@@ -7,6 +7,7 @@
 \usepackage{hyperref}
 \usepackage{siunitx}
 \usepackage{listings}
+\usepackage{color}
 \hypersetup{
 	colorlinks,
 	citecolor=black,
@@ -16,6 +17,28 @@
 }
 \selectlanguage{ngerman}
 
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+\lstset{style=mystyle}
+
 \title{Modellierung dynamischer Systeme  \\ Abgabe der Praktikumsaufgabe 3}
 
 \author{Maria Lüdemann und Birger Kamp}
@@ -23,7 +46,6 @@
 \begin{document}
 
 \maketitle
-\selectlanguage{ngerman}
 \tableofcontents
 \newpage
 
