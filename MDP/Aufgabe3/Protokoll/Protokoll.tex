@@ -95,7 +95,19 @@ R = 0.25
 \subsection{Funktionen}
 Im Folgenden werden die verwendeten MatLab-Funktionen dokumentiert.
 
+
+In der Betrachtung des Kontakts kann aus Sicherheitsgründen eine erweiterte Abfrage stattfinden. Ist die Kugel nach einer Reflexion noch immer im Reflektionsbereich kann es passieren, dass bei sehr kleinen Zeitschritten eine Abfrage erfolgt bevor die Kugel Zeit hatte sich aus dem Bereich heraus zu bewegen. In diesem Fall würde die Kugel erneut reflektiert werden was zur Folge hat dass,durch die Beschleunigung an der Stelle die Kugel in der Wand hängen bleiben kann. In unsere Modellierung und unseren Durchläufen ist dies nicht aufgetreten. Sollte ein solches Problem auftreten kann dies behoben werden in dem der Abfrage hinzugefügt wird, ob die Beschleunigung der Kugel in Vorwärtsrichtung der Wand erfolgt oder nicht.
+
 \subsubsection{Init}
+
+Die Funkion Init initialisiert die folgenden benötigten Größen:
+\begin{itemize}
+\item Wandeckpunkte $p1, p2, p3, p4$ und Hindernispositionen $Hnd$
+\item die Wand-Tangential $t1, t2, t3$ und Normalvektoren $n1, n2, n3$ die aus den Eckpositionen der Wände berechnet werden, 
+\item Startposition $x1$ und Startgeschwindigkeit $v1$ der Kugel die gegeben sind
+\end{itemize}
+
+
 \begin{lstlisting}
 function Init
 
@@ -120,6 +132,10 @@ n3 = [-t3(2,1) ; t3(1,1)];
 \end{lstlisting}
 
 \subsubsection{Acc}
+
+Die Funktion $Acc()$ berechnet die Beschleunigung $a$ der Kugel.
+
+
 \begin{lstlisting}
 function [ax,ay] = Acc
 ax = 0;
@@ -127,6 +143,9 @@ ay = -1;
 \end{lstlisting}
 
 \subsubsection{Wand1Refl}
+
+Die Funktion Wand1Refl berechnet die Reflexion der Kugel wenn die Funktion Wand1Kontakt $true$ zurück gibt. Dafür wird die aktuelle Richtung der Beschleunigung mit der Wandposition verrechnet und umgeleitet.
+
 \begin{lstlisting}
 function Wand1Refl()
 
@@ -138,6 +157,9 @@ v1 = vt*t1 + (-vn*n1);
 \end{lstlisting}
 
 \subsubsection{Wand2Refl}
+
+Die Funktion Wand2Refl berechnet die Reflexion der Kugel wenn die Funktion Wand2Kontakt $true$ zurück gibt. Dafür wird die aktuelle Richtung der Beschleunigung mit der Wandposition verrechnet und umgeleitet.
+
 \begin{lstlisting}
 function Wand2Refl()
 
@@ -149,6 +171,9 @@ v1 = vt*t2 + (-vn*n2);
 \end{lstlisting}
 
 \subsubsection{Wand3Refl}
+
+Die Funktion Wand3Refl berechnet die Reflexion der Kugel wenn die Funktion Wand3Kontakt $true$ zurück gibt. Dafür wird die aktuelle Richtung der Beschleunigung mit der Wandposition verrechnet und umgeleitet.
+
 \begin{lstlisting}
 function Wand3Refl()
 
@@ -160,24 +185,36 @@ v1 = vt*t3 + (-vn*n3);
 \end{lstlisting}
 
 \subsubsection{Wand1Kontakt}
+
+Die Wand1Kontakt Funktion berechnet ob die Kugel in ihrer Vorwärtsbewegung die Wand berührt. Dafür wird die Position der Kugel mit ihrem Radius und der Position der Wand abgeglichen und das Ergebnis als Boolean zurück gegeben.
+
 \begin{lstlisting}
 function kontakt = Wand1Kontakt
 kontakt = (((x1-p1)' * n1) <= R);
 \end{lstlisting}
 
 \subsubsection{Wand2Kontakt}
+
+Die Wand2Kontakt Funktion berechnet ob die Kugel in ihrer Vorwärtsbewegung die Wand berührt. Dafür wird die Position der Kugel mit ihrem Radius und der Position der Wand abgeglichen und das Ergebnis als Boolean zurück gegeben.
+
 \begin{lstlisting}
 function kontakt = Wand2Kontakt
 kontakt = ((x1-p2)' * n2) <= R;
 \end{lstlisting}
 
 \subsubsection{Wand3Kontakt}
+
+Die Wand3Kontakt Funktion berechnet ob die Kugel in ihrer Vorwärtsbewegung die Wand berührt. Dafür wird die Position der Kugel mit ihrem Radius und der Position der Wand abgeglichen und das Ergebnis als Boolean zurück gegeben.
+
 \begin{lstlisting}
 function kontakt = Wand3Kontakt
 kontakt = ((x1-p3)' * n3) <= R;
 \end{lstlisting}
 
 \subsubsection{HndKontakt}
+
+Die Funktion HndKontakt berechnet den Kontakt der Kugel mit dem Hindernis. Dafür wird die Position und der Radius des Hindernisses mit der Position und dem Radius der Kugel abgeglichen.
+
 \begin{lstlisting}
 function kontakt = HndKontakt
 kontakt = norm(x1 - Hnd) <= RHnd + R;
@@ -187,7 +224,7 @@ kontakt = norm(x1 - Hnd) <= RHnd + R;
 
 Das folgende Modell veranschaulicht das Stateflow-Modell, das die Simulation durchführt.
 
-Es gibt in diesem Modell nur einen Zustand, in dem erfährt die Kugel ihre Beschleunigung in Richtung \textit{unten}. Anschließend wird für jede Wand/Hindernis geprüft, ob die Kugel in Kontakt damit gekommen ist. Falls ja, dann wird berechnet in welche Richtung die Kugel umgelenkt wird.
+Es gibt in diesem Modell nur einen Zustand, in dem erfährt die Kugel ihre Beschleunigung in Richtung \textit{unten}. Das Modell arbeitet die Berechnungen der Simulation über die Transitionen ab, da es kein fundamentalen Veränderungen der Funktionalität des Modells gibt und somit nur ein Zustand notwendig ist. Es wird für jede Wand/Hindernis geprüft, ob die Kugel in Kontakt damit gekommen ist. Falls ja, dann wird berechnet in welche Richtung die Kugel umgelenkt wird.
 
 \begin{figure}[H]
 \centering
