@@ -4,20 +4,25 @@
 \section{Hauptteil} 
 
 \subsection{Der Token Ring Algorithmus}
-Der Token Ring Algorithmus ist ein Wahlalgorithmus der von Chang und Roberts im Jahre 1979 entworfen wurde. Er kann verteilt auf mehreren Clienten verwendet werden die in einer Ring Topologie miteinander verbunden sind. Das Ziel des Algorithmus ist, bei Ausfall des Master-Clienten im Netz einen neuen zu wählen.
+Der Token Ring Algorithmus ist ein Wahlalgorithmus der von Chang und Roberts 1979 entworfen wurde. Er kann verteilt auf mehreren Clienten verwendet werden die in einer Ring-Topologie miteinander verbunden sind. Das Ziel des Algorithmus ist, bei Ausfall des Master-Clienten im Netz einen neuen zu wählen.
 
-\textbf{Voraussetzungen}
+\subsubsection*{Voraussetzungen}
+Damit der Algorithmus auf eine Ring-Topologie angewandt werden kann, müssen folgende Voraussetzungen im Netz gegeben sein:
 \begin{itemize}
 	\item Jeder Client kennt seinen Nachfolger
+	\item Jeder Client ist mit seinem Nachfolger verbunden, sodass er mit ihm kommunizieren kann
 	\item Jeder Client hat eine eindeutige ID
-	\item ...
+	\item Jeder Client kennt die gesamte Ring-Topologie
 \end{itemize}
 
-\textbf{Ablauf}\\
-Der Algorithmus startet wenn der Master-Client ausfällt. Der Client der den Ausfall bemerkt startet die Wahl in dem er seinem Nachfolger eine Nachricht mit seiner ID und der Info dass es sich um eine Wahl handelt schickt. Dieser nimmt die Nachricht und überprüft ob seine eigene ID darin vor kommt. Wenn nicht hängt er seine eigene ID hinten an und schickt sie an seinen Nachfolger.
-Wenn ein Client feststellt, dass seine eigene ID bereits in der Nachricht vorhanden ist nimmt er die höchste ID und sendet eine "Gewählt" Nachricht mit der höchsten ID herum. Jeder wird somit benachrichtigt was die höchste ID ist. Kommt die "Gewählt" Nachricht wieder an wird sie gestoppt und die Wahl beendet.
+\subsubsection*{Ablauf}
+Der Algorithmus startet wenn der Master-Client ausfällt. Der Vorgänger des ausgefallenen Master-Clients baut eine Verbindung zum Nachfolger des ausgefallenen Master-Clients auf, sodass die Ring-Topologie wieder vollständig ist.
 
-\textbf{Eigenschaften}\\
+Der Client, der den Ausfall bemerkt, startet die Wahl in dem er seinem Nachfolger eine Nachricht mit seiner ID und der Info dass es sich um eine Wahl handelt schickt. Dieser nimmt die Nachricht und überprüft ob seine eigene ID darin vor kommt. Falls nicht, hängt er seine eigene ID hinten an und schickt die vervollständigte Nachricht an seinen Nachfolger.
+
+Wenn ein Client feststellt, dass seine eigene ID bereits in der Nachricht vorhanden ist, nimmt er die höchste ID aus der Liste der gesammelten IDs in der Nachricht. Anschließend sendet er eine "Gewählt"-Nachricht mit der höchsten ID an seinen Nachfolger. Der Empfänger der "Gewählt"-Nachricht merkt sich, dass der gewählte Client nun der neue Master ist und sendet seinem Nachfolger die gleiche "Gewählt"-Nachricht. Jeder wird somit benachrichtigt was die höchste ID ist. Kommt die "Gewählt" Nachricht wieder am Initiator der "Gewählt"-Nachricht an, wird die Wahl erfolgreich beendet und der Algorithmus ist terminiert.
+
+\subsubsection*{Eigenschaften}
  Laufzeit
 Welche Grundlegenden Eigenschaften hat der Algorithmus
 was tut er und warum, wofür?
