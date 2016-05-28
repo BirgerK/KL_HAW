@@ -16,6 +16,7 @@ Damit der Algorithmus auf eine Ring-Topologie angewandt werden kann, müssen fol
 \end{itemize}
 
 \subsubsection*{Ablauf}
+\label{sec:algorithm_process}
 Der Algorithmus startet wenn der Master-Client ausfällt. Der Vorgänger des ausgefallenen Master-Clients baut eine Verbindung zum Nachfolger des ausgefallenen Master-Clients auf, sodass die Ring-Topologie wieder vollständig ist.
 
 Der Client, der den Ausfall bemerkt, startet die Wahl in dem er seinem Nachfolger eine Nachricht mit seiner ID und der Info dass es sich um eine Wahl handelt schickt. Dieser nimmt die Nachricht und überprüft ob seine eigene ID darin vor kommt. Falls nicht, hängt er seine eigene ID hinten an und schickt die vervollständigte Nachricht an seinen Nachfolger.
@@ -28,11 +29,29 @@ Welche Grundlegenden Eigenschaften hat der Algorithmus
 was tut er und warum, wofür?
 
 \subsection{Spezifikation}
-Wie lassen sich die Grundlegenden Eigenschaften des Algorithmus auf Netzeigenschaften Mappen?
-eigenschaften mit Pseudo CTL erklären?
-Eigenschaften auf dem Netz zeigen
-Eigenschaften auf dem Erreichbarkeitgraph zeigen?
-Wie beweist man das?
+Damit ein Modell erstellt werden kann, das den Algorithmus abbildet, müssen zunächst die charakteristischen Eigenschaften des Algorithmus bestimmt werden.
+
+Der Algorithmus (s. Abschnitt \ref{sec:algorithm_process}) lässt sich in folgende drei Phasen einteilen:
+\begin{itemize}
+\item[Phase 1] Ein Client bemerkt den Ausfall des bisherigen Masters
+\item[Phase 2] Sammeln aller beteiligten Client-IDs
+\item[Phase 3] Bekanntgeben des neuen Masters
+\end{itemize}
+
+Der jeweilige Ablauf der Phasen lässt sich mit folgenden Punkten spezifieren:
+
+\begin{tabular}{|c|p{7,6cm}|}
+\hline Phase & Eigenschaft \\ 
+\hline Phase 1: Master-Ausfall bemerkt & Sendet Nachricht zum Wählen und hängt seine eigene ID daran \\ 
+\hline \multirow{3}*{Phase 2: Wahl} & Client, der Wahl-Nachricht erhält, hängt seine eigene ID an die Nachricht \\ 
+\cline{2-2} & Client sendet die erweiterte Nachricht an seinen Nachfolger \\ 
+\cline{2-2} & Sobald ein Client eine Wahl-Nachricht erhält, in der seine eigene ID bereits enthalten ist, geht der Algorithmus in Phase 3 über \\ 
+\hline \multirow{3}{*}{Phase 3: Neuen Master mitteilen} & Der Client, der feststellt, dass Phase 2 vorbei ist, sendet eine Nachricht mit dem neuen Master an seinen Nachfolger \\
+\cline{2-2} & Ein Client, der die Nachricht über einen Master erhält, merkt sich den neuen Master \\ 
+\cline{2-2} & Ein Client, der die Nachricht über einen Master erhält, teilt seinem Nachfolger diese Nachricht mit \\
+\cline{2-2} & Sobald der Client, der Phase 3 eingeleitet hat, die Nachricht über den neuen Master erhalten hat, terminiert der Algorithmus \\
+\hline 
+\end{tabular} 
 
 \subsection{Modellierung}
 Wie haben wir ihn modelliert
