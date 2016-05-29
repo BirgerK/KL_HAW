@@ -24,9 +24,17 @@ Der Client, der den Ausfall bemerkt, startet die Wahl in dem er seinem Nachfolge
 Wenn ein Client feststellt, dass seine eigene ID bereits in der Nachricht vorhanden ist, nimmt er die höchste ID aus der Liste der gesammelten IDs in der Nachricht. Anschließend sendet er eine "Gewählt"-Nachricht mit der höchsten ID an seinen Nachfolger. Der Empfänger der "Gewählt"-Nachricht merkt sich, dass der gewählte Client nun der neue Master ist und sendet seinem Nachfolger die gleiche "Gewählt"-Nachricht. Jeder wird somit benachrichtigt was die höchste ID ist. Kommt die "Gewählt" Nachricht wieder am Initiator der "Gewählt"-Nachricht an, wird die Wahl erfolgreich beendet und der Algorithmus ist terminiert.
 
 \subsubsection*{Eigenschaften}
- Laufzeit
-Welche Grundlegenden Eigenschaften hat der Algorithmus
-was tut er und warum, wofür?
+Die Laufzeit dieses Algorithmus befindet sich in einem Bereich von $0=2N$ wobei N die Anzahl der teilnehmenden Clienten ist. Diese Einschätzung ergibt sich daraus, dass es zwei Nachrichten gibt die jeweils einmal jeden Clienten erreichen müssen. Dabei durchläuft die erste Nachricht, die Wahl N Clienten und die Nachricht, dass ein neuer Master gewählt wurde durchläuft ebenfalls noch einmal N Clienten.
+ 
+Die Eigenschaften des Algorithmus lassen sich so beschreiben
+ \begin{itemize}
+	\item Laufzeit von 2N
+	\item 2 Arten von Nachrichten "Wahl"-Nachricht mit ID Liste und "Gewählt"-Nachricht mit der neuen Master ID
+	\item Der Algorithmus findet in einer endlichen Anzahl von Clienten immer den neuen Master (höchste ID)
+	\item Alle Teilnehmenden Clienten setzten irgendwann ihren Master auf den gewählten Master 
+\end{itemize}
+%%Welche Grundlegenden Eigenschaften hat der Algorithmus
+%%was tut er und warum, wofür?
 
 \subsection{Spezifikation}
 Damit ein Modell erstellt werden kann, das den Algorithmus abbildet, müssen zunächst die charakteristischen Eigenschaften des Algorithmus bestimmt werden.
@@ -58,15 +66,45 @@ Der jeweilige Ablauf der Phasen lässt sich mit folgenden Punkten spezifieren:
 \end{table}
 
 \subsection{Modellierung}
-Wie haben wir ihn modelliert
--Gefärbtes netz
-- Ids
-- Guards
-Erklären an wo die spezifizierten Punkte im Netz zu finden sind.
+
+Für die Modellierung wurde der Algorithmus mithilfe der Spezifikation auf seine essentiellen Bestandteile herunter gebrochen und dann an die Möglichkeiten von Petri Netzen angepasst. Es musste ebenfalls verarbeitet werden, das die Möglichkeiten von \textit{Snoopy} hinsichtlich des Umfangs und der Mächtigkeit der Petri Netze eingeschränkt ist. So konnten zum Beispiel die ID Listen in den Nachrichten nicht umgesetzt werden. 
+
+
+Einige Eigenschaften des Algorithmus bereiten Probleme wenn sie in einem normalen Petri Netz abgebildet werden sollen. Dazu gehört:
+ \begin{enumerate}
+	\item Clienten haben eine eigene ID
+	\item Nachrichten übermitteln unterschiedliche Datenstrukturen (Nachrichten Art, ID Listen)
+	\item Bei unterschiedlichen Nachrichten reagiert der Client anders
+	\item 
+\end{enumerate}
+
+Einige dieser Probleme können dadurch gelöst werden indem ein farbiges Petri Netz genutzt wird (CPN). Dieses ermöglicht mithilfe von Farben und Konstanten jedem Clienten eine eigene ID zu geben. Durch Guards an den Transitionen und Variablen kann ein unterschiedliches Verhalten erzeugt werden. Ein Problem das sich damit allerdings nicht lösen lies war die Datenstrukturen. Ein Token kann nur einen einzigen Wert haben.
+
+Um dieses Problem zu beheben wurde der Algorithmus ein wenig verändert. Für die Modellierung werden keine ID Listen weiter gereicht sondern nur noch eine einzige ID und zwar die Lokal größte. Das bedeutet der Initiator schickt seine ID zu seinem Nachbarn. Dieser vergleicht die ID mit der eigenen und schickt die Größere weiter. Dies stellt keine Grundlegende Änderung in der Funktionsweise des Algorithmus dar sondern verschiebt bloß den Schritt des Vergleichs. Nun überprüft nicht mehr nur der Initiator welches die höchste ID ist, sondern jeder Client überprüft die eigene ID mit der empfangenen. Wie der Algorithmus nun im Detail abläuft wird im Folgenden beschrieben.
+
+Um den Algorithmus abzubilden wurde ein farbiges Petri Netz gewählt um den Token eine Gewichtung geben zu können die die ID der jeweiligen Clienten widerspiegelt. Des Weiteren war es notwendig an den Transitionen entscheiden zu können wann diese Schalten. Auch dies bietet das farbige Petri Netz (CPN) durch Guards.
+
+%%Wie haben wir ihn modelliert
+%%-Gefärbtes netz
+%%- Ids
+%%- Guards
+%%Erklären an wo die spezifizierten Punkte im Netz zu finden sind.
 
 \subsubsection{Das Netz}
 Hier Netzbild einbinden
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\linewidth]{./cpn}
+\caption{Der Token Ring ALgorithmus als farbiges Petri Netz}
+\label{fig:cpn}
+\end{figure}
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\linewidth]{./cpn_detail}
+\caption{Detailausschnitt eines Clienten}
+\label{fig:cpn_detail}
+\end{figure}
 
 
 
