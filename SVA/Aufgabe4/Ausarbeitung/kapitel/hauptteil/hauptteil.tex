@@ -90,6 +90,7 @@ Um den Algorithmus abzubilden wurde ein farbiges Petri Netz gewählt um den Toke
 %%- Guards
 %%Erklären an wo die spezifizierten Punkte im Netz zu finden sind.
 
+
 \subsubsection{Das Netz}
 Hier Netzbild einbinden
 \begin{figure}[H]
@@ -109,6 +110,30 @@ Hier Netzbild einbinden
 
 
 \subsection{Korrektheit}
+Um zu zeigen, dass das erstellte Modell dem Algorithmus entspricht, wird im Folgenden die Korrektheit bewiesen. Dazu wird die Existenz der spezifizierten Eigenschaften aus Tabelle \ref{table: algorithm_specification} im erstellten Petri-Netz durch CTL-Ausdrücke geprüft.
+
+\subsubsection{Umwandlung CPN zu PN}
+Das in Abschnitt \ref{sec:model} erstellte Modell ist ein farbiges Petri-Netz (engl: Colored Petri Net, Kurz: CPN), daher lässt sich darauf nicht die CTL anwenden. Um die CTL verwenden zu können, muss vorher das erstellte Netz in ein einfaches Petri-Netz umgewandelt werden.
+
+Das Modell-CPN verwendet einige Transition-Guards und einen Datentyp mit einem begrenzten Wertraum. Diese Logik ist nicht in einfachen Petri-Netzen erlaubt, daher muss sie umgewandelt werden.
+
+Wenn im CPN auf der Stelle \textit{P1} eine Token mit dem Wert \textit{3} liegt, wird dies im PN dargestellt indem auf der Stelle \textit{P1\_3} ein Token liegt. Die Transition-Guards des CPN werden im PN durch komplexe Stellen-Transitions-Schaltungen abgebildet.
+
+\subsubsection{Erreichbarkeitsgraph}
+Der Erreichbarkeitsgraph wird auf dem einfachen Petri-Netz gebildet, da die CTL-Ausdrücke auch auf dem einfachen Petri-Netz geprüft werden.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\linewidth]{reachibility_graph}
+\caption{Erreichbarkeitsgraph des PN}
+\label{fig:reachibility_graph}
+\end{figure}
+
+In Abbildung \ref{fig:reachibility_graph} ist der generierte Erreichbarkeitsgraph zu sehen. Es fällt auf, dass der Graph keine Abzweigungen hat, sondern nur einen Pfad enthält. Das bedeutet, dass der Algorithmus bei gleichen Bedingungen sich deterministisch verhält.
+
+Würde man die Bedingungen verändern, sodass bspw. ein anderer Client den Master-Ausfall bemerkt oder ein anderer Client hat die höchste ID, dann würde sich die Reihenfolge der Kanten im Erreichbarkeitsgraph verändern und die Knoten würden andere Stellen beinhalten. Der Erreichbarkeitsgraph wäre allerdings nach wie vor geradlinig.
+
+
 Warum ist der Algorithmus korrekt
 - Determinismus
 - es kann immer nur eine Transition schalten es gibt keine Parallelität
