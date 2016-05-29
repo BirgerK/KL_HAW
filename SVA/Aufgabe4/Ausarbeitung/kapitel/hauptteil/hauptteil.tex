@@ -40,6 +40,7 @@ Der Algorithmus (s. Abschnitt \ref{sec:algorithm_process}) lässt sich in folgen
 
 Der jeweilige Ablauf der Phasen lässt sich mit folgenden Punkten spezifieren:
 
+\begin{table}
 \begin{tabular}{|c|p{7,6cm}|}
 \hline Phase & Eigenschaft \\ 
 \hline Phase 1: Master-Ausfall bemerkt & Sendet Nachricht zum Wählen und hängt seine eigene ID daran \\ 
@@ -51,7 +52,10 @@ Der jeweilige Ablauf der Phasen lässt sich mit folgenden Punkten spezifieren:
 \cline{2-2} & Ein Client, der die Nachricht über einen Master erhält, teilt seinem Nachfolger diese Nachricht mit \\
 \cline{2-2} & Sobald der Client, der Phase 3 eingeleitet hat, die Nachricht über den neuen Master erhalten hat, terminiert der Algorithmus \\
 \hline 
-\end{tabular} 
+\end{tabular}
+\caption{Spezifikation der Phasen des Algorithmus}
+\label{table: algorithm_specification} 
+\end{table}
 
 \subsection{Modellierung}
 Wie haben wir ihn modelliert
