@@ -79,7 +79,9 @@ Das in Abschnitt \ref{sec:model} erstellte Modell ist ein farbiges Petri-Netz (e
 
 Das Modell-CPN verwendet einige Transition-Guards und einen Datentyp mit einem begrenzten Wertraum. Diese Logik ist nicht in einfachen Petri-Netzen erlaubt, daher muss sie umgewandelt werden.
 
-Wenn im CPN auf der Stelle \textit{P1} eine Token mit dem Wert \textit{3} liegt, wird dies im PN dargestellt indem auf der Stelle \textit{P1\_3} ein Token liegt. Die Transition-Guards des CPN werden im PN durch komplexe Stellen-Transitions-Schaltungen abgebildet.
+Wenn im CPN auf der Stelle \textit{P1} ein Token mit dem Wert \textit{3} liegt, wird dies im PN dargestellt indem auf der Stelle \textit{P1\_3} ein Token liegt. Die Transition-Guards des CPN werden im PN durch komplexe Stellen-Transitions-Schaltungen abgebildet. Es gibt daher für \textit{P1} für jeden Wert des Datentyps eine Stelle.
+
+Dadurch wird das PN im Vergleich zum CPN sehr groß und unübersichtlich.
 
 \subsubsection{Erreichbarkeitsgraph}
 Der Erreichbarkeitsgraph wird auf dem einfachen Petri-Netz gebildet, da die CTL-Ausdrücke auch auf dem einfachen Petri-Netz geprüft werden.
@@ -94,6 +96,8 @@ Der Erreichbarkeitsgraph wird auf dem einfachen Petri-Netz gebildet, da die CTL-
 In Abbildung \ref{fig:reachibility_graph} ist der generierte Erreichbarkeitsgraph zu sehen. Es fällt auf, dass der Graph keine Abzweigungen hat, sondern nur einen Pfad enthält. Das bedeutet, dass der Algorithmus bei gleichen Bedingungen sich deterministisch verhält.
 
 Würde man die Bedingungen verändern, sodass bspw. ein anderer Client den Master-Ausfall bemerkt oder ein anderer Client hat die höchste ID, dann würde sich die Reihenfolge der Kanten im Erreichbarkeitsgraph verändern und die Knoten würden andere Stellen beinhalten. Der Erreichbarkeitsgraph wäre allerdings nach wie vor geradlinig.
+
+\subsubsection{Prüfung durch CTL}
 
 
 Warum ist der Algorithmus korrekt
