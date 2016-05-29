@@ -41,16 +41,16 @@ Der Algorithmus (s. Abschnitt \ref{sec:algorithm_process}) lässt sich in folgen
 Der jeweilige Ablauf der Phasen lässt sich mit folgenden Punkten spezifieren:
 
 \begin{table}
-\begin{tabular}{|c|p{7,6cm}|}
-\hline Phase & Eigenschaft \\ 
-\hline Phase 1: Master-Ausfall bemerkt & Sendet Nachricht zum Wählen und hängt seine eigene ID daran \\ 
-\hline \multirow{3}*{Phase 2: Wahl} & Client, der Wahl-Nachricht erhält, hängt seine eigene ID an die Nachricht \\ 
-\cline{2-2} & Client sendet die erweiterte Nachricht an seinen Nachfolger \\ 
-\cline{2-2} & Sobald ein Client eine Wahl-Nachricht erhält, in der seine eigene ID bereits enthalten ist, geht der Algorithmus in Phase 3 über \\ 
-\hline \multirow{3}{*}{Phase 3: Neuen Master mitteilen} & Der Client, der feststellt, dass Phase 2 vorbei ist, sendet eine Nachricht mit dem neuen Master an seinen Nachfolger \\
-\cline{2-2} & Ein Client, der die Nachricht über einen Master erhält, merkt sich den neuen Master \\ 
-\cline{2-2} & Ein Client, der die Nachricht über einen Master erhält, teilt seinem Nachfolger diese Nachricht mit \\
-\cline{2-2} & Sobald der Client, der Phase 3 eingeleitet hat, die Nachricht über den neuen Master erhalten hat, terminiert der Algorithmus \\
+\begin{tabular}{|c|p{7,6cm}|c|}
+\hline Phase & Eigenschaft & Nr.\\ 
+\hline Phase 1: Master-Ausfall bemerkt & Sendet Nachricht zum Wählen und hängt seine eigene ID daran & 1\\ 
+\hline \multirow{3}*{Phase 2: Wahl} & Client, der Wahl-Nachricht erhält, hängt seine eigene ID an die Nachricht & 2\\ 
+\cline{2-3} & Client sendet die erweiterte Nachricht an seinen Nachfolger & 3\\ 
+\cline{2-3} & Sobald ein Client eine Wahl-Nachricht erhält, in der seine eigene ID bereits enthalten ist, geht der Algorithmus in Phase 3 über & 4\\ 
+\hline \multirow{3}{*}{Phase 3: Neuen Master mitteilen} & Der Client, der feststellt, dass Phase 2 vorbei ist, sendet eine Nachricht mit dem neuen Master an seinen Nachfolger & 5\\
+\cline{2-3} & Ein Client, der die Nachricht über einen Master erhält, merkt sich den neuen Master & 6\\ 
+\cline{2-3} & Ein Client, der die Nachricht über einen Master erhält, teilt seinem Nachfolger diese Nachricht mit & 7\\
+\cline{2-3} & Sobald der Client, der Phase 3 eingeleitet hat, die Nachricht über den neuen Master erhalten hat, terminiert der Algorithmus & 8\\
 \hline 
 \end{tabular}
 \caption{Spezifikation der Phasen des Algorithmus}
