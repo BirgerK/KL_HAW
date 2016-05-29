@@ -75,11 +75,11 @@ Hier Netzbild einbinden
 Um zu zeigen, dass das erstellte Modell dem Algorithmus entspricht, wird im Folgenden die Korrektheit bewiesen. Dazu wird die Existenz der spezifizierten Eigenschaften aus Tabelle \ref{table: algorithm_specification} im erstellten Petri-Netz durch CTL-Ausdrücke geprüft.
 
 \subsubsection{Umwandlung CPN zu PN}
-Das in Abschnitt \ref{sec:model} erstellte Modell ist ein farbiges Petri-Netz (engl: Colored Petri Net, Kurz: CPN), daher lässt sich darauf nicht die CTL anwenden. Um die CTL verwenden zu können, muss vorher das erstellte Netz in ein einfaches Petri-Netz umgewandelt werden.
+Das in Abschnitt \ref{sec:model} erstellte Modell ist ein farbiges Petri-Netz (engl: Colored Petri Net, kurz: CPN), daher lässt sich darauf nicht die CTL anwenden. Um die CTL verwenden zu können, muss vorher das erstellte Netz in ein einfaches Petri-Netz umgewandelt werden.
 
 Das Modell-CPN verwendet einige Transition-Guards und einen Datentyp mit einem begrenzten Wertraum. Diese Logik ist nicht in einfachen Petri-Netzen erlaubt, daher muss sie umgewandelt werden.
 
-Wenn im CPN auf der Stelle \textit{P1} ein Token mit dem Wert \textit{3} liegt, wird dies im PN dargestellt indem auf der Stelle \textit{P1\_3} ein Token liegt. Die Transition-Guards des CPN werden im PN durch komplexe Stellen-Transitions-Schaltungen abgebildet. Es gibt daher für \textit{P1} für jeden Wert des Datentyps eine Stelle.
+Wenn im CPN auf der Stelle \textit{P1} ein Token mit dem Wert \textit{3} liegt, wird dies im PN dargestellt indem auf der Stelle \textit{P1\_3} ein Token liegt. Es gibt daher für \textit{P1} für jeden Wert des Datentyps eine Stelle. Die Transition-Guards des CPN werden im PN durch komplexe Stellen-Transitions-Schaltungen abgebildet.
 
 Dadurch wird das PN im Vergleich zum CPN sehr groß und unübersichtlich.
 
@@ -95,12 +95,11 @@ Der Erreichbarkeitsgraph wird auf dem einfachen Petri-Netz gebildet, da die CTL-
 
 In Abbildung \ref{fig:reachibility_graph} ist der generierte Erreichbarkeitsgraph zu sehen. Es fällt auf, dass der Graph keine Abzweigungen hat, sondern nur einen Pfad enthält. Das bedeutet, dass der Algorithmus bei gleichen Bedingungen sich deterministisch verhält.
 
-Würde man die Bedingungen verändern, sodass bspw. ein anderer Client den Master-Ausfall bemerkt oder ein anderer Client hat die höchste ID, dann würde sich die Reihenfolge der Kanten im Erreichbarkeitsgraph verändern und die Knoten würden andere Stellen beinhalten. Der Erreichbarkeitsgraph wäre allerdings nach wie vor geradlinig.
+Würde man die Bedingungen verändern, sodass bspw. ein anderer Client den Master-Ausfall bemerkt oder ein anderer Client im Netzwerk hat die höchste ID, dann würde sich die Reihenfolge der Kanten im Erreichbarkeitsgraph verändern und die Knoten würden andere Stellen beinhalten. Der resultierende Erreichbarkeitsgraph wäre allerdings nach wie vor geradlinig.
 
 \subsubsection{Prüfung durch CTL}
+%TODO: Tabellen-Ref für Modell-Eigenschaften eintragen
+Auf Grundlage des einfachen PN kann nun die Korrektheit in Bezug auf die Modell-Eigenschaften aus Tabelle X festgestellt werden. Die Übersicht über alle verwendeten Ausdrücke ist in Tabelle \ref{table:correctness_proof} im Anhang zu finden.
 
-
-Warum ist der Algorithmus korrekt
-- Determinismus
-- es kann immer nur eine Transition schalten es gibt keine Parallelität
-- Erreichbarkeitsgraph zeigen und erklären
+%TODO: Richtigen Namen des Token-Ring-Algorithmus einfügen
+Die CTL-Ausdrücke lassen sich fehlerfrei auf das einfache Petri-Netz anwenden. Daher entspricht das erstellt CPN dem Token-Ring-Algorithmus von Chang\&Pang.
