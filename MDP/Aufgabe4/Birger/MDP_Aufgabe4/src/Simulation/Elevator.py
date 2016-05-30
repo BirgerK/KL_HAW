@@ -46,6 +46,7 @@ class Elevator:
                     self._door_status = DoorStatus.open
                     print ' call done'
                     self._current_call.call_status = CallStatus.done
+                    self._current_call.closed_at = env.now
                     self._calls.remove(self._current_call)
                     self._current_call = None
                     return
