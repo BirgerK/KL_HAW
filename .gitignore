@@ -36,3 +36,4 @@ slprj
 .settings
 .project
 .classpath
+*.pyc
