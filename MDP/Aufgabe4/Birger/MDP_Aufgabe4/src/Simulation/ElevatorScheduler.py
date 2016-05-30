@@ -36,9 +36,9 @@ class ElevatorScheduler:
 class ElevatorCall:
     def __init__(self, target_floor, opened_at):
         self._target_floor = target_floor
-        self.call_status = CallStatus.open
+        self._call_status = CallStatus.open
         self._opened_at = opened_at
-        self.closed_at = None
+        self._closed_at = None
 
     @property
     def target_floor(self):
@@ -56,6 +56,6 @@ class ElevatorCall:
     def closed_at(self):
         return self._closed_at
 
-    @call_status.setter
+    @closed_at.setter
     def closed_at(self, value):
         self._closed_at = value
