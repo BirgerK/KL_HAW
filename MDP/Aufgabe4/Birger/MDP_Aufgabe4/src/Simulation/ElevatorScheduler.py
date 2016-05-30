@@ -1,6 +1,7 @@
 import Queue
 
-from Simulation.Elevator import Status, Elevator
+from Simulation.Elevator import Elevator
+from Simulation.Statuses import CallStatus, ElevatorStatus
 
 
 class ElevatorScheduler:
@@ -28,14 +29,23 @@ class ElevatorScheduler:
         while not self._elevator_calls.empty():
             elevator_call = self._elevator_calls.get()
             for elevator in self._elevators:
-                if elevator.status == Status.waiting:
-                    elevator.add_floor_to_targets(elevator_call.target_floor)
+                if elevator.status == ElevatorStatus.waiting:
+                    elevator.add_floor_to_targets(elevator_call)
 
 
 class ElevatorCall:
     def __init__(self, target_floor):
         self._target_floor = target_floor
+        self.call_status = CallStatus.open
 
     @property
     def target_floor(self):
         return self._target_floor
+
+    @property
+    def call_status(self):
+        return self._call_status
+
+    @call_status.setter
+    def call_status(self, value):
+        self._call_status = value
