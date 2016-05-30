@@ -72,12 +72,11 @@ Für die Modellierung wurde der Algorithmus mithilfe der Spezifikation auf seine
 
 Einige Eigenschaften des Algorithmus bereiten Probleme wenn sie in einem normalen Petri Netz abgebildet werden sollen. Dazu gehört:
  \begin{enumerate}
-	\item Clienten haben eine eigene ID
+ 	\item Clienten haben eine eigene ID
 	\item Nachrichten übermitteln unterschiedliche Datenstrukturen (Nachrichten Art, ID Listen)
 	\item Bei unterschiedlichen Nachrichten reagiert der Client anders
-	\item 
-\end{enumerate}
-
+ \end{enumerate}
+		 	
 Einige dieser Probleme können dadurch gelöst werden indem ein farbiges Petri Netz genutzt wird (CPN). Dieses ermöglicht mithilfe von Farben und Konstanten jedem Clienten eine eigene ID zu geben. Durch Guards an den Transitionen und Variablen kann ein unterschiedliches Verhalten erzeugt werden. Ein Problem das sich damit allerdings nicht lösen lies war die Datenstrukturen. Ein Token kann nur einen einzigen Wert haben.
 
 Um dieses Problem zu beheben wurde der Algorithmus ein wenig verändert. Für die Modellierung werden keine ID Listen weiter gereicht sondern nur noch eine einzige ID und zwar die Lokal größte. Das bedeutet der Initiator schickt seine ID zu seinem Nachbarn. Dieser vergleicht die ID mit der eigenen und schickt die Größere weiter. Dies stellt keine Grundlegende Änderung in der Funktionsweise des Algorithmus dar sondern verschiebt bloß den Schritt des Vergleichs. Nun überprüft nicht mehr nur der Initiator welches die höchste ID ist, sondern jeder Client überprüft die eigene ID mit der empfangenen. Wie der Algorithmus nun im Detail abläuft wird im Folgenden beschrieben.
@@ -92,13 +91,19 @@ Um den Algorithmus abzubilden wurde ein farbiges Petri Netz gewählt um den Toke
 
 
 \subsubsection{Das Netz}
-Hier Netzbild einbinden
+In der untenstehenden Abbildung ist das gesamte Netz zu sehen, dass das Ergebnis der Modellierung war. Um eine gewisse Übersichtlichkeit zu wahren wurden nur drei Clienten modelliert. Dies reicht um die Funktionalität des Algorithmus zu modellieren hält aber den Komplexitätslevel und vor allem die Unübersichtlichkeit in Grenzen. 
+
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\linewidth]{./cpn}
 \caption{Der Token Ring ALgorithmus als farbiges Petri Netz}
 \label{fig:cpn}
 \end{figure}
+
+Das Netz besteht im Grunde aus einem Konstrukt das sich dreimal wiederholt. Die Nachrichtenleitung wurde durch drei Stellen umgesetzt und zwar \textit{Pipe_1 - Pipe_3}. Zwischen diesen Stellen befindet sich jeweils ein aus fünf Transitionen und zwei Stellen bestehendes Konstrukt das jeweils einen Clienten darstellt. Die untenstehende Abbildung zeigt einen Clienten zur Veranschaulichung. 
+
+Ein Client \textit{P_{n}} bekommt Nachrichten immer von der Nachrichtenleitung \textit{P_n} und sendet Nachrichten auf die Leitung \textit{P_{n+1}}. Die ankommente Nachricht am Client hat die Möglichkeit fünf Transitionen zu schalten. Die Guards an den Transitionen sind allerdings so gewählt das niemals alle geschaltet werden können. Wirklich notwendig für den Algorithmus sind vier der Transitionen, die fünfte \textit{terminiert_n} ist dafür da, dass die Token aufhören zu wandern wenn die Wahl getroffen ist und die Leitung damit frei ist. Dies ist eine reine Formsache. Die anderen vier Transitionen vergleichen den Token der von \textit{Pipe_n} kommt mit dem Token der auf \textit{P_n} liegt. De
 
 \begin{figure}[H]
 \centering
@@ -107,7 +112,7 @@ Hier Netzbild einbinden
 \label{fig:cpn_detail}
 \end{figure}
 
-
+\subsection{Ablauf}
 
 \subsection{Korrektheit}
 Um zu zeigen, dass das erstellte Modell dem Algorithmus entspricht, wird im Folgenden die Korrektheit bewiesen. Dazu wird die Existenz der spezifizierten Eigenschaften aus Tabelle \ref{table: algorithm_specification} im erstellten Petri-Netz durch CTL-Ausdrücke geprüft.
