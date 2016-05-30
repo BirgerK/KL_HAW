@@ -97,13 +97,14 @@ In der untenstehenden Abbildung ist das gesamte Netz zu sehen, dass das Ergebnis
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\linewidth]{./cpn}
-\caption{Der Token Ring ALgorithmus als farbiges Petri Netz}
+\caption{Der Token Ring Algorithmus als farbiges Petri Netz}
 \label{fig:cpn}
 \end{figure}
 
 Das Netz besteht im Grunde aus einem Konstrukt das sich dreimal wiederholt. Die Nachrichtenleitung wurde durch drei Stellen umgesetzt und zwar \textit{Pipe_1 - Pipe_3}. Zwischen diesen Stellen befindet sich jeweils ein aus fünf Transitionen und zwei Stellen bestehendes Konstrukt das jeweils einen Clienten darstellt. Die untenstehende Abbildung zeigt einen Clienten zur Veranschaulichung. 
 
-Ein Client \textit{P_{n}} bekommt Nachrichten immer von der Nachrichtenleitung \textit{P_n} und sendet Nachrichten auf die Leitung \textit{P_{n+1}}. Die ankommente Nachricht am Client hat die Möglichkeit fünf Transitionen zu schalten. Die Guards an den Transitionen sind allerdings so gewählt das niemals alle geschaltet werden können. Wirklich notwendig für den Algorithmus sind vier der Transitionen, die fünfte \textit{terminiert_n} ist dafür da, dass die Token aufhören zu wandern wenn die Wahl getroffen ist und die Leitung damit frei ist. Dies ist eine reine Formsache. Die anderen vier Transitionen vergleichen den Token der von \textit{Pipe_n} kommt mit dem Token der auf \textit{P_n} liegt. De
+Ein Client \textit{P_{n}} bekommt Nachrichten immer von der Nachrichtenleitung \textit{P_n} und sendet Nachrichten auf die Leitung \textit{P_{n+1}}. Die ankommende Nachricht am Client hat die Möglichkeit fünf Transitionen zu schalten. Die Guards an den Transitionen sind allerdings so gewählt das niemals alle geschaltet werden können sondern höchstens eine. Den Algorithmus bilden davon vier der Transitionen ab, die fünfte \textit{terminiert_n} ist dafür da, dass die Token aufhören zu wandern wenn die Wahl getroffen ist und geben die Leitung damit frei. Dies ist eine reine Formsache. Die anderen vier Transitionen vergleichen den Token der von \textit{Pipe_n} kommt mit dem Token der auf \textit{P_n} liegt. Jede Transition kümmert sich um einen Vergleich \textit{kleiner_n} überprüft ob das neue Token kleiner ist als das gespeicherte,\textit{groesser_n} ob das kommende Token größer ist aber nicht so groß wie der 'Gewählt'-Token, \textit{gleich_n} überprüft ob es das Token ist das bereits gespeichert wurde und \textit{bestaetigung_n} ermittelt ob es die 'Gewählt'-Nachricht ist. Je nachdem welche Transition schaltet werden unterschiedliche Aktionen ausgeführt. Ist das ankommende Token kleiner (es schaltet \textit{kleiner_n}) wird es ignoriert und das eigene Token als größeres weitergeleitet, also auf \textit{Pipe_N+1} gelegt und wieder gespeichert also auf \textit{Pn} geschoben. Ist das kommende Token größer (es schaltet \textit{groesser_n}) wird das kommende Token auf \textit{Pipe_N+1} weitergeleitet und in \textit{Pn} gespeichert. Wenn die Transition \textit{gleich_n} schaltet sind die beiden Token gleich. Dadurch wird die Phase gewechselt. Also aus der  in \ref{table: algorithm_specification} definierten Phase 2 der Wahl in die Phase drei Bekanntgeben des neuen Masters gewechselt. Es wird das 'Gewählt'-Token initialisiert und auf \textit{Pipe_N+1} gelegt. Das bis eben gespeicherte Token wandert auf die Stelle \textit{gewaehltN}. Die vierte Transition regelt den Fall, dass ein 'Gewählt'-Token kommt. Wenn dies geschiet schaltet die Transition nur in dem Fall, dass der Client die Nachricht nicht selbst initialisiert hat. Nur dann kann die \textit{bestaetigung_n} Transition schalten. Hat der Client selbst die 'Gewählt'-Nachricht initialisiert liegt auf \textit{Pn} kein Token mehr. In diesem Fall schaltet die \textit{terminiert_N} Transition und zieht den 'Gewählt'-Token von der Pipe. Diese Transition kann nur dann schalten weil dann bereits der gespeicherte Token auf der \textit{gewaehltN} Stelle liegt.
+An dieser Stelle terminiert der Algorithmus und alle Clienten haben die höchste ID auf der \textit{gewaehltN} Stelle liegen.
 
 \begin{figure}[H]
 \centering
@@ -113,6 +114,10 @@ Ein Client \textit{P_{n}} bekommt Nachrichten immer von der Nachrichtenleitung \
 \end{figure}
 
 \subsection{Ablauf}
+Phase 1
+	Initialisieren 
+	
+
 
 \subsection{Korrektheit}
 Um zu zeigen, dass das erstellte Modell dem Algorithmus entspricht, wird im Folgenden die Korrektheit bewiesen. Dazu wird die Existenz der spezifizierten Eigenschaften aus Tabelle \ref{table: algorithm_specification} im erstellten Petri-Netz durch CTL-Ausdrücke geprüft.
