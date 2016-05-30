@@ -27,9 +27,9 @@ class ElevatorScheduler:
 
     def schedule_elevator_calls(self):
         while not self._elevator_calls.empty():
-            elevator_call = self._elevator_calls.get()
             for elevator in self._elevators:
                 if elevator.status == ElevatorStatus.waiting:
+                    elevator_call = self._elevator_calls.get()
                     elevator.add_floor_to_targets(elevator_call)
 
 
