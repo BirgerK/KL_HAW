@@ -7,7 +7,7 @@ SIMULATION_TIMEOUT = 15
 
 class Simulation:
     SIMULATION_TIMESTEP = 1
-    AMOUNT_ELEVATORS = 1
+    AMOUNT_ELEVATORS = 2
 
     _elevator_calls = [
         {'target_floor': 2, 'after': 5},
@@ -26,11 +26,14 @@ class Simulation:
 
     def add_elevator_call(self):
         for elevator_call in self._elevator_calls:
-            yield self._env.timeout(elevator_call['after'])
-            print str(self._env.now) + ': add call'
-            new_call = ElevatorCall(elevator_call['target_floor'], self._env.now)
-            self._all_happened_elevator_calls.append(new_call)
-            self._elevator_scheduler.add_elevator_call(new_call)
+            new_call = ElevatorCall(elevator_call['after'], elevator_call['target_floor'], self._env.now)
+            self._env.process(self.add_elevator_call_process(new_call))
+
+    def add_elevator_call_process(self, elevator_call):
+        yield self._env.timeout(elevator_call.open_at)
+        print str(self._env.now) + ': add call'
+        self._all_happened_elevator_calls.append(elevator_call)
+        self._elevator_scheduler.add_elevator_call(elevator_call)
 
 
 if __name__ == "__main__":
@@ -41,7 +44,7 @@ if __name__ == "__main__":
     simulation_process = env.process(simulation.run_simulation())
 
     print 'add elevator calls to simulation'
-    elevator_call_process = env.process(simulation.add_elevator_call())
+    simulation.add_elevator_call()
 
     print 'starting simulation'
     print '#####################'

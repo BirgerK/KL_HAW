@@ -20,3 +20,4 @@ class CallStatus(Enum):
     open = 'open'
     progress = 'progress'
     done = 'done'
+    duplicate = 'duplicate'
