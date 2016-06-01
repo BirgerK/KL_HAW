@@ -130,11 +130,13 @@ class ElevatorCall(object):
         self._call_status = CallStatus.open
         self._open_at = open_at
         self._opened_at = opened_at
+        self._takenup_at = None
         self._closed_at = None
 
     def update_status(self, floor_reached, timestamp):
         if self._call_status == CallStatus.open and self._call_on_floor == floor_reached:
             self._call_status = CallStatus.takeaway
+            self._takenup_at = timestamp
         if self._call_status == CallStatus.takeaway and self._target_floor == floor_reached:
             print '  call done'
             self._call_status = CallStatus.done
