@@ -5,7 +5,7 @@ from Simulation.Elevator import Elevator
 from Simulation.Statuses import CallStatus, Direction
 
 
-class ElevatorScheduler:
+class ElevatorScheduler(object):
     'A scheduler for elevators'
 
     def __init__(self, amount_elevators):
@@ -15,7 +15,6 @@ class ElevatorScheduler:
             self._elevators.append(Elevator(elevator_number, 0))
 
     def do_every_timestep(self, env):
-        print str(env.now) + ': do scheduler-stuff'
         self.schedule_elevator_calls()
         self.let_elevators_act(env)
 
@@ -33,8 +32,9 @@ class ElevatorScheduler:
                 elevator_call.call_status = CallStatus.duplicate
             else:
                 fastest_elevator_for_call = self.get_fastest_elevator_for_call(elevator_call)
-                fastest_elevator_for_call.set_calls(
-                    self.get_sorted_call_into_calls(fastest_elevator_for_call, elevator_call))
+                fastest_elevator_for_call.calls = self.get_sorted_call_into_calls(fastest_elevator_for_call,
+                                                                                  fastest_elevator_for_call.calls,
+                                                                                  elevator_call)
 
     def is_duplicate_call(self, elevator_call):
         result = False
@@ -50,7 +50,7 @@ class ElevatorScheduler:
 
         for elevator in self._elevators:
             estimated_costs = 0
-            new_call_list = self.get_sorted_call_into_calls(elevator, elevator_call)
+            new_call_list = self.get_sorted_call_into_calls(elevator, elevator.calls, elevator_call)
             estimated_costs += self.get_time_until_call_is_done(elevator.current_floor, new_call_list, elevator_call)
             estimated_costs += self.get_latency_for_calls_behind_call(elevator.current_floor, new_call_list,
                                                                       elevator_call)
@@ -59,35 +59,44 @@ class ElevatorScheduler:
                 fastest_elevator = elevator
         return fastest_elevator
 
-    def get_sorted_call_into_calls(self, elevator, elevator_call):
+    @staticmethod
+    def get_priorized_floor_list(elevator):
+        result = []
+        for elevator_call in elevator.calls:
+            result = ElevatorScheduler.get_sorted_call_into_calls(elevator, result, elevator_call)
+        return result
+
+    @staticmethod
+    def get_sorted_call_into_calls(elevator, elevator_calls, elevator_call):
         if not elevator.calls:
             return [elevator_call]
         else:
-            calls = list(elevator.calls)
+            calls = list(elevator_calls)
             current_floor = elevator.current_floor
-            if elevator.direction == Direction.up and elevator_call.target_floor >= current_floor:
+            target_floor = elevator_call.next_relevant_floor
+            if elevator.direction == Direction.up and target_floor >= current_floor:
                 for temp_call in calls:
-                    if elevator_call.target_floor < temp_call.target_floor:
+                    if target_floor < temp_call.next_relevant_floor:
                         calls.insert(calls.index(temp_call), elevator_call)
                         break
-            elif elevator.direction == Direction.down and elevator_call.target_floor <= current_floor:
+            elif elevator.direction == Direction.down and target_floor <= current_floor:
                 for temp_call in calls:
-                    if elevator_call.target_floor > temp_call.target_floor:
+                    if target_floor > temp_call.next_relevant_floor:
                         calls.insert(calls.index(temp_call), elevator_call)
                         break
             else:
                 if elevator.direction is None:
                     # elevator is not driving now. we have to assume a direction
                     assumed_direction = Elevator.get_direction_by_floors(elevator.current_floor,
-                                                                         elevator.calls[0].target_floor)
-                    if assumed_direction == Direction.up and elevator_call.target_floor >= current_floor:
+                                                                         elevator.target_floor)
+                    if assumed_direction == Direction.up and target_floor >= current_floor:
                         for temp_call in calls:
-                            if elevator_call.target_floor < temp_call.target_floor:
+                            if target_floor < temp_call.next_relevant_floor:
                                 calls.insert(calls.index(temp_call), elevator_call)
                                 break
-                    elif assumed_direction == Direction.down and elevator_call.target_floor <= current_floor:
+                    elif assumed_direction == Direction.down and target_floor <= current_floor:
                         for temp_call in calls:
-                            if elevator_call.target_floor > temp_call.target_floor:
+                            if target_floor > temp_call.next_relevant_floor:
                                 calls.insert(calls.index(temp_call), elevator_call)
                                 break
                     else:
@@ -105,7 +114,7 @@ class ElevatorScheduler:
 
         time = 0
         for call in calls_must_be_done_before_call:
-            time += self.estimate_driving_time(current_floor, call.target_floor)
+            time += self.estimate_driving_time(current_floor, call.next_relevant_floor)
             time += 2  # time for closing and opening doors
 
         return time
@@ -114,17 +123,35 @@ class ElevatorScheduler:
         return abs(current_floor - target_floor)
 
 
-class ElevatorCall:
-    def __init__(self, open_at, target_floor, opened_at):
+class ElevatorCall(object):
+    def __init__(self, open_at, call_on_floor, target_floor, opened_at):
+        self._call_on_floor = call_on_floor
         self._target_floor = target_floor
         self._call_status = CallStatus.open
         self._open_at = open_at
         self._opened_at = opened_at
         self._closed_at = None
 
+    def update_status(self, floor_reached, timestamp):
+        if self._call_status == CallStatus.open and self._call_on_floor == floor_reached:
+            self._call_status = CallStatus.takeaway
+        if self._call_status == CallStatus.takeaway and self._target_floor == floor_reached:
+            print '  call done'
+            self._call_status = CallStatus.done
+            self._closed_at = timestamp
+
     @property
-    def target_floor(self):
-        return self._target_floor
+    def next_relevant_floor(self):
+        result = None
+        if self._call_status == CallStatus.open or self._call_status == CallStatus.pickup:
+            result = self._call_on_floor
+        if self._call_status == CallStatus.takeaway:
+            result = self._target_floor
+        return result
+
+    # @property
+    # def target_floor(self):
+    #     return self._target_floor
 
     @property
     def call_status(self):

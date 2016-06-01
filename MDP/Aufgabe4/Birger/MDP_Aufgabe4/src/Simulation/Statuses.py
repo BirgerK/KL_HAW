@@ -18,6 +18,7 @@ class Direction(Enum):
 
 class CallStatus(Enum):
     open = 'open'
-    progress = 'progress'
+    pickup = 'pickup'
+    takeaway = 'takeaway'
     done = 'done'
     duplicate = 'duplicate'
