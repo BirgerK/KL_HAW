@@ -172,6 +172,10 @@ class ElevatorCall(object):
         return self._opened_at
 
     @property
+    def takenup_at(self):
+        return self._takenup_at
+
+    @property
     def closed_at(self):
         return self._closed_at
 

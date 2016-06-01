@@ -1,6 +1,7 @@
 import simpy
 
 import Simulation as sim
+from Monitoring.Monitoring import plot_calls_done_per_time
 from Simulation.Statuses import Direction
 
 SIMULATION_TIMEOUT = 15
@@ -50,3 +51,7 @@ if __name__ == "__main__":
     print '#####################'
     print ''
     env.run(until=SIMULATION_TIMEOUT)
+    print ''
+    print '#####################'
+    print 'end simulation'
+    plot_calls_done_per_time(all_happened_elevator_calls)
