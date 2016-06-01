@@ -6,8 +6,8 @@ from Simulation.Statuses import Direction
 
 SIMULATION_TIMEOUT = 15
 SIMULATION_TIMESTEP = 1
-AMOUNT_ELEVATORS = 2
-MAX_FLOOR = 10
+AMOUNT_ELEVATORS = 3
+MAX_FLOOR = 8
 
 elevator_calls = [
     {'floor': 2, 'target_floor': 0, 'direction': Direction.down, 'after': 5},
