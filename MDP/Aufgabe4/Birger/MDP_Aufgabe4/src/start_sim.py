@@ -1,40 +1,57 @@
 import simpy
 
-from Simulation.ElevatorScheduler import ElevatorScheduler, ElevatorCall
+import Simulation as sim
+from Monitoring.Monitoring import plot_calls_done_per_time
+from Simulation.Statuses import Direction
 
 SIMULATION_TIMEOUT = 15
+SIMULATION_TIMESTEP = 1
+AMOUNT_ELEVATORS = 3
+MAX_FLOOR = 8
+
+elevator_calls = [
+    {'floor': 2, 'target_floor': 0, 'direction': Direction.down, 'after': 5},
+    {'floor': 1, 'target_floor': 0, 'direction': Direction.down, 'after': 5}
+]
+all_happened_elevator_calls = []
 
 
-class Simulation:
-    SIMULATION_TIMESTEP = 1
-    AMOUNT_ELEVATORS = 1
+def run_simulation():
+    while True:
+        print str(env.now) + ': '
+        elevator_scheduler.do_every_timestep(env)
+        yield env.timeout(SIMULATION_TIMESTEP)
 
-    def __init__(self, env):
-        self._env = env
-        self._elevator_scheduler = ElevatorScheduler(self.AMOUNT_ELEVATORS)
 
-    def run_simulation(self):
-        while True:
-            self._elevator_scheduler.do_every_timestep(env)
-            yield self._env.timeout(self.SIMULATION_TIMESTEP)
+def add_elevator_call():
+    for elevator_call in elevator_calls:
+        new_call = sim.ElevatorScheduler.ElevatorCall(elevator_call['after'], elevator_call['floor'],
+                                                      elevator_call['target_floor'], env.now)
+        env.process(add_elevator_call_process(new_call))
 
-    def add_elevator_call(self):
-        yield self._env.timeout(5)
-        print str(self._env.now) + ': add call'
-        self._elevator_scheduler.add_elevator_call(ElevatorCall(1))
+
+def add_elevator_call_process(elevator_call):
+    yield env.timeout(elevator_call.open_at)
+    print str(env.now) + ': add call'
+    all_happened_elevator_calls.append(elevator_call)
+    elevator_scheduler.add_elevator_call(elevator_call)
 
 
 if __name__ == "__main__":
     env = simpy.Environment()
-    simulation = Simulation(env)
+    elevator_scheduler = sim.ElevatorScheduler.ElevatorScheduler(AMOUNT_ELEVATORS)
 
     print 'add elevator-scheduler to simulation'
-    simulation_process = env.process(simulation.run_simulation())
+    simulation_process = env.process(run_simulation())
 
     print 'add elevator calls to simulation'
-    elevator_call_process = env.process(simulation.add_elevator_call())
+    add_elevator_call()
 
     print 'starting simulation'
     print '#####################'
     print ''
     env.run(until=SIMULATION_TIMEOUT)
+    print ''
+    print '#####################'
+    print 'end simulation'
+    plot_calls_done_per_time(all_happened_elevator_calls)
