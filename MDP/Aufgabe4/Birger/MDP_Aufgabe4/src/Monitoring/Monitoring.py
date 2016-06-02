@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import collections
 
+import start_sim
 from Simulation.Statuses import CallStatus
 
 

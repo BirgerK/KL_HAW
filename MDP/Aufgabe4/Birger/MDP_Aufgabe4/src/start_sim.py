@@ -3,7 +3,7 @@ import json
 import simpy
 
 import Simulation as sim
-from Monitoring.Monitoring import plot_calls_done_per_time
+import Monitoring.Monitoring as monitor
 from Simulation.Statuses import Direction
 
 SIMULATION_TIMEOUT = 50
@@ -87,4 +87,4 @@ if __name__ == "__main__":
     print ''
     print '#####################'
     print 'end simulation'
-    plot_calls_done_per_time(all_happened_elevator_calls)
+    monitor.plot_calls_done_per_time(all_happened_elevator_calls)
