@@ -20,6 +20,7 @@ def get_average_waiting_time(elevator_calls):
 
 def plot_calls_done_per_time(elevator_calls):
     calls_done_per_time = {}
+    calls_done = 0
     for elevator_call in elevator_calls:
         if elevator_call.call_status == CallStatus.done:
             if elevator_call.closed_at in calls_done_per_time:
@@ -28,6 +29,10 @@ def plot_calls_done_per_time(elevator_calls):
                 calls_done_per_time[elevator_call.closed_at] = 1
 
     ordered = collections.OrderedDict(sorted(calls_done_per_time.items()))
+
+    for time, counter in ordered.iteritems():
+        calls_done += counter
+        ordered[time] = calls_done
 
     plt.plot(ordered.keys(), ordered.values())
     plt.xlabel('time')
