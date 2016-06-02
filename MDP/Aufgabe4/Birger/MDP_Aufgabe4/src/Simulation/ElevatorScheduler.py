@@ -12,7 +12,7 @@ class ElevatorScheduler(object):
         self._elevators = []
         self._elevator_calls = Queue.Queue()
         for elevator_number in range(1, amount_elevators + 1):
-            self._elevators.append(Elevator(elevator_number, 0))
+            self._elevators.append(Elevator(elevator_number, 0, self))
 
     def do_every_timestep(self, env):
         self.schedule_elevator_calls()
@@ -59,8 +59,7 @@ class ElevatorScheduler(object):
                 fastest_elevator = elevator
         return fastest_elevator
 
-    @staticmethod
-    def get_priorized_floor_list(elevator):
+    def get_priorized_call_list(self, elevator):
         result = []
         for elevator_call in elevator.calls:
             result = ElevatorScheduler.get_sorted_call_into_calls(elevator, result, elevator_call)

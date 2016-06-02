@@ -1,4 +1,3 @@
-import Simulation
 import start_sim
 from Simulation.Statuses import ElevatorStatus, DoorStatus, Direction, CallStatus
 
@@ -6,13 +5,14 @@ from Simulation.Statuses import ElevatorStatus, DoorStatus, Direction, CallStatu
 class Elevator(object):
     'An elevator which transports people vertically in a building.'
 
-    def __init__(self, elevator_id, start_in_floor):
+    def __init__(self, elevator_id, start_in_floor, scheduler):
         self._id = elevator_id
         self._current_floor = start_in_floor
         self._calls = []
         self._direction = None
         self._status = ElevatorStatus.waiting
         self._door_status = DoorStatus.open
+        self._scheduler = scheduler
 
     def is_driving_in_direction_of(self, floor):
         result = False
@@ -43,6 +43,7 @@ class Elevator(object):
                     self._door_status = DoorStatus.open
                     self.update_call_statuses(env.now)
                     self.cleanup_calls()
+                    self._scheduler.get_priorized_call_list(self)
                     self._direction = None
                     return
                 self._direction = self.get_direction_by_floors(self._current_floor, target_floor)
