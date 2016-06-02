@@ -27,6 +27,7 @@ class Elevator(object):
         if self._status == ElevatorStatus.waiting and self.stop_in_floors:
             print '  elevator is getting busy'
             self._status = ElevatorStatus.busy
+            self._direction = Elevator.get_direction_by_floors(self._current_floor, self.target_floor)
             print '  target set to floor ' + str(self.target_floor)
         elif self._status == ElevatorStatus.busy:
             if self._door_status == DoorStatus.open:
@@ -60,10 +61,12 @@ class Elevator(object):
 
     def update_call_statuses(self, now):
         for call in self._calls:
+            call.processed_by_elevator = self._id
             call.update_status(self._current_floor, now)
 
     def cleanup_calls(self):
-        for call in self._calls:
+        calls = list(self._calls)
+        for call in calls:
             if call.call_status == CallStatus.done:
                 self._calls.remove(call)
 

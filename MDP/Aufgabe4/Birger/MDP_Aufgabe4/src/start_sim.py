@@ -1,18 +1,47 @@
+import json
+
 import simpy
 
 import Simulation as sim
 from Monitoring.Monitoring import plot_calls_done_per_time
 from Simulation.Statuses import Direction
 
-SIMULATION_TIMEOUT = 15
+SIMULATION_TIMEOUT = 50
 SIMULATION_TIMESTEP = 1
 AMOUNT_ELEVATORS = 3
 MAX_FLOOR = 8
 
-elevator_calls = [
-    {'floor': 2, 'target_floor': 0, 'direction': Direction.down, 'after': 5},
-    {'floor': 1, 'target_floor': 0, 'direction': Direction.down, 'after': 5}
-]
+elevator_calls = [{'target_floor': 5, 'direction': 1, 'after': 8, 'floor': 6},
+                  {'target_floor': 4, 'direction': 1, 'after': 8, 'floor': 7},
+                  {'target_floor': 3, 'direction': 0, 'after': 30, 'floor': 7},
+                  {'target_floor': 8, 'direction': 0, 'after': 6, 'floor': 8},
+                  {'target_floor': 8, 'direction': 1, 'after': 23, 'floor': 3},
+                  {'target_floor': 2, 'direction': 0, 'after': 7, 'floor': 6},
+                  {'target_floor': 5, 'direction': 1, 'after': 6, 'floor': 0},
+                  {'target_floor': 1, 'direction': 0, 'after': 17, 'floor': 4},
+                  {'target_floor': 3, 'direction': 0, 'after': 33, 'floor': 8},
+                  {'target_floor': 8, 'direction': 1, 'after': 21, 'floor': 6},
+                  {'target_floor': 0, 'direction': 1, 'after': 3, 'floor': 3},
+                  {'target_floor': 4, 'direction': 0, 'after': 9, 'floor': 7},
+                  {'target_floor': 7, 'direction': 0, 'after': 35, 'floor': 7},
+                  {'target_floor': 0, 'direction': 1, 'after': 34, 'floor': 4},
+                  {'target_floor': 8, 'direction': 1, 'after': 10, 'floor': 2},
+                  {'target_floor': 6, 'direction': 0, 'after': 37, 'floor': 3},
+                  {'target_floor': 5, 'direction': 1, 'after': 30, 'floor': 0},
+                  {'target_floor': 2, 'direction': 1, 'after': 22, 'floor': 1},
+                  {'target_floor': 6, 'direction': 1, 'after': 14, 'floor': 5},
+                  {'target_floor': 2, 'direction': 1, 'after': 14, 'floor': 0},
+                  {'target_floor': 2, 'direction': 0, 'after': 30, 'floor': 1},
+                  {'target_floor': 3, 'direction': 1, 'after': 3, 'floor': 2},
+                  {'target_floor': 4, 'direction': 0, 'after': 25, 'floor': 5},
+                  {'target_floor': 1, 'direction': 0, 'after': 2, 'floor': 2},
+                  {'target_floor': 1, 'direction': 0, 'after': 19, 'floor': 3},
+                  {'target_floor': 2, 'direction': 1, 'after': 32, 'floor': 5},
+                  {'target_floor': 3, 'direction': 0, 'after': 36, 'floor': 5},
+                  {'target_floor': 3, 'direction': 0, 'after': 27, 'floor': 0},
+                  {'target_floor': 6, 'direction': 1, 'after': 36, 'floor': 3},
+                  {'target_floor': 7, 'direction': 1, 'after': 9, 'floor': 6}]
+
 all_happened_elevator_calls = []
 
 
@@ -25,6 +54,10 @@ def run_simulation():
 
 def add_elevator_call():
     for elevator_call in elevator_calls:
+        if elevator_call['direction']:
+            direction = Direction.up
+        else:
+            direction = Direction.down
         new_call = sim.ElevatorScheduler.ElevatorCall(elevator_call['after'], elevator_call['floor'],
                                                       elevator_call['target_floor'], env.now)
         env.process(add_elevator_call_process(new_call))
@@ -32,7 +65,7 @@ def add_elevator_call():
 
 def add_elevator_call_process(elevator_call):
     yield env.timeout(elevator_call.open_at)
-    print str(env.now) + ': add call'
+    print str(env.now) + ': add call: ' + str(elevator_call.__dict__)
     all_happened_elevator_calls.append(elevator_call)
     elevator_scheduler.add_elevator_call(elevator_call)
 

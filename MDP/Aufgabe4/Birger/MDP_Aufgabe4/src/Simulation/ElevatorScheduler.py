@@ -74,32 +74,59 @@ class ElevatorScheduler(object):
             current_floor = elevator.current_floor
             target_floor = elevator_call.next_relevant_floor
             if elevator.direction == Direction.up and target_floor >= current_floor:
+                max_floor = -1
+                max_floor_index = -1
                 for temp_call in calls:
                     if target_floor < temp_call.next_relevant_floor:
+                        if temp_call.next_relevant_floor > max_floor:
+                            max_floor = temp_call.next_relevant_floor
+                            max_floor_index = calls.index(temp_call)
                         calls.insert(calls.index(temp_call), elevator_call)
                         break
+                if not elevator_call in calls:
+                    calls.insert(max_floor_index + 1, elevator_call)
             elif elevator.direction == Direction.down and target_floor <= current_floor:
+                min_floor = sys.maxint
+                min_floor_index = sys.maxint
                 for temp_call in calls:
+                    if temp_call.next_relevant_floor < min_floor:
+                        min_floor = temp_call.next_relevant_floor
+                        min_floor_index = calls.index(temp_call)
                     if target_floor > temp_call.next_relevant_floor:
                         calls.insert(calls.index(temp_call), elevator_call)
                         break
-            else:
-                if elevator.direction is None:
-                    # elevator is not driving now. we have to assume a direction
-                    assumed_direction = Elevator.get_direction_by_floors(elevator.current_floor,
-                                                                         elevator.target_floor)
-                    if assumed_direction == Direction.up and target_floor >= current_floor:
-                        for temp_call in calls:
-                            if target_floor < temp_call.next_relevant_floor:
-                                calls.insert(calls.index(temp_call), elevator_call)
-                                break
-                    elif assumed_direction == Direction.down and target_floor <= current_floor:
-                        for temp_call in calls:
-                            if target_floor > temp_call.next_relevant_floor:
-                                calls.insert(calls.index(temp_call), elevator_call)
-                                break
-                    else:
-                        calls.append(elevator_call)
+                if not elevator_call in calls:
+                    calls.insert(min_floor_index + 1, elevator_call)
+            elif elevator.direction is None:
+                # elevator is not driving now. we have to assume a direction
+                assumed_direction = Elevator.get_direction_by_floors(elevator.current_floor,
+                                                                     elevator.target_floor)
+                if assumed_direction == Direction.up and target_floor >= current_floor:
+                    max_floor = -1
+                    max_floor_index = -1
+                    for temp_call in calls:
+                        if temp_call.next_relevant_floor > max_floor:
+                            max_floor = temp_call.next_relevant_floor
+                            max_floor_index = calls.index(temp_call)
+                        if target_floor < temp_call.next_relevant_floor:
+                            calls.insert(calls.index(temp_call), elevator_call)
+                            break
+                    if not elevator_call in calls:
+                        calls.insert(max_floor_index + 1, elevator_call)
+                elif assumed_direction == Direction.down and target_floor <= current_floor:
+                    min_floor = sys.maxint
+                    min_floor_index = sys.maxint
+                    for temp_call in calls:
+                        if temp_call.next_relevant_floor < min_floor:
+                            min_floor = temp_call.next_relevant_floor
+                            min_floor_index = calls.index(temp_call)
+                        if target_floor > temp_call.next_relevant_floor:
+                            calls.insert(calls.index(temp_call), elevator_call)
+                            break
+                    if not elevator_call in calls:
+                        calls.insert(min_floor_index + 1, elevator_call)
+            if not elevator_call in calls:
+                calls.append(elevator_call)
             return calls
 
     def get_latency_for_calls_behind_call(self, current_floor, elevator_calls, elevator_call):
@@ -131,6 +158,7 @@ class ElevatorCall(object):
         self._opened_at = opened_at
         self._takenup_at = None
         self._closed_at = None
+        self._processed_by_elevator = None
 
     def update_status(self, floor_reached, timestamp):
         if self._call_status == CallStatus.open and self._call_on_floor == floor_reached:
@@ -181,3 +209,11 @@ class ElevatorCall(object):
     @closed_at.setter
     def closed_at(self, value):
         self._closed_at = value
+
+    @property
+    def processed_by_elevat(self):
+        return self._processed_by_elevator
+
+    @processed_by_elevat.setter
+    def processed_by_elevat(self, value):
+        self._processed_by_elevator = value
