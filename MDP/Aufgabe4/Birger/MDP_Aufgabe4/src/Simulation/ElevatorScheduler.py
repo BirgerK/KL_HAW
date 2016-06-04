@@ -84,7 +84,7 @@ class ElevatorScheduler(object):
                             max_floor_index = calls.index(temp_call)
                         calls.insert(calls.index(temp_call), elevator_call)
                         break
-                if not elevator_call in calls:
+                if not elevator_call in calls and max_floor != -1:
                     calls.insert(max_floor_index + 1, elevator_call)
             elif elevator.direction == Direction.down and target_floor <= current_floor:
                 min_floor = sys.maxint
@@ -96,7 +96,7 @@ class ElevatorScheduler(object):
                     if target_floor > temp_call.next_relevant_floor:
                         calls.insert(calls.index(temp_call), elevator_call)
                         break
-                if not elevator_call in calls:
+                if not elevator_call in calls and min_floor != sys.maxint:
                     calls.insert(min_floor_index + 1, elevator_call)
             elif elevator.direction is None:
                 # elevator is not driving now. we have to assume a direction

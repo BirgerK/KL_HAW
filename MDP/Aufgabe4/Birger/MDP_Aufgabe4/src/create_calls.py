@@ -1,6 +1,6 @@
 import random
+
 import start_sim
-from Simulation.Statuses import Direction
 
 AMOUNT_CALLS = 30
 
@@ -15,6 +15,5 @@ if __name__ == "__main__":
         call['floor'] = random.randint(0, start_sim.MAX_FLOOR)
         call['target_floor'] = random.randint(0, start_sim.MAX_FLOOR)
 
-        call['direction'] = random.randint(0, 1)
         calls.append(call)
     print calls

@@ -1,41 +1,53 @@
-import matplotlib.pyplot as plt
 import collections
 
-import start_sim
-from Simulation.Statuses import CallStatus
+import matplotlib.pyplot as plt
+
+import Simulation.Statuses as statuses
+
+calls_per_time = {}
 
 
-def get_average_waiting_time(elevator_calls):
-    sum = 0
-    amount = 0
-    for elevator_call in elevator_calls:
-        if elevator_call.call_status == CallStatus.done or elevator_call.call_status == CallStatus.takeaway:
-            sum += (elevator_call.takenup_at - elevator_call.opened_at)
-            amount += 1
-    if sum == 0 or amount == 0:
-        average_waiting_time = 0
-    else:
-        average_waiting_time = sum / amount
-    return average_waiting_time
-
-
-def plot_calls_done_per_time(elevator_calls):
+def plot_calls_done_per_time():
     calls_done_per_time = {}
-    calls_done = 0
-    for elevator_call in elevator_calls:
-        if elevator_call.call_status == CallStatus.done:
-            if elevator_call.closed_at in calls_done_per_time:
-                calls_done_per_time[elevator_call.closed_at] += 1
-            else:
-                calls_done_per_time[elevator_call.closed_at] = 1
+    for timestamp, calls in calls_per_time.iteritems():
+        calls_done = 0
+        for call in calls:
+            if call.call_status == statuses.CallStatus.done:
+                calls_done += 1
+        calls_done_per_time[timestamp] = calls_done
 
     ordered = collections.OrderedDict(sorted(calls_done_per_time.items()))
-
-    for time, counter in ordered.iteritems():
-        calls_done += counter
-        ordered[time] = calls_done
 
     plt.plot(ordered.keys(), ordered.values())
     plt.xlabel('time')
     plt.ylabel('calls done')
     plt.show()
+
+
+def plot_waitingtime_per_time():
+    waitingtime_per_time = {}
+    for timestamp, calls in calls_per_time.iteritems():
+        waitingtime_per_time[timestamp] = get_average_waitingtime_by_calls(calls)
+
+    ordered = collections.OrderedDict(sorted(waitingtime_per_time.items()))
+
+    plt.plot(ordered.keys(), ordered.values())
+    plt.xlabel('time')
+    plt.ylabel('average waitingtime')
+    plt.show()
+
+
+def get_average_waitingtime_by_calls(calls):
+    result = 0
+    accu = 0
+
+    if len(calls):
+        for call in calls:
+            if call.call_status == statuses.CallStatus.done or call.call_status == statuses.CallStatus.takeaway:
+                accu += (call.takenup_at - call.opened_at)
+        result = accu / len(calls)
+    return result
+
+
+def collect_calls_on_time(timestamp, all_calls):
+    calls_per_time[timestamp] = list(all_calls)

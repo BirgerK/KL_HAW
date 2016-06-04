@@ -4,14 +4,13 @@ import time
 
 import simpy
 
+import Monitoring.Monitoring as monitor
 import Monitoring.UserInterface
 import Simulation as sim
 from Simulation.Statuses import Direction
 
 SIMULATION_TIMEOUT = 50
 SIMULATION_TIMESTEP = 1
-AMOUNT_ELEVATORS = 3
-MAX_FLOOR = 8
 
 use_interface = False
 
@@ -54,17 +53,18 @@ def run_simulation():
         # print str(env.now) + ': '
         elevator_scheduler.do_every_timestep(env)
         if use_interface:
-            ui.update_view(elevator_scheduler.elevators)
+            ui.update_view(elevator_scheduler.elevators, env)
             time.sleep(1)
+        monitor.collect_calls_on_time(env.now, all_happened_elevator_calls)
         yield env.timeout(SIMULATION_TIMESTEP)
 
 
 def add_elevator_call():
     for elevator_call in elevator_calls:
-        if elevator_call['direction']:
-            direction = Direction.up
-        else:
+        if elevator_call['floor'] >= elevator_call['target_floor']:
             direction = Direction.down
+        else:
+            direction = Direction.up
         new_call = sim.ElevatorScheduler.ElevatorCall(elevator_call['after'], elevator_call['floor'],
                                                       elevator_call['target_floor'], env.now)
         env.process(add_elevator_call_process(new_call))
@@ -88,7 +88,7 @@ if __name__ == "__main__":
         use_interface = False
 
     env = simpy.Environment()
-    elevator_scheduler = sim.ElevatorScheduler.ElevatorScheduler(AMOUNT_ELEVATORS)
+    elevator_scheduler = sim.ElevatorScheduler.ElevatorScheduler(sim.AMOUNT_ELEVATORS)
 
     # print 'add elevator-scheduler to simulation'
     simulation_process = env.process(run_simulation())
@@ -107,4 +107,7 @@ if __name__ == "__main__":
     # print ''
     # print '#####################'
     # print 'end simulation'
-    # monitor.plot_calls_done_per_time(all_happened_elevator_calls)
+    if use_interface:
+        ui.close_terminal()
+    monitor.plot_calls_done_per_time()
+    monitor.plot_waitingtime_per_time()

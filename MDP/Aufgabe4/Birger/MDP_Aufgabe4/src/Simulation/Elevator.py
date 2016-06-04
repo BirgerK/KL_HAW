@@ -1,4 +1,4 @@
-import start_sim
+import Simulation
 from Simulation.Statuses import ElevatorStatus, DoorStatus, Direction, CallStatus
 
 
@@ -75,7 +75,7 @@ class Elevator(object):
         result = None
         if end_floor is None:
             return None
-        if start_floor >= start_sim.MAX_FLOOR:
+        if start_floor >= Simulation.MAX_FLOOR:
             result = Direction.down
         if start_floor < end_floor:
             result = Direction.up
