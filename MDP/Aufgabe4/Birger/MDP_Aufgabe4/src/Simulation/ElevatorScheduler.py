@@ -28,21 +28,10 @@ class ElevatorScheduler(object):
     def schedule_elevator_calls(self):
         while not self._elevator_calls.empty():
             elevator_call = self._elevator_calls.get()
-            if self.is_duplicate_call(elevator_call):
-                elevator_call.call_status = CallStatus.duplicate
-            else:
-                fastest_elevator_for_call = self.get_fastest_elevator_for_call(elevator_call)
-                fastest_elevator_for_call.calls = self.get_sorted_call_into_calls(fastest_elevator_for_call,
+            fastest_elevator_for_call = self.get_fastest_elevator_for_call(elevator_call)
+            fastest_elevator_for_call.calls = self.get_sorted_call_into_calls(fastest_elevator_for_call,
                                                                                   fastest_elevator_for_call.calls,
                                                                                   elevator_call)
-
-    def is_duplicate_call(self, elevator_call):
-        result = False
-        for elevator in self._elevators:
-            if elevator_call in elevator.calls:
-                result = True
-                break
-        return result
 
     def get_fastest_elevator_for_call(self, elevator_call):
         shortest_time = sys.maxint
@@ -66,8 +55,18 @@ class ElevatorScheduler(object):
         return result
 
     @staticmethod
+    def is_duplicate_target(self, calls, target_floor):
+        result = False
+
+        for call in calls:
+            if call.next_relevant_floor == target_floor:
+                result = call
+
+        return result
+
+    @staticmethod
     def get_sorted_call_into_calls(elevator, elevator_calls, elevator_call):
-        if not elevator.calls:
+        if not elevator_calls:
             return [elevator_call]
         else:
             calls = list(elevator_calls)
@@ -78,7 +77,7 @@ class ElevatorScheduler(object):
                 max_floor_index = -1
                 for temp_call in calls:
                     if target_floor < temp_call.next_relevant_floor:
-                        if temp_call.next_relevant_floor > max_floor:
+                        if temp_call.next_relevant_floor >= max_floor:
                             max_floor = temp_call.next_relevant_floor
                             max_floor_index = calls.index(temp_call)
                         calls.insert(calls.index(temp_call), elevator_call)
@@ -89,7 +88,7 @@ class ElevatorScheduler(object):
                 min_floor = sys.maxint
                 min_floor_index = sys.maxint
                 for temp_call in calls:
-                    if temp_call.next_relevant_floor < min_floor:
+                    if temp_call.next_relevant_floor <= min_floor:
                         min_floor = temp_call.next_relevant_floor
                         min_floor_index = calls.index(temp_call)
                     if target_floor > temp_call.next_relevant_floor:
@@ -105,7 +104,7 @@ class ElevatorScheduler(object):
                     max_floor = -1
                     max_floor_index = -1
                     for temp_call in calls:
-                        if temp_call.next_relevant_floor > max_floor:
+                        if temp_call.next_relevant_floor >= max_floor:
                             max_floor = temp_call.next_relevant_floor
                             max_floor_index = calls.index(temp_call)
                         if target_floor < temp_call.next_relevant_floor:
@@ -117,7 +116,7 @@ class ElevatorScheduler(object):
                     min_floor = sys.maxint
                     min_floor_index = sys.maxint
                     for temp_call in calls:
-                        if temp_call.next_relevant_floor < min_floor:
+                        if temp_call.next_relevant_floor <= min_floor:
                             min_floor = temp_call.next_relevant_floor
                             min_floor_index = calls.index(temp_call)
                         if target_floor > temp_call.next_relevant_floor:

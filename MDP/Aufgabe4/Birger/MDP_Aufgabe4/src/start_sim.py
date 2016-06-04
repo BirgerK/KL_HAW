@@ -1,19 +1,18 @@
 import signal
 import time
 
-import json
-
 import simpy
 
 import Monitoring.UserInterface
 import Simulation as sim
-import Monitoring.Monitoring as monitor
 from Simulation.Statuses import Direction
 
 SIMULATION_TIMEOUT = 50
 SIMULATION_TIMESTEP = 1
 AMOUNT_ELEVATORS = 3
 MAX_FLOOR = 8
+
+USE_INTERFACE = False
 
 elevator_calls = [{'target_floor': 5, 'direction': 1, 'after': 8, 'floor': 6},
                   {'target_floor': 4, 'direction': 1, 'after': 8, 'floor': 7},
@@ -53,8 +52,9 @@ def run_simulation():
     while True:
         # print str(env.now) + ': '
         elevator_scheduler.do_every_timestep(env)
-        ui.update_view(elevator_scheduler.elevators)
-        time.sleep(1)
+        if USE_INTERFACE:
+            ui.update_view(elevator_scheduler.elevators)
+            time.sleep(1)
         yield env.timeout(SIMULATION_TIMESTEP)
 
 
@@ -92,7 +92,8 @@ if __name__ == "__main__":
     add_elevator_call()
 
     # print 'init interface'
-    ui = Monitoring.UserInterface.UserInterface()
+    if USE_INTERFACE:
+        ui = Monitoring.UserInterface.UserInterface()
 
     # print 'starting simulation'
     # print '#####################'
