@@ -9,7 +9,7 @@ import Monitoring.UserInterface
 import Simulation as sim
 from Simulation.Statuses import Direction
 
-SIMULATION_TIMEOUT = 50
+SIMULATION_TIMEOUT = 70
 SIMULATION_TIMESTEP = 1
 
 use_interface = False

@@ -27,9 +27,9 @@ class Elevator(object):
         if self._status == ElevatorStatus.waiting and self.stop_in_floors:
             # print '  elevator is getting busy'
             self._status = ElevatorStatus.busy
+        elif self._status == ElevatorStatus.busy:
             self._direction = Elevator.get_direction_by_floors(self._current_floor, self.target_floor)
             # print '  target set to floor ' + str(self.target_floor)
-        elif self._status == ElevatorStatus.busy:
             if self._door_status == DoorStatus.open:
                 # print '  doors closed'
                 self._door_status = DoorStatus.closed
@@ -39,7 +39,6 @@ class Elevator(object):
                 if self._current_floor == target_floor:
                     # print '  target reached'
                     # target_floor is reached
-                    self._status = ElevatorStatus.waiting
                     # print '  doors opened'
                     self._door_status = DoorStatus.open
                     if not self.is_going_to_drive_in_current_direction():
@@ -47,6 +46,8 @@ class Elevator(object):
                     self.update_call_statuses(env.now)
                     self.cleanup_calls()
                     self._calls = self._scheduler.get_priorized_call_list(self)
+                    if not self.stop_in_floors:
+                        self._status = ElevatorStatus.waiting
                     return
                 self._direction = self.get_direction_by_floors(self._current_floor, target_floor)
                 if self._direction == Direction.up:

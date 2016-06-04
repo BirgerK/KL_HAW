@@ -1,8 +1,7 @@
-import Queue
 import sys
 
 from Simulation.Elevator import Elevator
-from Simulation.Statuses import CallStatus, Direction, DoorStatus
+from Simulation.Statuses import CallStatus, Direction, DoorStatus, ElevatorStatus
 
 
 class ElevatorScheduler(object):
@@ -10,7 +9,7 @@ class ElevatorScheduler(object):
 
     def __init__(self, amount_elevators):
         self._elevators = []
-        self._elevator_calls = Queue.Queue()
+        self._elevator_calls = []
         for elevator_number in range(1, amount_elevators + 1):
             self._elevators.append(Elevator(elevator_number, 0, self))
 
@@ -19,35 +18,39 @@ class ElevatorScheduler(object):
         self.let_elevators_act(env)
 
     def add_elevator_call(self, call):
-        self._elevator_calls.put(call)
+        self._elevator_calls.append(call)
 
     def let_elevators_act(self, env):
         for elevator in self._elevators:
             elevator.act(env)
 
     def schedule_elevator_calls(self):
-        while not self._elevator_calls.empty():
-            elevator_call = self._elevator_calls.get()
+        calls = list(self._elevator_calls)
+        for elevator_call in calls:
             fastest_elevator_for_call = self.get_fastest_elevator_for_call(elevator_call)
-            fastest_elevator_for_call.calls = self.get_sorted_call_into_calls(fastest_elevator_for_call,
+            if fastest_elevator_for_call:
+                fastest_elevator_for_call.calls = self.get_sorted_call_into_calls(fastest_elevator_for_call,
                                                                                   fastest_elevator_for_call.calls,
                                                                                   elevator_call)
+                self._elevator_calls.remove(elevator_call)
 
     def get_fastest_elevator_for_call(self, elevator_call):
         shortest_time = sys.maxint
         fastest_elevator = None
 
         for elevator in self._elevators:
-            estimated_costs = 0
-            new_call_list = self.get_sorted_call_into_calls(elevator, elevator.calls, elevator_call)
-            estimated_costs += self.get_time_until_call_is_done(elevator.current_floor, elevator.door_status,
-                                                                new_call_list, elevator_call)
-            estimated_costs += self.get_latency_for_calls_behind_call(elevator.current_floor, elevator.door_status,
-                                                                      new_call_list,
-                                                                      elevator_call)
-            if estimated_costs < shortest_time:
-                shortest_time = estimated_costs
-                fastest_elevator = elevator
+            if elevator.status == ElevatorStatus.waiting or elevator.is_driving_in_direction_of(
+                    elevator_call.next_relevant_floor):
+                estimated_costs = 0
+                new_call_list = self.get_sorted_call_into_calls(elevator, elevator.calls, elevator_call)
+                estimated_costs += self.get_time_until_call_is_done(elevator.current_floor, elevator.door_status,
+                                                                    new_call_list, elevator_call)
+                estimated_costs += self.get_latency_for_calls_behind_call(elevator.current_floor, elevator.door_status,
+                                                                          new_call_list,
+                                                                          elevator_call)
+                if estimated_costs < shortest_time:
+                    shortest_time = estimated_costs
+                    fastest_elevator = elevator
         return fastest_elevator
 
     def get_priorized_call_list(self, elevator):
