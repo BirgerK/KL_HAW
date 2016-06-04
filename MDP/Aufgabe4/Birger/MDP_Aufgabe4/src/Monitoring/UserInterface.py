@@ -35,7 +35,7 @@ class UserInterface:
         curses.echo()
         curses.endwin()
 
-    def update_view(self, elevators, env):
+    def update_view(self, elevators, elevator_calls, env):
         scrn = self._screen
         max_floor = sim.MAX_FLOOR + 1
 
@@ -51,7 +51,7 @@ class UserInterface:
         self.write_floors(floors_base_x, floors_base_y, len(elevators))
         self.write_floor_numbers(floornumbers_base_x, floornumbers_base_y)
         self.write_elevators(elevators, floors_base_x, floors_base_y)
-        self.write_status(statusbox_base_x, statusbox_base_y, elevators, env)
+        self.write_status(statusbox_base_x, statusbox_base_y, elevators, elevator_calls, env)
 
         scrn.refresh()
 
@@ -108,14 +108,17 @@ class UserInterface:
             scrn.addstr(elevator_base_y, elevator_base_x, direction)
             scrn.addstr(elevator_base_y + 1, elevator_base_x, door_status)
 
-    def write_status(self, base_x, base_y, elevators, env):
+    def write_status(self, base_x, base_y, elevators, elevator_calls, env):
         scrn = self._screen
 
         time_str = 'Time: ' + str(env.now)
         scrn.addstr(base_y, base_x, time_str)
+        calls_str = 'Call-Queue: [' + ','.join(str(call.next_relevant_floor) for call in elevator_calls) + ']'
+        scrn.addstr(base_y + 1, base_x, calls_str)
+
 
         for elevator in elevators:
-            elevatorstatusbox_y = base_y + 1 + ((elevator.id - 1) * ELEVATORSTATUSBOX_HEIGHT)
+            elevatorstatusbox_y = base_y + 2 + ((elevator.id - 1) * ELEVATORSTATUSBOX_HEIGHT)
             self.write_elevator_status(base_x, elevatorstatusbox_y, elevator)
 
     def write_elevator_status(self, base_x, base_y, elevator):

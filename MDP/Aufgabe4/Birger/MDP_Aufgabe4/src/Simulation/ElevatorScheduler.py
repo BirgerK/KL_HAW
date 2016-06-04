@@ -159,6 +159,10 @@ class ElevatorScheduler(object):
     def elevators(self):
         return self._elevators
 
+    @property
+    def elevator_calls(self):
+        return self._elevator_calls
+
 
 class ElevatorCall(object):
     def __init__(self, open_at, call_on_floor, target_floor, opened_at):

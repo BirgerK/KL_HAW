@@ -53,7 +53,7 @@ def run_simulation():
         # print str(env.now) + ': '
         elevator_scheduler.do_every_timestep(env)
         if use_interface:
-            ui.update_view(elevator_scheduler.elevators, env)
+            ui.update_view(elevator_scheduler.elevators, elevator_scheduler.elevator_calls, env)
             time.sleep(1)
         monitor.collect_calls_on_time(env.now, all_happened_elevator_calls)
         yield env.timeout(SIMULATION_TIMESTEP)
