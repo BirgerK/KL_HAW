@@ -106,3 +106,4 @@ if __name__ == "__main__":
         ui.close_terminal()
     monitor.plot_calls_done_per_time()
     monitor.plot_waitingtime_per_time()
+    monitor.show_plots()

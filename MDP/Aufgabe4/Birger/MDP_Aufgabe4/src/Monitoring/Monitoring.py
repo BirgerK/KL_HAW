@@ -18,10 +18,12 @@ def plot_calls_done_per_time():
 
     ordered = collections.OrderedDict(sorted(calls_done_per_time.items()))
 
+    plt.figure(1)
+    plt.subplot(211)
     plt.plot(ordered.keys(), ordered.values())
     plt.xlabel('time')
     plt.ylabel('calls done')
-    plt.show()
+    plt.draw()
 
 
 def plot_waitingtime_per_time():
@@ -31,9 +33,15 @@ def plot_waitingtime_per_time():
 
     ordered = collections.OrderedDict(sorted(waitingtime_per_time.items()))
 
+    plt.figure(1)
+    plt.subplot(212)
     plt.plot(ordered.keys(), ordered.values())
     plt.xlabel('time')
     plt.ylabel('average waitingtime')
+    plt.draw()
+
+
+def show_plots():
     plt.show()
 
 
