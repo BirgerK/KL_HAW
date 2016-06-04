@@ -17,9 +17,9 @@ class Elevator(object):
     def is_driving_in_direction_of(self, floor):
         result = False
         if self._direction == Direction.up:
-            result = floor > self._current_floor
+            result = floor >= self._current_floor
         if self._direction == Direction.down:
-            result = floor < self._current_floor
+            result = floor <= self._current_floor
         return result
 
     def act(self, env):

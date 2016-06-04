@@ -39,8 +39,8 @@ class ElevatorScheduler(object):
         fastest_elevator = None
 
         for elevator in self._elevators:
-            if elevator.status == ElevatorStatus.waiting or elevator.is_driving_in_direction_of(
-                    elevator_call.next_relevant_floor):
+            if elevator.status == ElevatorStatus.waiting or (elevator.is_driving_in_direction_of(
+                    elevator_call.next_relevant_floor) and elevator.direction == elevator_call.direction):
                 estimated_costs = 0
                 new_call_list = self.get_sorted_call_into_calls(elevator, elevator.calls, elevator_call)
                 estimated_costs += self.get_time_until_call_is_done(elevator.current_floor, elevator.door_status,
@@ -196,6 +196,15 @@ class ElevatorCall(object):
     # @property
     # def target_floor(self):
     #     return self._target_floor
+
+    @property
+    def direction(self):
+        direction = None
+        if self._call_on_floor >= self._target_floor:
+            direction = Direction.down
+        else:
+            direction = Direction.up
+        return direction
 
     @property
     def call_on_floor(self):

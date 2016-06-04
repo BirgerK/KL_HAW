@@ -7,7 +7,6 @@ import simpy
 import Monitoring.Monitoring as monitor
 import Monitoring.UserInterface
 import Simulation as sim
-from Simulation.Statuses import Direction
 
 SIMULATION_TIMEOUT = 70
 SIMULATION_TIMESTEP = 1
@@ -61,10 +60,6 @@ def run_simulation():
 
 def add_elevator_call():
     for elevator_call in elevator_calls:
-        if elevator_call['floor'] >= elevator_call['target_floor']:
-            direction = Direction.down
-        else:
-            direction = Direction.up
         new_call = sim.ElevatorScheduler.ElevatorCall(elevator_call['after'], elevator_call['floor'],
                                                       elevator_call['target_floor'], env.now)
         env.process(add_elevator_call_process(new_call))
