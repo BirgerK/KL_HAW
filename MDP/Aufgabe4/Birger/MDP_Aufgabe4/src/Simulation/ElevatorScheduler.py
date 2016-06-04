@@ -101,7 +101,7 @@ class ElevatorScheduler(object):
             elif elevator.direction is None:
                 # elevator is not driving now. we have to assume a direction
                 assumed_direction = Elevator.get_direction_by_floors(elevator.current_floor,
-                                                                     elevator.target_floor)
+                                                                     calls[0].next_relevant_floor)
                 if assumed_direction == Direction.up and target_floor >= current_floor:
                     max_floor = -1
                     max_floor_index = -1
@@ -191,6 +191,14 @@ class ElevatorCall(object):
     #     return self._target_floor
 
     @property
+    def call_on_floor(self):
+        return self._call_on_floor
+
+    @property
+    def target_floor(self):
+        return self._target_floor
+
+    @property
     def call_status(self):
         return self._call_status
 
@@ -219,9 +227,9 @@ class ElevatorCall(object):
         self._closed_at = value
 
     @property
-    def processed_by_elevat(self):
+    def processed_by_elevator(self):
         return self._processed_by_elevator
 
-    @processed_by_elevat.setter
-    def processed_by_elevat(self, value):
+    @processed_by_elevator.setter
+    def processed_by_elevator(self, value):
         self._processed_by_elevator = value

@@ -42,10 +42,11 @@ class Elevator(object):
                     self._status = ElevatorStatus.waiting
                     # print '  doors opened'
                     self._door_status = DoorStatus.open
+                    if not self.is_going_to_drive_in_current_direction():
+                        self._direction = None
                     self.update_call_statuses(env.now)
                     self.cleanup_calls()
-                    self._scheduler.get_priorized_call_list(self)
-                    self._direction = None
+                    self._calls = self._scheduler.get_priorized_call_list(self)
                     return
                 self._direction = self.get_direction_by_floors(self._current_floor, target_floor)
                 if self._direction == Direction.up:
@@ -58,6 +59,17 @@ class Elevator(object):
                     return
                     # else:
                     # print '  but nothing to do'
+
+    def is_going_to_drive_in_current_direction(self):
+        result = False
+
+        for target in self.stop_in_floors:
+            if self.direction == Direction.up and target >= self.current_floor:
+                result = True
+            if self.direction == Direction.down and target < self.current_floor:
+                result = True
+
+        return result
 
     def update_call_statuses(self, now):
         for call in self._calls:
