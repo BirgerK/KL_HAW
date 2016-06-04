@@ -2,7 +2,7 @@ import Queue
 import sys
 
 from Simulation.Elevator import Elevator
-from Simulation.Statuses import CallStatus, Direction
+from Simulation.Statuses import CallStatus, Direction, DoorStatus
 
 
 class ElevatorScheduler(object):
@@ -40,8 +40,10 @@ class ElevatorScheduler(object):
         for elevator in self._elevators:
             estimated_costs = 0
             new_call_list = self.get_sorted_call_into_calls(elevator, elevator.calls, elevator_call)
-            estimated_costs += self.get_time_until_call_is_done(elevator.current_floor, new_call_list, elevator_call)
-            estimated_costs += self.get_latency_for_calls_behind_call(elevator.current_floor, new_call_list,
+            estimated_costs += self.get_time_until_call_is_done(elevator.current_floor, elevator.door_status,
+                                                                new_call_list, elevator_call)
+            estimated_costs += self.get_latency_for_calls_behind_call(elevator.current_floor, elevator.door_status,
+                                                                      new_call_list,
                                                                       elevator_call)
             if estimated_costs < shortest_time:
                 shortest_time = estimated_costs
@@ -128,19 +130,22 @@ class ElevatorScheduler(object):
                 calls.append(elevator_call)
             return calls
 
-    def get_latency_for_calls_behind_call(self, current_floor, elevator_calls, elevator_call):
+    def get_latency_for_calls_behind_call(self, current_floor, door_status, elevator_calls, elevator_call):
         calls_behind_call = elevator_calls[elevator_calls.index(elevator_call): len(elevator_calls) + 1]
-        time_until_call_is_done = self.get_time_until_call_is_done(current_floor, elevator_calls, elevator_call)
+        time_until_call_is_done = self.get_time_until_call_is_done(current_floor, door_status, elevator_calls,
+                                                                   elevator_call)
 
         return time_until_call_is_done * len(calls_behind_call)
 
-    def get_time_until_call_is_done(self, current_floor, elevator_calls, elevator_call):
+    def get_time_until_call_is_done(self, current_floor, door_status, elevator_calls, elevator_call):
         calls_must_be_done_before_call = elevator_calls[0:elevator_calls.index(elevator_call) + 1]
 
         time = 0
         for call in calls_must_be_done_before_call:
-            time += self.estimate_driving_time(current_floor, call.next_relevant_floor)
-            time += 2  # time for closing and opening doors
+            target_floor = call.next_relevant_floor
+            time += self.estimate_driving_time(current_floor, target_floor)
+            time += 2 if door_status == DoorStatus.open else 1  # time for closing and opening doors
+            current_floor = target_floor
 
         return time
 
