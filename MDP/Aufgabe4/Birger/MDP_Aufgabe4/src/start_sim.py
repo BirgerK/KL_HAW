@@ -1,4 +1,5 @@
 import signal
+import sys
 import time
 
 import simpy
@@ -12,7 +13,7 @@ SIMULATION_TIMESTEP = 1
 AMOUNT_ELEVATORS = 3
 MAX_FLOOR = 8
 
-USE_INTERFACE = False
+use_interface = False
 
 elevator_calls = [{'target_floor': 5, 'direction': 1, 'after': 8, 'floor': 6},
                   {'target_floor': 4, 'direction': 1, 'after': 8, 'floor': 7},
@@ -52,7 +53,7 @@ def run_simulation():
     while True:
         # print str(env.now) + ': '
         elevator_scheduler.do_every_timestep(env)
-        if USE_INTERFACE:
+        if use_interface:
             ui.update_view(elevator_scheduler.elevators)
             time.sleep(1)
         yield env.timeout(SIMULATION_TIMESTEP)
@@ -81,6 +82,10 @@ def terminate(signal, frame):
 
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, terminate)
+    if sys.stdout.isatty():
+        use_interface = True
+    else:
+        use_interface = False
 
     env = simpy.Environment()
     elevator_scheduler = sim.ElevatorScheduler.ElevatorScheduler(AMOUNT_ELEVATORS)
@@ -92,7 +97,7 @@ if __name__ == "__main__":
     add_elevator_call()
 
     # print 'init interface'
-    if USE_INTERFACE:
+    if use_interface:
         ui = Monitoring.UserInterface.UserInterface()
 
     # print 'starting simulation'
