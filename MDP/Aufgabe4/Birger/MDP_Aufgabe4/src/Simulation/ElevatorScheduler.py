@@ -148,6 +148,10 @@ class ElevatorScheduler(object):
     def estimate_driving_time(self, current_floor, target_floor):
         return abs(current_floor - target_floor)
 
+    @property
+    def elevators(self):
+        return self._elevators
+
 
 class ElevatorCall(object):
     def __init__(self, open_at, call_on_floor, target_floor, opened_at):
@@ -165,7 +169,7 @@ class ElevatorCall(object):
             self._call_status = CallStatus.takeaway
             self._takenup_at = timestamp
         if self._call_status == CallStatus.takeaway and self._target_floor == floor_reached:
-            print '  call done'
+            # print '  call done'
             self._call_status = CallStatus.done
             self._closed_at = timestamp
 

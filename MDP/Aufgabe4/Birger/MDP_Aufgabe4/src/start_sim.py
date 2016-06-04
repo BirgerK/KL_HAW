@@ -1,7 +1,11 @@
+import signal
+import time
+
 import json
 
 import simpy
 
+import Monitoring.UserInterface
 import Simulation as sim
 import Monitoring.Monitoring as monitor
 from Simulation.Statuses import Direction
@@ -47,8 +51,10 @@ all_happened_elevator_calls = []
 
 def run_simulation():
     while True:
-        print str(env.now) + ': '
+        # print str(env.now) + ': '
         elevator_scheduler.do_every_timestep(env)
+        ui.update_view(elevator_scheduler.elevators)
+        time.sleep(1)
         yield env.timeout(SIMULATION_TIMESTEP)
 
 
@@ -65,26 +71,34 @@ def add_elevator_call():
 
 def add_elevator_call_process(elevator_call):
     yield env.timeout(elevator_call.open_at)
-    print str(env.now) + ': add call: ' + str(elevator_call.__dict__)
+    # print str(env.now) + ': add call: ' + str(elevator_call.__dict__)
     all_happened_elevator_calls.append(elevator_call)
     elevator_scheduler.add_elevator_call(elevator_call)
 
 
+def terminate(signal, frame):
+    print 'catch SIGINT, end simulation'
+
 if __name__ == "__main__":
+    signal.signal(signal.SIGINT, terminate)
+
     env = simpy.Environment()
     elevator_scheduler = sim.ElevatorScheduler.ElevatorScheduler(AMOUNT_ELEVATORS)
 
-    print 'add elevator-scheduler to simulation'
+    # print 'add elevator-scheduler to simulation'
     simulation_process = env.process(run_simulation())
 
-    print 'add elevator calls to simulation'
+    # print 'add elevator calls to simulation'
     add_elevator_call()
 
-    print 'starting simulation'
-    print '#####################'
-    print ''
+    # print 'init interface'
+    ui = Monitoring.UserInterface.UserInterface()
+
+    # print 'starting simulation'
+    # print '#####################'
+    # print ''
     env.run(until=SIMULATION_TIMEOUT)
-    print ''
-    print '#####################'
-    print 'end simulation'
-    monitor.plot_calls_done_per_time(all_happened_elevator_calls)
+    # print ''
+    # print '#####################'
+    # print 'end simulation'
+    # monitor.plot_calls_done_per_time(all_happened_elevator_calls)
