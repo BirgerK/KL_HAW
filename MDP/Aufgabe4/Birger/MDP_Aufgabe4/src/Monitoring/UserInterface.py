@@ -6,7 +6,7 @@ BASE_X = 0
 BASE_Y = 0
 
 FLOOR_HEIGHT = 5
-FLOOR_WIDTH = 6
+FLOOR_WIDTH = 8
 FLOOR_MASS_SIZE = 1
 FLOOR_MASS = '#'
 
@@ -88,8 +88,11 @@ class UserInterface:
         for elevator in elevators:
             elevator_number = elevator.id
             current_floor = elevator.current_floor
+            direction = elevator.direction if not elevator.direction is None else ''
+            door_status = elevator.door_status if not elevator.door_status is None else ''
 
             elevator_base_x = box_base_x + ((elevator_number - 1) * FLOOR_WIDTH) + FLOOR_MASS_SIZE
             elevator_base_y = box_base_y + ((max_floor - current_floor - 1) * FLOOR_HEIGHT) + FLOOR_MASS_SIZE
 
-            scrn.addstr(elevator_base_y, elevator_base_x, 'here')
+            scrn.addstr(elevator_base_y, elevator_base_x, direction)
+            scrn.addstr(elevator_base_y + 1, elevator_base_x, door_status)
