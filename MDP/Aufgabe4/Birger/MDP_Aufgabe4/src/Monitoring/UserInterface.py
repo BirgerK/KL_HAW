@@ -143,5 +143,7 @@ class UserInterface:
 
         id_str = 'id: ' + str(elevator.id)
         scrn.addstr(statuscontent_y, statuscontent_x, id_str)
+        call_ids = 'call_ids: [' + ','.join(str(call.id) for call in elevator.calls) + ']'
+        scrn.addstr(statuscontent_y + 1, statuscontent_x, call_ids)
         target_str = 'targets: ' + str(elevator.stop_in_floors)
-        scrn.addstr(statuscontent_y + 1, statuscontent_x, target_str)
+        scrn.addstr(statuscontent_y + 2, statuscontent_x, target_str)

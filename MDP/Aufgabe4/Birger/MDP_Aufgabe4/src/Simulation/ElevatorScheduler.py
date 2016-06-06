@@ -252,6 +252,10 @@ class ElevatorCall(object):
         return direction
 
     @property
+    def id(self):
+        return self._id
+
+    @property
     def call_on_floor(self):
         return self._call_on_floor
 
