@@ -116,7 +116,6 @@ class UserInterface:
         calls_str = 'Call-Queue: [' + ','.join(str(call.next_relevant_floor) for call in elevator_calls) + ']'
         scrn.addstr(base_y + 1, base_x, calls_str)
 
-
         for elevator in elevators:
             elevatorstatusbox_y = base_y + 2 + ((elevator.id - 1) * ELEVATORSTATUSBOX_HEIGHT)
             self.write_elevator_status(base_x, elevatorstatusbox_y, elevator)

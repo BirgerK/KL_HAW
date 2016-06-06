@@ -22,7 +22,7 @@ elevator_calls = [{'target_floor': 5, 'is_known_previously': False, 'after': 11,
                   {'target_floor': 1, 'is_known_previously': False, 'after': 50, 'id': 7, 'floor': 4},
                   {'target_floor': 0, 'is_known_previously': False, 'after': 39, 'id': 8, 'floor': 2},
                   {'target_floor': 5, 'is_known_previously': False, 'after': 9, 'id': 9, 'floor': 0},
-                  {'target_floor': 4, 'is_known_previously': False, 'after': 42, 'id': 10, 'floor': 3},
+                  {'target_floor': 4, 'is_known_previously': True, 'after': 42, 'id': 10, 'floor': 3},
                   {'target_floor': 7, 'is_known_previously': False, 'after': 7, 'id': 11, 'floor': 3},
                   {'target_floor': 0, 'is_known_previously': False, 'after': 48, 'id': 12, 'floor': 3},
                   {'target_floor': 8, 'is_known_previously': False, 'after': 29, 'id': 13, 'floor': 6},
@@ -32,7 +32,7 @@ elevator_calls = [{'target_floor': 5, 'is_known_previously': False, 'after': 11,
                   {'target_floor': 7, 'is_known_previously': False, 'after': 48, 'id': 17, 'floor': 7},
                   {'target_floor': 4, 'is_known_previously': False, 'after': 14, 'id': 18, 'floor': 8},
                   {'target_floor': 2, 'is_known_previously': False, 'after': 2, 'id': 19, 'floor': 5},
-                  {'target_floor': 8, 'is_known_previously': False, 'after': 17, 'id': 20, 'floor': 8},
+                  {'target_floor': 8, 'is_known_previously': True, 'after': 17, 'id': 20, 'floor': 8},
                   {'target_floor': 6, 'is_known_previously': False, 'after': 52, 'id': 21, 'floor': 3},
                   {'target_floor': 0, 'is_known_previously': False, 'after': 9, 'id': 22, 'floor': 7},
                   {'target_floor': 5, 'is_known_previously': False, 'after': 31, 'id': 23, 'floor': 4},
@@ -71,6 +71,7 @@ def add_elevator_call_process(elevator_call):
     if not elevator_call.will_be_previously_known:
         yield sim.env.timeout(elevator_call.open_at)
     # print str(env.now) + ': add call: ' + str(elevator_call.__dict__)
+    elevator_call.opened_at = sim.env.now
     all_happened_elevator_calls.append(elevator_call)
     elevator_scheduler.add_elevator_call(elevator_call)
 

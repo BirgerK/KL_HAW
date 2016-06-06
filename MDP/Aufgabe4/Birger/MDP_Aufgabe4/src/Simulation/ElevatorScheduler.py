@@ -29,27 +29,29 @@ class ElevatorScheduler(object):
     def schedule_elevator_calls(self, env):
         calls = list(self._elevator_calls)
         for elevator_call in calls:
-            if not elevator_call.will_be_previously_known or elevator_call.open_at == env.now:
-                was_scheduled = self.schedule_elevator_call(elevator_call)
-                if was_scheduled:
-                    self._elevator_calls.remove(elevator_call)
-            else:
-                if (elevator_call.open_at - env.now) > 0 and (
-                            elevator_call.open_at - env.now) <= self._threshold_waiting_time_future_requests and not self.is_elevator_waiting_on_floor(
-                    elevator_call.next_relevant_floor):
-                    free_elevator = self.is_at_least_one_elevator_free()
-                    if free_elevator:
-                        free_elevator.calls = self.get_sorted_call_into_calls(free_elevator, free_elevator.calls,
-                                                                              elevator_call)
+            was_scheduled = self.schedule_elevator_call(elevator_call, env)
+            if was_scheduled:
+                self._elevator_calls.remove(elevator_call)
 
-    def schedule_elevator_call(self, elevator_call):
+    def schedule_elevator_call(self, elevator_call, env):
         result = False
-        fastest_elevator_for_call = self.get_fastest_elevator_for_call(elevator_call)
-        if fastest_elevator_for_call:
-            fastest_elevator_for_call.calls = self.get_sorted_call_into_calls(fastest_elevator_for_call,
-                                                                              fastest_elevator_for_call.calls,
-                                                                              elevator_call)
-            result = True
+        if not elevator_call.will_be_previously_known or (
+                    elevator_call.will_be_previously_known and elevator_call.opened_at == env.now):
+            fastest_elevator_for_call = self.get_fastest_elevator_for_call(elevator_call)
+            if fastest_elevator_for_call:
+                fastest_elevator_for_call.calls = self.get_sorted_call_into_calls(fastest_elevator_for_call,
+                                                                                  fastest_elevator_for_call.calls,
+                                                                                  elevator_call)
+                result = True
+        else:
+            if (elevator_call.open_at - env.now) > 0 and (
+                        elevator_call.open_at - env.now) <= self._threshold_waiting_time_future_requests and not self.is_elevator_waiting_on_floor(
+                elevator_call.next_relevant_floor):
+                free_elevator = self.is_at_least_one_elevator_free()
+                if free_elevator:
+                    free_elevator.calls = self.get_sorted_call_into_calls(free_elevator, free_elevator.calls,
+                                                                          elevator_call)
+                    result = True
         return result
 
     def get_fastest_elevator_for_call(self, elevator_call):
@@ -59,8 +61,6 @@ class ElevatorScheduler(object):
         for elevator in self._elevators:
             if self.elevator_contains_future_request(elevator):
                 continue
-            if elevator_call.id == 1:
-                print ''
             if elevator.status == ElevatorStatus.waiting or (elevator.is_driving_in_direction_of(
                     elevator_call.next_relevant_floor) and elevator.direction == elevator_call.direction):
                 estimated_costs = 0
@@ -222,8 +222,6 @@ class ElevatorCall(object):
         self._will_be_previously_known = will_be_previously_known
 
     def update_status(self, floor_reached, timestamp):
-        if self.id == 1:
-            print ''
         if self._call_status == CallStatus.open and self._call_on_floor == floor_reached and self.is_already_known(
                 sim.env.now):
             self._call_status = CallStatus.takeaway
@@ -282,6 +280,10 @@ class ElevatorCall(object):
     @property
     def opened_at(self):
         return self._opened_at
+
+    @opened_at.setter
+    def opened_at(self, value):
+        self._opened_at = value
 
     @property
     def takenup_at(self):
