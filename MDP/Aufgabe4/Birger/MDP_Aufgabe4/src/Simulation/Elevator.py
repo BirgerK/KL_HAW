@@ -131,7 +131,11 @@ class Elevator(object):
     def stop_in_floors(self):
         result = []
         for elevator_call in self.calls:
-            result.append(elevator_call.next_relevant_floor)
+            if elevator_call.is_already_known(Simulation.env.now):
+                result.append(elevator_call.next_relevant_floor)
+            else:
+                if elevator_call.will_be_previously_known and elevator_call.call_status == CallStatus.open:
+                    result.append(elevator_call.next_relevant_floor)
         return result
 
     @property

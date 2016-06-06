@@ -1,5 +1,6 @@
 import sys
 
+import Simulation as sim
 from Simulation.Elevator import Elevator
 from Simulation.Statuses import CallStatus, Direction, DoorStatus, ElevatorStatus
 
@@ -12,9 +13,10 @@ class ElevatorScheduler(object):
         self._elevator_calls = []
         for elevator_number in range(1, amount_elevators + 1):
             self._elevators.append(Elevator(elevator_number, 0, self))
+        self._threshold_waiting_time_future_requests = 10
 
     def do_every_timestep(self, env):
-        self.schedule_elevator_calls()
+        self.schedule_elevator_calls(env)
         self.let_elevators_act(env)
 
     def add_elevator_call(self, call):
@@ -24,21 +26,39 @@ class ElevatorScheduler(object):
         for elevator in self._elevators:
             elevator.act(env)
 
-    def schedule_elevator_calls(self):
+    def schedule_elevator_calls(self, env):
         calls = list(self._elevator_calls)
         for elevator_call in calls:
-            fastest_elevator_for_call = self.get_fastest_elevator_for_call(elevator_call)
-            if fastest_elevator_for_call:
-                fastest_elevator_for_call.calls = self.get_sorted_call_into_calls(fastest_elevator_for_call,
-                                                                                  fastest_elevator_for_call.calls,
-                                                                                  elevator_call)
-                self._elevator_calls.remove(elevator_call)
+            if not elevator_call.will_be_previously_known or elevator_call.open_at == env.now:
+                was_scheduled = self.schedule_elevator_call(elevator_call)
+                if was_scheduled:
+                    self._elevator_calls.remove(elevator_call)
+            else:
+                if (elevator_call.open_at - env.now) > 0 and (
+                            elevator_call.open_at - env.now) <= self._threshold_waiting_time_future_requests and not self.is_elevator_waiting_on_floor(
+                    elevator_call.next_relevant_floor):
+                    free_elevator = self.is_at_least_one_elevator_free()
+                    if free_elevator:
+                        free_elevator.calls = self.get_sorted_call_into_calls(free_elevator, free_elevator.calls,
+                                                                              elevator_call)
+
+    def schedule_elevator_call(self, elevator_call):
+        result = False
+        fastest_elevator_for_call = self.get_fastest_elevator_for_call(elevator_call)
+        if fastest_elevator_for_call:
+            fastest_elevator_for_call.calls = self.get_sorted_call_into_calls(fastest_elevator_for_call,
+                                                                              fastest_elevator_for_call.calls,
+                                                                              elevator_call)
+            result = True
+        return result
 
     def get_fastest_elevator_for_call(self, elevator_call):
         shortest_time = sys.maxint
         fastest_elevator = None
 
         for elevator in self._elevators:
+            if self.elevator_contains_future_request(elevator):
+                continue
             if elevator.status == ElevatorStatus.waiting or (elevator.is_driving_in_direction_of(
                     elevator_call.next_relevant_floor) and elevator.direction == elevator_call.direction):
                 estimated_costs = 0
@@ -52,6 +72,28 @@ class ElevatorScheduler(object):
                     shortest_time = estimated_costs
                     fastest_elevator = elevator
         return fastest_elevator
+
+    def elevator_contains_future_request(self, elevator):
+        result = False
+        for elevator_call in elevator.calls:
+            if elevator_call.will_be_previously_known and not elevator_call.is_already_known(sim.env.now):
+                result = True
+                break
+        return result
+
+    def is_at_least_one_elevator_free(self):
+        result = False
+        for elevator in self._elevators:
+            if elevator.status == ElevatorStatus.waiting:
+                result = elevator
+        return result
+
+    def is_elevator_waiting_on_floor(self, floor):
+        result = False
+        for elevator in self._elevators:
+            if elevator.status == ElevatorStatus.waiting and elevator.current_floor == floor:
+                result = elevator
+        return result
 
     def get_priorized_call_list(self, elevator):
         result = []
@@ -165,7 +207,8 @@ class ElevatorScheduler(object):
 
 
 class ElevatorCall(object):
-    def __init__(self, open_at, call_on_floor, target_floor, opened_at):
+    def __init__(self, id, open_at, call_on_floor, target_floor, opened_at, will_be_previously_known):
+        self._id = id
         self._call_on_floor = call_on_floor
         self._target_floor = target_floor
         self._call_status = CallStatus.open
@@ -174,9 +217,11 @@ class ElevatorCall(object):
         self._takenup_at = None
         self._closed_at = None
         self._processed_by_elevator = None
+        self._will_be_previously_known = will_be_previously_known
 
     def update_status(self, floor_reached, timestamp):
-        if self._call_status == CallStatus.open and self._call_on_floor == floor_reached:
+        if self._call_status == CallStatus.open and self._call_on_floor == floor_reached and self.is_already_known(
+                sim.env.now):
             self._call_status = CallStatus.takeaway
             self._takenup_at = timestamp
         if self._call_status == CallStatus.takeaway and self._target_floor == floor_reached:
@@ -249,3 +294,16 @@ class ElevatorCall(object):
     @processed_by_elevator.setter
     def processed_by_elevator(self, value):
         self._processed_by_elevator = value
+
+    @property
+    def will_be_previously_known(self):
+        return self._will_be_previously_known
+
+    def is_already_known(self, timestamp):
+        if self.will_be_previously_known:
+            return timestamp >= self.open_at
+        else:
+            return True
+
+    def __str__(self):
+        return str(self._id)

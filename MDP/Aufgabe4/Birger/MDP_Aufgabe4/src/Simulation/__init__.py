@@ -4,3 +4,4 @@ from . import Statuses
 
 AMOUNT_ELEVATORS = 3
 MAX_FLOOR = 8
+env = None
