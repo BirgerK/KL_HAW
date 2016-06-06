@@ -59,6 +59,8 @@ class ElevatorScheduler(object):
         for elevator in self._elevators:
             if self.elevator_contains_future_request(elevator):
                 continue
+            if elevator_call.id == 1:
+                print ''
             if elevator.status == ElevatorStatus.waiting or (elevator.is_driving_in_direction_of(
                     elevator_call.next_relevant_floor) and elevator.direction == elevator_call.direction):
                 estimated_costs = 0
@@ -119,7 +121,7 @@ class ElevatorScheduler(object):
             calls = list(elevator_calls)
             current_floor = elevator.current_floor
             target_floor = elevator_call.next_relevant_floor
-            if elevator.direction == Direction.up and target_floor >= current_floor:
+            if elevator.direction == Direction.up and target_floor >= current_floor and elevator_call.direction == elevator.direction:
                 max_floor = -1
                 max_floor_index = -1
                 for temp_call in calls:
@@ -131,7 +133,7 @@ class ElevatorScheduler(object):
                         break
                 if not elevator_call in calls and max_floor != -1:
                     calls.insert(max_floor_index + 1, elevator_call)
-            elif elevator.direction == Direction.down and target_floor <= current_floor:
+            elif elevator.direction == Direction.down and target_floor <= current_floor and elevator_call.direction == elevator.direction:
                 min_floor = sys.maxint
                 min_floor_index = sys.maxint
                 for temp_call in calls:
@@ -147,7 +149,7 @@ class ElevatorScheduler(object):
                 # elevator is not driving now. we have to assume a direction
                 assumed_direction = Elevator.get_direction_by_floors(elevator.current_floor,
                                                                      calls[0].next_relevant_floor)
-                if assumed_direction == Direction.up and target_floor >= current_floor:
+                if assumed_direction == Direction.up and target_floor >= current_floor and elevator_call.direction == assumed_direction:
                     max_floor = -1
                     max_floor_index = -1
                     for temp_call in calls:
@@ -159,7 +161,7 @@ class ElevatorScheduler(object):
                             break
                     if not elevator_call in calls:
                         calls.insert(max_floor_index + 1, elevator_call)
-                elif assumed_direction == Direction.down and target_floor <= current_floor:
+                elif assumed_direction == Direction.down and target_floor <= current_floor and elevator_call.direction == assumed_direction:
                     min_floor = sys.maxint
                     min_floor_index = sys.maxint
                     for temp_call in calls:
@@ -220,6 +222,8 @@ class ElevatorCall(object):
         self._will_be_previously_known = will_be_previously_known
 
     def update_status(self, floor_reached, timestamp):
+        if self.id == 1:
+            print ''
         if self._call_status == CallStatus.open and self._call_on_floor == floor_reached and self.is_already_known(
                 sim.env.now):
             self._call_status = CallStatus.takeaway
