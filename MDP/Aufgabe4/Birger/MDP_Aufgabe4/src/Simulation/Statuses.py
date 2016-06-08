@@ -2,21 +2,29 @@ from enum import Enum
 
 
 class ElevatorStatus(Enum):
+    def __str__(self):
+        return str(self.value)
     waiting = 'waiting'
     busy = 'busy'
 
 
 class DoorStatus(Enum):
+    def __str__(self):
+        return str(self.value)
     open = 'open'
     closed = 'closed'
 
 
 class Direction(Enum):
+    def __str__(self):
+        return str(self.value)
     up = 'up'
     down = 'down'
 
 
 class CallStatus(Enum):
+    def __str__(self):
+        return str(self.value)
     open = 'open'
     pickup = 'pickup'
     takeaway = 'takeaway'

@@ -105,8 +105,8 @@ class UserInterface:
             elevator_base_x = box_base_x + ((elevator_number - 1) * FLOOR_WIDTH) + FLOOR_MASS_SIZE
             elevator_base_y = box_base_y + ((max_floor - current_floor - 1) * FLOOR_HEIGHT) + FLOOR_MASS_SIZE
 
-            scrn.addstr(elevator_base_y, elevator_base_x, direction)
-            scrn.addstr(elevator_base_y + 1, elevator_base_x, door_status)
+            scrn.addstr(elevator_base_y, elevator_base_x, str(direction))
+            scrn.addstr(elevator_base_y + 1, elevator_base_x, str(door_status))
 
     def write_status(self, base_x, base_y, elevators, elevator_calls, env):
         scrn = self._screen
