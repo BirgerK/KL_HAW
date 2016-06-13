@@ -46,7 +46,7 @@ Der Algorithmus (s. Abschnitt \ref{sec:algorithm_process}) lässt sich in folgen
 \item[Phase 3:] Bekanntgeben des neuen Masters
 \end{description}
 
-Der jeweilige Ablauf der Phasen lässt sich mit folgenden Punkten spezifizieren:
+In Tabelle \ref{table:algorithm_specification} ist aufgeführt, mit welchen Eigenschaften die einzelnen Phasen beschrieben werden.
 
 \begin{table}[H]
 \begin{tabular}{|c|p{7,6cm}|c|}
@@ -62,7 +62,7 @@ Der jeweilige Ablauf der Phasen lässt sich mit folgenden Punkten spezifizieren:
 \hline 
 \end{tabular}
 \caption{Spezifikation der Phasen des Algorithmus}
-\label{table: algorithm_specification} 
+\label{table:algorithm_specification} 
 \end{table}
 
 \subsection{Modellierung}
@@ -147,16 +147,16 @@ Die folgende Abbildung verdeutlicht wie die Spezifikation durch die Modellierung
 \end{table}
 
 \subsection{Korrektheit}
-Um zu zeigen, dass das erstellte Modell dem Algorithmus entspricht, wird im Folgenden die Korrektheit bewiesen. Dazu wird die Existenz der spezifizierten Eigenschaften aus Tabelle \ref{table: algorithm_specification} im erstellten Petri-Netz durch CTL-Ausdrücke geprüft.
+Um zu zeigen, dass das erstellte Modell dem Algorithmus entspricht, wird im Folgenden die Korrektheit bewiesen. Dazu wird die Existenz der spezifizierten Eigenschaften aus Tabelle \ref{table:algorithm_specification} im erstellten Petri-Netz durch CTL-Ausdrücke geprüft.
 
 \subsubsection{Umwandlung CPN zu PN}
-Das in Abschnitt \ref{sec:model} erstellte Modell ist ein farbiges Petri-Netz (engl: Colored Petri Net, kurz: CPN), daher lässt sich darauf nicht die CTL anwenden. Um die CTL verwenden zu können, muss vorher das erstellte Netz in ein einfaches Petri-Netz umgewandelt werden.
+Das in Abschnitt \ref{table: speci_modell} erstellte Modell ist ein farbiges Petri-Netz (engl: Colored Petri Net, kurz: CPN), daher lässt sich darauf nicht die CTL anwenden. Um die CTL verwenden zu können, muss vorher das erstellte Netz in ein einfaches Petri-Netz umgewandelt werden.
 
 Das Modell-CPN verwendet einige Transition-Guards und einen Datentyp mit einem begrenzten Wertraum. Diese Logik ist nicht in einfachen Petri-Netzen erlaubt, daher muss sie umgewandelt werden.
 
 Wenn im CPN auf der Stelle \textit{P1} ein Token mit dem Wert \textit{3} liegt, wird dies im PN dargestellt indem auf der Stelle \textit{P1\_3} ein Token liegt. Es gibt daher für \textit{P1} für jeden Wert des Datentyps eine Stelle. Die Transition-Guards des CPN werden im PN durch komplexe Stellen-Transitions-Schaltungen abgebildet.
 
-Dadurch wird das PN im Vergleich zum CPN sehr groß und unübersichtlich.
+Durch diese Umwandlung wird das PN im Vergleich zum CPN sehr groß und unübersichtlich.
 
 \subsubsection{Erreichbarkeitsgraph}
 Der Erreichbarkeitsgraph wird auf dem einfachen Petri-Netz gebildet, da die CTL-Ausdrücke auch auf dem einfachen Petri-Netz geprüft werden.
@@ -170,11 +170,61 @@ Der Erreichbarkeitsgraph wird auf dem einfachen Petri-Netz gebildet, da die CTL-
 
 In Abbildung \ref{fig:reachibility_graph} ist der generierte Erreichbarkeitsgraph zu sehen. Es fällt auf, dass der Graph keine Abzweigungen hat, sondern nur einen Pfad enthält. Das bedeutet, dass der Algorithmus bei gleichen Bedingungen sich deterministisch verhält.
 
-Würde man die Bedingungen verändern, sodass bspw. ein anderer Client den Master-Ausfall bemerkt oder ein anderer Client im Netzwerk hat die höchste ID, dann würde sich die Reihenfolge der Kanten im Erreichbarkeitsgraph verändern und die Knoten würden andere Stellen beinhalten. Der resultierende Erreichbarkeitsgraph wäre allerdings nach wie vor geradlinig.
+Würde man die Bedingungen verändern, sodass beispielsweise ein anderer Client den Master-Ausfall bemerkt oder ein anderer Client im Netzwerk hat die höchste ID, dann würde sich die Reihenfolge der Kanten im Erreichbarkeitsgraph verändern und die Knoten würden andere Stellen beinhalten. Der resultierende Erreichbarkeitsgraph wäre allerdings nach wie vor geradlinig.
 
 \subsubsection{Prüfung durch CTL}
-%TODO: Tabellen-Ref für Modell-Eigenschaften eintragen
-Auf Grundlage des einfachen PN kann nun die Korrektheit in Bezug auf die Modell-Eigenschaften aus Tabelle X festgestellt werden. Die Übersicht über alle verwendeten Ausdrücke ist in Tabelle \ref{table:correctness_proof} im Anhang zu finden.
+Auf Grundlage des einfachen PN kann nun die Korrektheit in Bezug auf die Modell-Eigenschaften aus Tabelle \ref{table: speci_modell} festgestellt werden. Um im einfachen PN eine Aussage prüfen zu können, wie beispielsweise ob auf der Stelle P1 nur ein Token mit dem Wert \textit{3} liegt, ist folgender Ausdruck nötig: $P1\_1 == 0\ \&\ P1\_2 == 0\ \&\ P1\_3 == 1\ \&\ P1\_4 == 0$
 
-%TODO: Richtigen Namen des Token-Ring-Algorithmus einfügen
-Die CTL-Ausdrücke lassen sich fehlerfrei auf das einfache Petri-Netz anwenden. Daher entspricht das erstellt CPN dem Token-Ring-Algorithmus von Chang\&Pang.
+Wie zu sehen ist, ist ein langer CTL-Ausdruck nötig um eine einfache Aussagen zu prüfen. Die Ausdrücke, die nötig sind um das Modell auf die Spezifikation zu prüfen, sind deutlich komplexer. Wir haben daher eine Pseudo-CPN-CTL verwendet, die die Ausdrücke deutlich verkürzt. Möchte man feststellen ob auf der Stelle P1 ein Token mit dem Wert \textit{3} liegt, dann würde man das wie folgt ausdrücken: $P\_1 == 1'3$
+
+Diese Ausdrucksweise ist deutlich kürzer und lesbarer. Die Aussagen zum Prüfen des Modells werden daher in der Tabelle \ref{table:speci_model_correctness} in der Pseudo-CPN-CTL verfasst. In der Tabelle sind die Ausdrücke zu den jeweiligen Modell-Eigenschaften aufgeführt.
+
+\begin{table}[H]
+	\begin{tabular}{|c|p{10cm}|}
+		\hline Modell Eigenschaft Nr. & Pseudo-CPN-CTL.\\ 
+		\hline 1 & EF(Pipe1==0 \& Pipe2==0 \& Pipe3==0 \& \newline
+		P1==1’1 \& P2==1’2 \& P3==1’3) \\ 
+		\hline 2 & EF(Pipe2!=0 \& P2!=0 \& Pipe2>P2 \& \newline
+		Pipe2==Pipe3)\\
+		\hline 3 & EF(Pipe2!=0 \& P2!=0 \& Pipe2>P2 \& \newline
+		Pipe2==Pipe3)\\
+		\hline 4 & EF(Pipe2!=0 \& P2!=0 \& Pipe2==P2 \& \newline
+		AX(Pipe3==1’4))\\
+		\hline 5 & EF(Pipe2!=0 \& P2!=0 \& Pipe2==P2 \& \newline
+		AX(Pipe3==1’4))\\
+		\hline 6 & EF(Pipe1==1'4 \& P1!=0) \& UX(Gewaehlt1 != 0 \& P1 ==0)\\
+		\hline 7 & EF(Pipe3==1’4 \& P3!=0 \& P3!=1’4 \& \newline
+		AX(Pipe1==1’4))\\
+		\hline 8 & EF(Pipe2==1’4 \& \newline
+		AX(P2==0 \& Gewaehlt2==1’3 \& \newline
+		Pipe1==0 \& Pipe2==0 \& Pipe3==0 \& \newline
+		Gewaehlt1==1’3 \& Gewaehlt2==1’3))\\
+		\hline
+	\end{tabular}
+	\caption{Prüfen des PetriNetz-Modells mittels Pseudo-CPN-CTL}
+	\label{table:speci_model_correctness} 
+\end{table}
+
+Zum Vergleich dazu sind in Tabelle \ref{table:speci_model_correctness_ctl} zwei der Pseudo-CTL-Ausdrücke beispielhaft als einfache CTL-Ausdrücke dargestellt. Vergleicht man diese, sieht man den Unterschied zwischen den Schreibweisen hinsichtlich der Lesbarkeit noch deutlicher.
+
+\begin{table}[H]
+	\begin{tabular}{|c|p{10cm}|}
+		\hline Modell Eigenschaft Nr. & Pseudo-CPN-CTL.\\ 
+		\hline 1 & EF(P1\_1==1 \& P2\_3==1 \& P3\_2 == 1 \& \newline
+		(Pipe1\_0==1 \& Pipe1\_1==0 \& Pipe1\_2==0 \& Pipe1\_3==0 \& Pipe1\_4==0)\& \newline
+		(Pipe2\_0==0 \& Pipe2\_1==0 \& Pipe2\_2==0 \& Pipe2\_3==0 \& Pipe2\_4==0) \& \newline
+		(Pipe3\_0==0 \& Pipe3\_1==0 \& Pipe3\_2==0 \& Pipe3\_3==0 \& Pipe3\_4==0)); \newline \\ 
+		\hline 2 & EF((Pipe2\_4==0 \& (Pipe2\_1==1 | Pipe2\_2==1 | Pipe2\_3==1)) \& \newline
+		(P2\_1==1 | P2\_2==1 | P2\_3==1) \& \newline
+		((P2\_2==1 \& Pipe2\_1==1) | (P2\_3==1 \& (Pipe2\_1==1 | Pipe2\_2==1))) \& \newline
+		AX((Pipe3\_1==1 \& P2\_1==1) | (Pipe3\_2==1 \& P2\_2==1) | \newline
+		(Pipe3\_3==1 \& P2\_3==1))); \newline \\
+		\hline
+	\end{tabular}
+	\caption{Prüfen des PetriNetz-Modells mittels CTL}
+	\label{table:speci_model_correctness_ctl} 
+\end{table}
+
+Aus Gründen der Lesbarkeit werden nicht alle Pseudo-CPN-CTL-Ausdrücke aus Tabelle \ref{table:speci_model_correctness} in CTL-Ausdrücke in Tabelle \ref{table:speci_model_correctness_ctl} überführt.
+
+Übersetzt man alle Ausdrücke und führt diese auf das einfache PN aus, erhält man ein positives Ergebnis. Das bedeutet dass alle spezifizierten Eigenschaften im Modell zu finden sind und dass das Modell dem modellierten Algorithmus entspricht.
