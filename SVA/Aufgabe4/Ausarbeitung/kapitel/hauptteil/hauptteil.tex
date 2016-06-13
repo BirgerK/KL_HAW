@@ -48,7 +48,7 @@ Der Algorithmus (s. Abschnitt \ref{sec:algorithm_process}) lässt sich in folgen
 
 Der jeweilige Ablauf der Phasen lässt sich mit folgenden Punkten spezifizieren:
 
-\begin{table}
+\begin{table}[H]
 \begin{tabular}{|c|p{7,6cm}|c|}
 \hline Phase & Eigenschaft & Nr.\\ 
 \hline Phase 1: Master-Ausfall bemerkt & Sendet Nachricht zum Wählen und hängt seine eigene ID daran & 1\\ 
@@ -128,7 +128,8 @@ Die dritte Phase ist dafür da, allen Clienten mitzuteilen dass die ID die sie g
 
 Die folgende Abbildung verdeutlicht wie die Spezifikation durch die Modellierung abgedeckt wurde
 
-\begin{table}
+\begin{table}[H]
+\centering
 \begin{tabular}{|p{7,6cm}|p{7,6cm}|c|}
 \hline Phase und Spezifikiationseigenschaft & Modell Eigenschaft & Nr.\\ 
 \hline Phase 1: Sendet Nachricht zum Wählen und hängt seine eigene ID daran & Auf \textit{Pipe1} liegt der Initiator-Token und startet den ersten Vergleich bei Client 1   & 1\\ 
