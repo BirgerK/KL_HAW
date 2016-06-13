@@ -50,7 +50,7 @@ In Tabelle \ref{table:algorithm_specification} ist aufgeführt, mit welchen Eige
 
 \begin{table}[H]
 \begin{tabular}{|c|p{7,6cm}|c|}
-\hline Phase & Eigenschaft & Nr.\\ 
+\hline \textbf{Phase} & \textbf{Eigenschaft} & \textbf{Nr.}\\ 
 \hline Phase 1: Master-Ausfall bemerkt & Sendet Nachricht zum Wählen und hängt seine eigene ID daran & 1\\ 
 \hline \multirow{3}*{Phase 2: Wahl} & Client, der Wahl-Nachricht erhält, hängt seine eigene ID an die Nachricht & 2\\ 
 \cline{2-3} & Client sendet die erweiterte Nachricht an seinen Nachfolger & 3\\ 
@@ -181,7 +181,7 @@ Diese Ausdrucksweise ist deutlich kürzer und lesbarer. Die Aussagen zum Prüfen
 
 \begin{table}[H]
 	\begin{tabular}{|c|p{10cm}|}
-		\hline Modell Eigenschaft Nr. & Pseudo-CPN-CTL.\\ 
+		\hline \textbf{Modell Eigenschaft Nr.} & \textbf{Pseudo-CPN-CTL}\\ 
 		\hline 1 & EF(Pipe1==0 \& Pipe2==0 \& Pipe3==0 \& \newline
 		P1==1’1 \& P2==1’2 \& P3==1’3) \\ 
 		\hline 2 & EF(Pipe2!=0 \& P2!=0 \& Pipe2>P2 \& \newline
