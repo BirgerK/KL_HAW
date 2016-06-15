@@ -2,7 +2,65 @@
 Das folgende Kapitel beschreibt wie das Modell erstellt wurde und die getroffenen Annahmen und Vereinfachungen.
 
 \section{Verwendete Tools}
+Die Modellierung wurde in der Programmiersprache Python vorgenommen. Diese eignet sich besonders für wissenschaftliche Zwecke, da es eine breite Auswahl an Libraries in dieser Richtung gibt.
+
+Für die Simulation von fortschreitender Zeit und Events zu bestimmten Zeitpunkten wurde die Library \textit{SimPy}\footnote{http://simpy.readthedocs.io/en/latest/} verwendet.
+
+Um die Ergebnisse in Diagrammen zu visualisieren wurde die Library \textit{matplotlib}\footnote{http://matplotlib.org/} verwendet. Diese Library bietet eine MATLAB-ähniche Schnittstelle an, sodass man ohne viel Zeitaufwand ein einfaches Linien-Diagramm konstruieren kann. Mit etwas mehr Aufwand sind auch komplexe 2D- und 3D-Diagramme möglich.
+
+Außerdem wurde ein minimales Python-Interface in \textit{curses}\footnote{https://docs.python.org/2/howto/curses.html} geschrieben. Dies  bietet zwar keinen Mehrwert in der Genauigkeit der Simulation, aber es bietet einen Überblick was während der Simulation passiert. Dadurch fallen einige Fehler auf als wenn man die Simulation blind ablaufen lassen würde, das Interface unterstützt daher bei der Fehlerfindung und Verfizierung des Planungsablauf.
 
 \section{Vereinfachungen und Annahmen}
+Dieses Modell sich auf das wesentliche des Fahrstuhl-Schedulings beschränken. Um den Aufwand der Modellierung im Rahmen einer Praktikumsaufgabe zu halten, wurden daher folgende Modellierungs-Entscheidungen getroffen:
+\begin{enumerate}
+	\item \label{assumption:persons_1}Ein Fahrstuhl kann unendlich viele Personen beinhalten
+	\item \label{assumption:persons_2}Es wird nicht beachtet ob und wieviele Personen bei einem Halt aussteigen
+	\item Obwohl \textit{keine Personen} in den Fahrstühlen mitfahren, soll keine der Anfragen unnötig lange verzögert werden
+	\item Folgende Aktionen eines Fahrstuhls benötigen eine Zeiteinheit:
+	\begin{itemize}
+		\item Türen öffnen
+		\item Türen schließen
+		\item Veränderung der Position um ein Stockwerk
+	\end{itemize}
+	\item Beim Rufen des Fahrstuhls kann der Fahrgast angeben, in welche Richtung er fahren möchte
+\end{enumerate}
+Die Vereinfachungen \ref{assumption:persons_1} und \ref{assumption:persons_2} sind auf den ersten Blick nicht relevant für die Planung der Aufzüge, in einigen Fällen ist es jedoch relevant. In der Realität kann ein Fahrstuhl nur endlich viele Personen aufnehmen. Sobald eine konstruktionsbedingte Personen-Anzahl eines Fahrstuhls überschritten wurde, geben moderne Fahrstühle ein Warnsignal, dass der Fahrstuhl zu voll beladen ist. In dem Fall müssen einige Personen aussteigen und auf den nächsten Fahrstuhl warten. Bezogen auf die Ablaufplanung hat dies den Effekt, dass ein Fahrstuhl-Ruf im Scheduling nicht als \textit{erledigt} markiert wird, sondern wieder als eine neue Fahrstuhl-Anfrage eingereiht wird. Da dies jedoch ein Spezialfall ist, wird er in diesem Modell nicht beachtet.
 
 \section{Das Modell}
+Das Wesentliche in diesem Modell ist, wann ein Aufzug in welchem Stockwerk hält und in welche Richtung er nach dem Halt weiterfährt. Abhängig davon werden dem Fahrstuhl Anfragen zugeordnet, die er zu bearbeiten hat.
+
+Ein Fahrstuhl wird beschrieben durch:
+\begin{itemize}
+	\item Die Queue $Q$ der dem Fahrstuhl zugeordneten Anfragen
+	\item Das Stockwerk $current_floor$ in dem sich der Fahrstuhl aktuell befindet
+	\item Die Richtung $r$ in der sich der Fahrstuhl bewegt
+	\item Der Status $s \in S; S=\{"frei","belegt"\}$ des Fahrstuhls
+\end{itemize}
+Alle vorhandenen Fahrstühle des Modells werden mit $F$ bezeichnet.
+
+Eine Anfrage wird beschrieben durch:
+\begin{itemize}
+	\item Das Stock $start_floor$ auf dem nach dem Fahrstuhl gerufen wird
+	\item Die Richtung $r$ in die der Anfragende fahren möchte
+\end{itemize}
+
+In Abbildung \ref{fig:model} ist das erstellte Modell dargestellt. Es gibt eine Menge von zufällig generierten Calls, die jeweils zu einem bestimmten Zeitpunkt $t$ an den \textit{ElevatorScheduler} gemeldet werden. Dies ist in der Realität der Zeitpunkt, wenn eine Personen den Fahrstuhl per Knopfdruck ruft.
+
+Der \textit{ElevatorScheduler} prüft zunächst, ob einer der vorhandenen Fahrstühle frei ist oder, ob einer der Fahrstühle in die gewünschte Richtung fährt und auf dem Weg in die Richtung an dem Stockwerk des Rufs vorbeikommt. Beschrieben durch: 
+Sei $f \in F$ der zu prüfende Fahrstuhl, $c$ die neue Anfrage und $check_on_way$ eine Funktion die prüft ob ein Stockwerk in Fahrtrichtung eines Fahrstuhls liegt, dann sind die in Frage kommenden Fahrstühle $F_{f}$:
+\begin{align}
+f_{f} \in F_{f}, F_{f} \subseteq F: s(f_{f}) = "frei" \lor (r(f) = r(c) \land check_on_way(f,c))
+\end{align}
+
+Falls eine der Bedingungen zutrifft, wird die Anfrage in die aktuelle Queue des Fahrstuhls eingereiht. Es wird berechnet, wann die neue Anfrage von diesem Fahrstuhl bearbeitet wird. Anschließend wird geprüft, wie die neue Anfrage die anderen Anfragen des Fahrstuhls beeinflusst. Aus der Bearbeitungszeit $K_{d}$ des Fahrstuhls und der Beeinflussung $K_{l}$ der anderen Anfragen in der Queue wird ein Wert berechnet, der die Kosten $K$ der Anfrage bezogen auf den spezifischen Fahrstuhl darstellt. Die neue Anfrage wird dem Fahrstuhl zugewiesen, der die geringsten Kosten aufweist. Beschrieben durch:
+Sei $n=|Q(f)|$ und $i: i<= n$ die Position von $c$ in $Q$:
+%TODO: Kd, Kl und K müssen definiert werden
+
+Der Fahrstuhl selbst beinhaltet keine Planungslogik. Er fährt lediglich die Stockwerke ab, die in seiner Queue vom \textit{ElevatorScheduler} eingereiht wurden.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\linewidth]{model}
+\caption{Modellierung einer Fahrstuhl-Ablaufplanung}
+\label{fig:model}
+\end{figure}
