@@ -24,7 +24,7 @@ Dieses Modell sich auf das wesentliche des Fahrstuhl-Schedulings beschränken. Um
 	\end{itemize}
 	\item Beim Rufen des Fahrstuhls kann der Fahrgast angeben, in welche Richtung er fahren möchte
 \end{enumerate}
-Die Vereinfachungen \ref{assumption:persons_1} und \ref{assumption:persons_2} sind auf den ersten Blick nicht relevant für die Planung der Aufzüge, in einigen Fällen ist es jedoch relevant. In der Realität kann ein Fahrstuhl nur endlich viele Personen aufnehmen. Sobald eine konstruktionsbedingte Personen-Anzahl eines Fahrstuhls überschritten wurde, geben moderne Fahrstühle ein Warnsignal, dass der Fahrstuhl zu voll beladen ist. In dem Fall müssen einige Personen aussteigen und auf den nächsten Fahrstuhl warten. Bezogen auf die Ablaufplanung hat dies den Effekt, dass ein Fahrstuhl-Ruf im Scheduling nicht als \textit{erledigt} markiert wird, sondern wieder als eine neue Fahrstuhl-Anfrage eingereiht wird. Da dies jedoch ein Spezialfall ist, wird er in diesem Modell nicht beachtet.
+Die Vereinfachungen \ref{assumption:persons_1} und \ref{assumption:persons_2} sind auf den ersten Blick nicht relevant für die Planung der Aufzüge, in einigen Fällen ist es jedoch relevant. In der Realität kann ein Fahrstuhl nur endlich viele Personen aufnehmen. Sobald die konstruktionsbedingte maximale Personen-Anzahl eines Fahrstuhls überschritten wurde, geben moderne Fahrstühle ein Warnsignal, dass der Fahrstuhl zu voll beladen ist. In dem Fall müssen einige Personen aussteigen und auf den nächsten Fahrstuhl warten. Bezogen auf die Ablaufplanung hat dies den Effekt, dass ein Fahrstuhl-Ruf im Scheduling nicht als \textit{erledigt} markiert wird, sondern wieder als eine neue Fahrstuhl-Anfrage eingereiht wird. Da dies jedoch ein Spezialfall ist, wird er in diesem Modell nicht beachtet.
 
 \section{Das Modell}
 Das Wesentliche in diesem Modell ist, wann ein Aufzug in welchem Stockwerk hält und in welche Richtung er nach dem Halt weiterfährt. Abhängig davon werden dem Fahrstuhl Anfragen zugeordnet, die er zu bearbeiten hat.
@@ -40,14 +40,14 @@ Alle vorhandenen Fahrstühle des Modells werden mit $F$ bezeichnet.
 
 Eine Anfrage wird beschrieben durch:
 \begin{itemize}
-	\item Das Stock $start_floor$ auf dem nach dem Fahrstuhl gerufen wird
+	\item Das Stockwerk $start\_floor$ auf dem nach dem Fahrstuhl gerufen wird
 	\item Die Richtung $r$ in die der Anfragende fahren möchte
 \end{itemize}
 
 In Abbildung \ref{fig:model} ist das erstellte Modell dargestellt. Es gibt eine Menge von zufällig generierten Calls, die jeweils zu einem bestimmten Zeitpunkt $t$ an den \textit{ElevatorScheduler} gemeldet werden. Dies ist in der Realität der Zeitpunkt, wenn eine Personen den Fahrstuhl per Knopfdruck ruft.
 
 Der \textit{ElevatorScheduler} prüft zunächst, ob einer der vorhandenen Fahrstühle frei ist oder, ob einer der Fahrstühle in die gewünschte Richtung fährt und auf dem Weg in die Richtung an dem Stockwerk des Rufs vorbeikommt. Beschrieben durch: 
-Sei $f \in F$ der zu prüfende Fahrstuhl, $c$ die neue Anfrage und $check_on_way$ eine Funktion die prüft ob ein Stockwerk in Fahrtrichtung eines Fahrstuhls liegt, dann sind die in Frage kommenden Fahrstühle $F_{f}$:
+Sei $f \in F$ der zu prüfende Fahrstuhl, $c$ die neue Anfrage und $check\_on\_way$ eine Funktion die prüft ob ein Stockwerk in Fahrtrichtung eines Fahrstuhls liegt, dann sind die in Frage kommenden Fahrstühle $F_{f}$:
 \begin{align}
 f_{f} \in F_{f}, F_{f} \subseteq F: s(f_{f}) = "frei" \lor (r(f) = r(c) \land check\_on\_way(f,c))
 \end{align}
