@@ -49,12 +49,16 @@ In Abbildung \ref{fig:model} ist das erstellte Modell dargestellt. Es gibt eine 
 Der \textit{ElevatorScheduler} prüft zunächst, ob einer der vorhandenen Fahrstühle frei ist oder, ob einer der Fahrstühle in die gewünschte Richtung fährt und auf dem Weg in die Richtung an dem Stockwerk des Rufs vorbeikommt. Beschrieben durch: 
 Sei $f \in F$ der zu prüfende Fahrstuhl, $c$ die neue Anfrage und $check_on_way$ eine Funktion die prüft ob ein Stockwerk in Fahrtrichtung eines Fahrstuhls liegt, dann sind die in Frage kommenden Fahrstühle $F_{f}$:
 \begin{align}
-f_{f} \in F_{f}, F_{f} \subseteq F: s(f_{f}) = "frei" \lor (r(f) = r(c) \land check_on_way(f,c))
+f_{f} \in F_{f}, F_{f} \subseteq F: s(f_{f}) = "frei" \lor (r(f) = r(c) \land check\_on\_way(f,c))
 \end{align}
 
-Falls eine der Bedingungen zutrifft, wird die Anfrage in die aktuelle Queue des Fahrstuhls eingereiht. Es wird berechnet, wann die neue Anfrage von diesem Fahrstuhl bearbeitet wird. Anschließend wird geprüft, wie die neue Anfrage die anderen Anfragen des Fahrstuhls beeinflusst. Aus der Bearbeitungszeit $K_{d}$ des Fahrstuhls und der Beeinflussung $K_{l}$ der anderen Anfragen in der Queue wird ein Wert berechnet, der die Kosten $K$ der Anfrage bezogen auf den spezifischen Fahrstuhl darstellt. Die neue Anfrage wird dem Fahrstuhl zugewiesen, der die geringsten Kosten aufweist. Beschrieben durch:
-Sei $n=|Q(f)|$ und $i: i<= n$ die Position von $c$ in $Q$:
-%TODO: Kd, Kl und K müssen definiert werden
+Falls eine der Bedingungen zutrifft, wird die Anfrage in die aktuelle Queue des Fahrstuhls eingereiht. Es wird berechnet, wann die neue Anfrage von diesem Fahrstuhl bearbeitet wird. Anschließend wird geprüft, wie die neue Anfrage die anderen Anfragen des Fahrstuhls beeinflusst. Aus der Bearbeitungszeit $k_{d}$ des Fahrstuhls und der Beeinflussung $k_{l}$ der anderen Anfragen in der Queue wird ein Wert berechnet, der die Kosten $k$ der Anfrage bezogen auf den spezifischen Fahrstuhl darstellt. Die neue Anfrage wird dem Fahrstuhl zugewiesen, der die geringsten Kosten aufweist. Beschrieben durch:
+Sei $q_{n} \in Q$ die Anfrage an n-ter Stelle in $Q$,$n=|Q(f)|$ und $k: k<= n$ die Position von $c$ in $Q$:
+\begin{align}
+k_{d} = \sum \limits_{i=1}^k i = \vert q_{i} - q_{i-1}\vert \\
+k_{l} = \sum \limits_{i=k+1}^n i = \vert q_{i} - q_{i-1}\vert \\
+k = k_{d} + k_{l}
+\end{align}
 
 Der Fahrstuhl selbst beinhaltet keine Planungslogik. Er fährt lediglich die Stockwerke ab, die in seiner Queue vom \textit{ElevatorScheduler} eingereiht wurden.
 
