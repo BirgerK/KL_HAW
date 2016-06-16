@@ -66,9 +66,7 @@ In Tabelle \ref{table:algorithm_specification} ist aufgeführt, mit welchen Eige
 \end{table}
 
 \subsection{Modellierung}
-
 Für die Modellierung wurde der Algorithmus mithilfe der Spezifikation auf seine essentiellen Bestandteile untersucht und an die Möglichkeiten von Petri Netzen angepasst. Es musste ebenfalls verarbeitet werden, dass die Möglichkeiten des zu verwendenden Programms \textit{Snoopy} hinsichtlich des Umfangs und der Mächtigkeit der Petri Netze eingeschränkt ist. So konnten zum Beispiel die ID Listen in den Nachrichten nicht umgesetzt werden. 
-
 
 Einige Eigenschaften des Algorithmus bereiten Probleme wenn sie in einem normalen Petri Netz abgebildet werden sollen. Dazu gehört:
  \begin{enumerate}
@@ -81,7 +79,7 @@ Einige dieser Probleme können dadurch gelöst werden indem ein farbiges Petri N
 
 Um dieses Problem zu beheben wurde der Algorithmus ein wenig verändert. Für die Modellierung werden keine ID Listen weiter gereicht sondern nur noch eine einzige ID und zwar die lokal größte. Das bedeutet, der Initiator schickt seine ID zu seinem Nachbarn. Dieser vergleicht die ID mit der eigenen und schickt die Größere weiter. Dies stellt keine Grundlegende Änderung in der Funktionsweise des Algorithmus dar sondern verschiebt bloß den Schritt des Vergleichs. Nun überprüft nicht mehr nur der Initiator welches die höchste ID ist, sondern jeder Client überprüft die eigene ID mit der empfangenen. Wie der Algorithmus nun im Detail abläuft wird im Folgenden beschrieben.
 
-Um den Algorithmus abzubilden wurde ein farbiges Petri Netz gewählt um den Token eine Gewichtung geben zu können die die ID der jeweiligen Clienten widerspiegelt. Des Weiteren war es notwendig an den Transitionen entscheiden zu können wann diese Schalten. Auch dies bietet das farbige Petri Netz (CPN) durch Guards.
+Um den Algorithmus abzubilden wurde ein farbiges Petri Netz gewählt um den Token eine Gewichtung geben zu können die die ID der jeweiligen Clienten widerspiegelt. Des Weiteren war es notwendig an den Transitionen entscheiden zu können, wann diese schalten. Auch dies bietet das farbige Petri Netz (CPN) durch Guards.
 
 %%Wie haben wir ihn modelliert
 %%-Gefärbtes netz
@@ -91,7 +89,7 @@ Um den Algorithmus abzubilden wurde ein farbiges Petri Netz gewählt um den Toke
 
 
 \subsubsection{Das Netz}
-In der untenstehenden Abbildung ist das gesamte Netz zu sehen, dass das Ergebnis der Modellierung war. Um eine gewisse Übersichtlichkeit zu wahren wurden nur drei Clienten modelliert. Dies reicht um die Funktionalität des Algorithmus zu modellieren hält aber den Komplexitätslevel und vor allem die Unübersichtlichkeit in Grenzen. 
+In der untenstehenden Abbildung ist das gesamte Netz zu sehen, das das Ergebnis der Modellierung war. Um eine gewisse Übersichtlichkeit zu wahren wurden nur drei Clienten modelliert. Dies reicht um die Funktionalität des Algorithmus zu modellieren hält aber den Komplexitätslevel und vor allem die Unübersichtlichkeit in Grenzen. 
 
 
 \begin{figure}[H]
@@ -113,20 +111,20 @@ An dieser Stelle terminiert der Algorithmus und alle Clienten haben die höchste
 \label{fig:cpn_detail}
 \end{figure}
 
-\subsection{Ablauf}
+\subsubsection{Ablauf}
 
 \textbf{Phase 1 - Master-Ausfall bemerkt}\\
-Das Netz ist so konfiguriert das alle Clienten mit ihrer eigenen einzigartigen ID als Token auf ihrem internen Speicher \textit{Pn} starten. Auf der Initiator Stelle \textit{Pipe\_1} liegt ein Token mit einer sehr geringen Wertung. Diese Stelle ist in der Regel eine normale Leitung, durch den Start mit einem Token der Wertigkeit 1 (alle Ids sind größer als 1) initiiert es am Anfang die Wahl in dem der Token zum ersten Clienten wandert der ihn mit seinem eigenen vergleicht.	
+Das Netz ist so konfiguriert, dass alle Clienten mit ihrer eigenen einzigartigen ID als Token auf ihrem internen Speicher \textit{Pn} starten. Auf der Initiator-Stelle \textit{Pipe\_1} liegt ein Token mit einer sehr geringen Wertung. Diese Stelle ist in der Regel eine normale Leitung, durch den Start mit einem Token der Wertigkeit 1 (alle Ids sind größer als 1) initiiert es am Anfang die Wahl in dem der Token zum ersten Clienten wandert der ihn mit seinem eigenen vergleicht.	
 
 \textbf{Phase 2 - Wahl}\\
-Nach der Initialisierung läuft ein Token mit der aktuell höchsten ID herum. Dabei überprüft jeder Client bei dem der Token ankommt ob die eigene , bzw gespeicherte ID größer ist. Je nachdem wird entweder die eigene ID weitergeschickt oder die neue und dann auch gespeichert. Stellt ein Client fest das die verglichenen Token gleich sind ist der Token einmal herum gelaufen und die größte ID steht fest. Also schreibt der Client die ID weg und löst die 'Gewählt'-Nachricht aus und startet dadurch Phase 3.
+Nach der Initialisierung läuft ein Token mit der aktuell höchsten ID herum. Dabei überprüft jeder Client bei dem der Token ankommt, ob die eigene bzw gespeicherte ID größer ist. Je nachdem wird entweder die eigene ID weitergeschickt oder die neue und dann auch gespeichert. Stellt ein Client fest, dass die verglichenen Token gleich sind, ist der Token einmal herum gelaufen und die größte ID steht fest. Also schreibt der Client die ID weg und löst die 'Gewählt'-Nachricht aus und startet dadurch Phase 3.
 
 \textbf{Phase 3 - Neuen Master mitteilen}\\
-Die dritte Phase ist dafür da, allen Clienten mitzuteilen dass die ID die sie gerade gespeichert haben die endgültige ist. Dies passiert in dem die 'Gewählt'-Nachricht herum geschickt wird. Jeder Client der diese Nachricht erhält schreibt die ID von \textit{Pn} auf die \textit{gewaehltN} Stelle und schickt die 'Gewählt'-Nachricht weiter. Kommt diese Nachricht wieder bei dem Clienten an der sie losgesendet hat schaltet die \textit{terminiert\_n} Transition und nimmt die Nachricht aus der Pipe. Das Netz kann nun nicht mehr schalten und hat an allen Clienten die höchste ID gewähl.
+Die dritte Phase ist dafür da, allen Clienten mitzuteilen dass die ID, die sie gerade gespeichert haben, die endgültige ist. Dies passiert in dem die 'Gewählt'-Nachricht herum geschickt wird. Jeder Client, der diese Nachricht erhält, schreibt die ID von \textit{Pn} auf die \textit{gewaehltN} Stelle und schickt die 'Gewählt'-Nachricht weiter. Kommt diese Nachricht wieder bei dem Clienten an, der sie losgesendet hat, schaltet die \textit{terminiert\_n} Transition und nimmt die Nachricht aus der Pipe. Das Netz kann nun nicht mehr schalten und hat an allen Clienten die höchste ID gewählt.
 
-\subsection{Abbildung der Spezifikation in der Modellierung} \label{Spezi-Modell}
+\subsubsection{Abbildung der Spezifikation in der Modellierung} \label{Spezi-Modell}
 
-Die folgende Abbildung verdeutlicht wie die Spezifikation durch die Modellierung abgedeckt wurde
+Die folgende Abbildung verdeutlicht wie die Spezifikation durch die Modellierung abgedeckt wurde.
 
 \begin{table}[H]
 \centering
@@ -150,7 +148,7 @@ Die folgende Abbildung verdeutlicht wie die Spezifikation durch die Modellierung
 Um zu zeigen, dass das erstellte Modell dem Algorithmus entspricht, wird im Folgenden die Korrektheit bewiesen. Dazu wird die Existenz der spezifizierten Eigenschaften aus Tabelle \ref{table:algorithm_specification} im erstellten Petri-Netz durch CTL-Ausdrücke geprüft.
 
 \subsubsection{Umwandlung CPN zu PN}
-Das in Abschnitt \ref{table: speci_modell} erstellte Modell ist ein farbiges Petri-Netz (engl: Colored Petri Net, kurz: CPN), daher lässt sich darauf nicht die CTL anwenden. Um die CTL verwenden zu können, muss vorher das erstellte Netz in ein einfaches Petri-Netz umgewandelt werden.
+Das in Abschnitt \ref{table: speci_modell} erstellte Modell ist ein farbiges Petri-Netz (engl: Colored Petri Net, kurz: CPN), daher lässt sich darauf nicht die CTL anwenden. Um die CTL verwenden zu können, muss vorher das erstellte Netz in ein einfaches Petri-Netz (PN) umgewandelt werden.
 
 Das Modell-CPN verwendet einige Transition-Guards und einen Datentyp mit einem begrenzten Wertraum. Diese Logik ist nicht in einfachen Petri-Netzen erlaubt, daher muss sie umgewandelt werden.
 
