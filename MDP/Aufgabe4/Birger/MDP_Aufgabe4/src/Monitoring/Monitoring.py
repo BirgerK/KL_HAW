@@ -90,5 +90,6 @@ def get_average_takeawaytime_by_calls(calls):
 def collect_calls_on_time(timestamp, all_calls):
     temp_calls = []
     for call in all_calls:
-        temp_calls.append(copy.deepcopy(call))
+        if timestamp >= call.open_at:
+            temp_calls.append(copy.deepcopy(call))
     calls_per_time[timestamp] = temp_calls
