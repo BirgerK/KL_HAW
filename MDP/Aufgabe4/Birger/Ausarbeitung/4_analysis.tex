@@ -3,7 +3,7 @@ Im Folgenden werden die unterschiedlichen Fahrstuhl-Scheduler miteinander vergli
 
 Für die Simulation wurde eine Zeitspanne von 200 Zeiteinheiten festgesetzt. Alle zwei Zeiteinheiten wird ein zufälliger Fahrstuhl-Ruf generiert, der vom Scheduler anschließend behandelt wird.
 
-\section{Fahrstuhl ohne Wissen}
+\section{Fahrstuhl ohne Kenntnis zukünftiger Anfragen}
 Im Folgenden werden die ermittelten Werte des einfachen Fahrstuhl-Schedulers dargestellt.
 
 In Diagramm \ref{fig:notknowing_throughput} ist der Durchsatz des einfachen Schedulers dargestellt. Es ist zu sehen, dass der einfache Scheduler nach Ablauf der Simulationszeit 88 Fahrstuhl-Rufe erledigt hat.
@@ -23,7 +23,7 @@ In Abbildung \ref{fig:notknowing_times} sind die durchschnittlichen Warte- und F
 \end{figure}
 
 
-\section{Fahrstuhl mit Wissen}
+\section{Fahrstuhl mit Kenntnis einiger zukünftiger Anfragen}
 Im Folgenden werden die ermittelten Werte des wissenden Fahrstuhl-Schedulers dargestellt.
 
 In Diagramm \ref{fig:knowing_throughput} ist der Durchsatz des einfachen Schedulers dargestellt. Es ist zu sehen, dass der wissende Scheduler nach Ablauf der Simulationszeit 92 Fahrstuhl-Rufe erledigt hat.
@@ -42,10 +42,37 @@ In Abbildung \ref{fig:knowing_times} sind die durchschnittlichen Warte- und Fahr
 	\label{fig:knowing_times}
 \end{figure}
 
+\section{Betrachtung einzelner Anfragen}
+Einige zufällig ausgewählte Fahrstuhl-Anfragen wurden in der Simulation so konfiguriert, dass sie dem wissenden Scheduler vorzeitig bekannt sind. Für diese dedizierten Anfragen wurden einige Werte erfasst, die im Folgenden gezeigt werden. Dort ist außerdem zu sehen, zu welchem Zeitpunkt die Anfrage in das Scheduling des Schedulers eingegangen ist. Dieser Zeitpunkt ist in der Tabelle \ref{table:request_times} in der Spalte \textit{Scheduler-Zeit} geführt.
+
+Die Zeitwerte sind in der Tabelle \ref{table:request_times} aufgeführt. Die Zeit-Werte einer Zelle sind dabei folgendermaßen zu lesen:
+\textit{a/b} wobei \textit{a} der Wert ist, der im einfachen Scheduler erreicht wurde und \textit{b} der Wert ist, der im wissenden Scheduler erreicht wurde.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c|c|c|c}
+ID der Anfrage & Scheduler-Zeit & Wartezeit & Fahrzeit \\ 
+\hline 
+52 & 104/94 & 115/105 & 131/119 \\ 
+\hline 
+59 & 118/108 & 134/129 & 140/135 \\ 
+\hline 
+74 & 148/138 & 163/149 & 176/158 \\ 
+\hline 
+83 & 166/156 & 166/167 & 169/170 \\ 
+\end{tabular}
+\caption{Zeit-Werte von ausgewählten Anfragen}
+\label{table:request_times}
+\end{table}
+
 \section{Analyse}
 Nimmt man die Abbildungen dieses Kapitels für sich, haben sie keine Aussagekraft. Im Folgenden werden sie miteinander verglichen, um einen Wert aus ihnen zu ziehen.
 
-Vergleicht man die Durchsatz-Abbildungen, dann sieht man, dass der wissende Scheduler einige Fahrstuhlrufe mehr beendet hat als der einfache Scheduler. Dies ist auf die Konstellation der zufällig erstellen Fahrstuhlrufe zurückzuführen und ist für diese Betrachtung nicht von Interesse. Was außerdem auffällt ist, dass die Kurve anders verläuft. Zum Zeitpunk 104 tritt der erste zukünftige Fahrstuhlruf auf. Man sieht in den Graphen, dass in der Kurve des wissenden Scheduler - im Vergleich zum einfachen Scheduler - an dieser Stelle weniger Rufe erledigt wurden. Dies liegt am veränderten Scheduling-Verhalten, das in in Abschnitt \ref{sec:model} erklärt wird. An den Zeitpunkten 118, 148 und 166 treten ebenfalls zukünftige Rufe auf. Zu diesen Zeitpunkten sind ebenfalls wieder niedriges Wachstum in Abbildung \ref{fig:knowing_throughput} zu finden.
+Vergleicht man die Durchsatz-Abbildungen, dann sieht man, dass der wissende Scheduler einige Fahrstuhlrufe mehr beendet hat als der einfache Scheduler. Dies ist auf die Konstellation der zufällig erstellen Fahrstuhlrufe zurückzuführen und ist für diese Betrachtung nicht von Interesse. Simulationen mit anderen zufälligen Fahrstuhlruf-Konstellationen hat gezeigt, dass der einfache Scheduler ebenso einen höheren Durchsatz erreichen kann als der wissende Scheduler.
+
+Was außerdem auffällt ist, dass die Kurve anders verläuft. Bis zum Zeitpunk 104 verlaufen die Durchsatz-Kurven der beiden Scheduler gleichmäßig. Zu dem Zeitpunkt tritt der erste zukünftige Fahrstuhlruf auf. Man sieht in den Graphen, dass in der Kurve des wissenden Scheduler - im Vergleich zum einfachen Scheduler - an dieser Stelle weniger Rufe erledigt wurden. Dies liegt am veränderten Scheduling-Verhalten, das in in Abschnitt \ref{sec:model} erklärt wird. An den Zeitpunkten 118, 148 und 166 treten ebenfalls zukünftige Rufe auf. Zu diesen Zeitpunkten ist ebenfalls niedriges Wachstum in Abbildung \ref{fig:knowing_throughput} zu finden.
+
+Ähnlich ist es in den Zeit-Graphen (Abbildungen \ref{fig:notknowing_times} und \ref{fig:knowing_times}). Auch dort verlaufen die Kurven der beiden Scheduler bis zum Auftreten des ersten zukünftigen Fahrstuhlrufs deckungsgleich. Ab dem Zeitpunkt 104 verläuft die Kurve des wissenden Schedulers anders als die des einfachen Schedulers. Die Durchschnittswerte der Warte- und Fahrzeiten des einfachen Schedulers wachsen nach dem Zeitpunkt 104 auf den Wert sieben an. Dieses Wachstum gibt es beim wissenden Schedulers auch, dort erfolgt das Wachstum allerdings erst später. Diese Wachstums-Verzögerung ist nicht von Bedeutung, denn Simulationsversuche mit anderen zufälligen Fahrstuhlruf-Konstellationen haben gezeigt, dass der wissende Scheduler ebenso deutlich höhere Zeit-Werte als der einfache Scheduler erreichen kann.
 
 
 
