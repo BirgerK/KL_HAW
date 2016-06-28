@@ -28,6 +28,7 @@ Dieses Modell sich auf das wesentliche des Fahrstuhl-Schedulings beschränken. Um
 Die Vereinfachungen \ref{assumption:persons_1} und \ref{assumption:persons_2} sind auf den ersten Blick nicht relevant für die Planung der Aufzüge, in einigen Fällen ist es jedoch relevant. In der Realität kann ein Fahrstuhl nur endlich viele Personen aufnehmen. Sobald die konstruktionsbedingte maximale Personen-Anzahl eines Fahrstuhls überschritten wurde, geben moderne Fahrstühle ein Warnsignal, dass der Fahrstuhl zu voll beladen ist. In dem Fall müssen einige Personen aussteigen und auf den nächsten Fahrstuhl warten. Bezogen auf die Ablaufplanung hat dies den Effekt, dass ein Fahrstuhl-Ruf im Scheduling nicht als \textit{erledigt} markiert wird, sondern wieder als eine neue Fahrstuhl-Anfrage eingereiht wird. Da dies jedoch ein Spezialfall ist, wird er in diesem Modell nicht beachtet.
 
 \section{Das Modell}
+\label{sec:model}
 Das Wesentliche in diesem Modell ist, wann ein Aufzug in welchem Stockwerk hält und in welche Richtung er nach dem Halt weiterfährt. Abhängig davon werden dem Fahrstuhl Anfragen zugeordnet, die er zu bearbeiten hat.
 
 Ein Fahrstuhl wird beschrieben durch:
@@ -69,3 +70,5 @@ Der Fahrstuhl selbst beinhaltet keine Planungslogik. Er fährt lediglich die Stoc
 \caption{Modellierung einer Fahrstuhl-Ablaufplanung}
 \label{fig:model}
 \end{figure}
+
+Ein zukünftiger Fahrstuhlruf, der bereits vorher bekannt ist, unterscheidet sich von einem einfachen Fahrstuhlruf insofern, dass der zukünftige Ruf bereits 10 Zeiteinheiten bevor er auftritt vom Scheduler berücksichtigt wird.
