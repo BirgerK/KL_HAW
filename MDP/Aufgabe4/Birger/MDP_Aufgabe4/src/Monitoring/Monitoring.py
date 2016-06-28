@@ -21,6 +21,7 @@ def plot_calls_done_per_time():
 
     plt.figure(1)
     plt.plot(ordered.keys(), ordered.values())
+    plt.ylim(0, 100)
     plt.xlabel('time')
     plt.ylabel('calls done')
     plt.draw()
@@ -36,6 +37,7 @@ def plot_waitingtime_per_time():
     plt.figure(2)
     plt.subplot(212)
     plt.plot(ordered.keys(), ordered.values())
+    plt.ylim(0, 10)
     plt.xlabel('time')
     plt.ylabel('average waitingtime')
     plt.draw()
@@ -51,6 +53,7 @@ def plot_takeawaytime_per_time():
     plt.figure(2)
     plt.subplot(211)
     plt.plot(ordered.keys(), ordered.values())
+    plt.ylim(0, 10)
     plt.xlabel('time')
     plt.ylabel('average takeawaytime')
     plt.draw()
