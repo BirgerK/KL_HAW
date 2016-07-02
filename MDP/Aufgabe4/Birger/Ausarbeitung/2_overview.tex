@@ -2,9 +2,9 @@
 Hinter der Planung der Fahrstühle stecken Theorien und algorithmische Probleme, die im Folgenden erläutert werden.
 
 \section{Scheduling-Theorie}
-Die theoretische Grundlage für eine Fahrstuhlplanung ist die Scheduling-Theorie. In der Scheduling geht es laut \cite{pinedo2012scheduling} darum, dass der Zugriff auf eine Ressource zeitgesteuert auf die Anfragenden verteilt wird.
+Die theoretische Grundlage für eine Planung eines Fahrstuhl-Systems ist die Scheduling-Theorie. In der Scheduling-Theorie geht es laut \cite{pinedo2012scheduling} darum, dass der Zugriff auf eine Ressource zeitgesteuert auf die Anfragenden verteilt wird.
 
-Ein Beispiel aus der Informatik sind Multi-Threading Prozessoren. Dabei sind die Threads diejenigen Objekte, die den Zugriff auf die Ressource Prozessor erfragen. Der Thread-Scheduler erlaubt jedem anfragenden Thread eine gewisse Zeitspanne den Prozessor zu benutzen. Anschließend erhält ein anderer Thread die Ressource für eine gewisse Zeit.
+Ein Beispiel aus der Informatik für die Anwendung der Scheduling-Theorie sind Multi-Threading Prozessoren. Dabei sind die Threads diejenigen Objekte, die den Zugriff auf die Ressource Prozessor erfragen. Der Thread-Scheduler erlaubt jedem anfragenden Thread eine gewisse Zeitspanne den Prozessor zu benutzen. Anschließend erhält ein anderer Thread die Ressource für eine gewisse Zeit.
 
 \subsection{Online Probleme}
 Nach \cite{manasse1988competitive} ist eine Fahrstuhlablaufplanung ein Problem, das in eine Unterart der Scheduling-Probleme einzuordnen ist, die  \textit{Online Probleme} genannt werden. Diese Probleme zeichnen sich dadurch aus, dass dem Scheduler zu einem Zeitpunkt nur eine Teilmenge aller anfallenden Anfragen bekannt ist. Zu jedem Zeitpunkt können weitere Anfragen dazu kommen. Daraus lässt sich folgern, dass der Scheduler nur bedingt optimal planen kann, da er nicht weiß welche Anfragen noch kommen werden.
@@ -12,4 +12,4 @@ Nach \cite{manasse1988competitive} ist eine Fahrstuhlablaufplanung ein Problem, 
 \subsection{Offline Probleme}
 Im Gegensatz zu den Online Problemen stehen die \textit{Offline Probleme}. Diese sind ebenfalls eine Unterart der Scheduling-Probleme. Bei diesen Problemen sind dem Scheduler bereits alle anfallenden Anfragen bekannt, sodass der Scheduler optimal planen kann.
 
-Ein Beispiel für diese Probleme sind Logistik-Unternehmen: Diese können bereits im Voraus die Fahrt der Lieferwagen für den nächsten Tag planen. Denn alle Lieferanfragen gehen bereits im Vortag ein.
+Ein Beispiel für diese Probleme sind Logistik-Unternehmen: Diese können bereits im Voraus die Fahrt der Lieferwagen für den nächsten Tag planen. Denn alle Lieferanfragen gehen bereits im Tag der Planung ein.

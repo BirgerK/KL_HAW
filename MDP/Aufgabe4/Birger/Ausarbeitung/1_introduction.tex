@@ -2,12 +2,14 @@
 Man nimmt es als selbstverständlich an, dass ein Fahrstuhl kommt, wenn man auf den \textit{Rufen}-Knopf gedrückt hat. Tut man dies in Gebäuden, in denen ein System mehrere Fahrstühle koordiniert, hat man mit dem bloßen Knopfdrücken einen komplexen Prozess gestartet. Die folgende Arbeit verschafft einen Einblick in die Ablaufplanung eines Fahrstuhls und was es dabei zu beachten gibt. Außerdem wird eine These gestellt und mit einem einfach gehaltenen Modell beantwortet.
 
 \section{These der Arbeit}
+\label{sec:working_question}
 Ein einfacher Aufzug setzt sich erst dann in Bewegung, wenn er eine Anfrage erhalten hat. Jemand der den \textit{Rufen}-Knopf drückt, muss also warten bis der Fahrstuhl ihn abholt. Fahrstuhlsysteme sollten grundsätzlich bemüht sein, diese Wartezeit möglichst kurz zu halten.
 
-Daraus leitet sich die These dieser Arbeit ab: "Wenn das Fahrstuhl-System wüsste, dass zum Zeitpunkt $x$ in der Zukunft, eine Anfrage auf dem Stockwerk $a$ gestellt wird, dann müsste der Anfragesteller kürzer warten". Ein Anwendungszenario wäre eine Hochschule bei der dem Fahrstuhlsystem bekannt ist, dass zur Pausenzeit um 9.30 Uhr auf Stockwerk 6 einige Personen zum Erdgeschoss fahren möchten.
+Daraus leitet sich die These dieser Arbeit ab: \quotes{Wenn das Fahrstuhl-System wüsste, dass zum Zeitpunkt $x$ in der Zukunft, eine Anfrage auf dem Stockwerk $a$ gestellt wird, dann müsste der Anfragesteller kürzer warten}. Ein Anwendungszenario wäre eine Hochschule bei der dem Fahrstuhlsystem bekannt ist, dass zur Pausenzeit um 9.30 Uhr auf Stockwerk 6 einige Personen zum Erdgeschoss fahren möchten.
 
 
 \section{Verwendete Metriken}
-Um die gestellte These anhand eines Modells evaluieren zu können, müssen einige Metriken bestimmt und verglichen werden.
+\label{sec:metrics}
+Um die gestellte These anhand eines Modells evaluieren zu können, müssen einige Metriken bestimmt und im Verlauf der Ausarbeitung verglichen werden.
 
-Die These selbst nennt die \textit{Wartezeit} in als Metrik. Um die Auswirkungen der veränderten Ablaufplanung beurteilen zu können, wird außerdem der \textit{Anfragen-Durchsatz} und die \textit{Fahrtzeit} gemessen. Mit Fahrtzeit wird die Zeit bezeichnet, die ein aufgenommer Fahrgast im Fahrstuhl verbringt bis er auf seinem Ziel-Stockwerk aussteigt.
+Die These selbst nennt die \textit{Wartezeit} in als Metrik. Um die weiteren Auswirkungen der veränderten Ablaufplanung beurteilen zu können, werden außerdem der \textit{Anfragen-Durchsatz} und die \textit{Fahrtzeit} gemessen. Mit Fahrtzeit wird die Zeit bezeichnet, die ein aufgenommer Fahrgast im Fahrstuhl verbringt bis er auf seinem Ziel-Stockwerk aussteigt.

@@ -1,12 +1,13 @@
 \chapter{Auswertung der Ergebnisse}
-Im Folgenden werden die unterschiedlichen Fahrstuhl-Scheduler miteinander verglichen. Dazu wurde eine Menge von Fahrstuhl-Rufen zusammengestellt, die im einfachen Scheduler zu einem nahezu konstanten Durchsatz führen. Dadurch, dass eine der Metriken konstant ist, sind die Unterschiede zwischen den Metriken der Scheduler deutlicher zu sehen.
+\label{sec:results}
+Im Folgenden werden die unterschiedlichen Fahrstuhl-Scheduler anhand der Metriken aus Abschnitt \ref{sec:metrics} miteinander verglichen. Dazu wurde eine Menge von zufälligen Fahrstuhl-Rufen zusammengestellt, die im einfachen Scheduler zu einem nahezu konstanten Durchsatz führen. Dadurch, dass eine der Metriken konstant ist, sind die Unterschiede zwischen den Metriken der Scheduler deutlicher zu sehen.
 
-Für die Simulation wurde eine Zeitspanne von 200 Zeiteinheiten festgesetzt. Alle zwei Zeiteinheiten wird ein zufälliger Fahrstuhl-Ruf generiert, der vom Scheduler anschließend behandelt wird.
+Für die Simulation wurde eine Zeitspanne von 200 Zeiteinheiten festgesetzt. Alle zwei Zeiteinheiten wird ein Fahrstuhl-Ruf generiert, der vom Scheduler anschließend behandelt wird.
 
 \section{Fahrstuhl ohne Kenntnis zukünftiger Anfragen}
 Im Folgenden werden die ermittelten Werte des einfachen Fahrstuhl-Schedulers dargestellt.
 
-In Diagramm \ref{fig:notknowing_throughput} ist der Durchsatz des einfachen Schedulers dargestellt. Es ist zu sehen, dass der einfache Scheduler nach Ablauf der Simulationszeit 88 Fahrstuhl-Rufe erledigt hat.
+In Diagramm \ref{fig:notknowing_throughput} ist der Durchsatz des einfachen Schedulers dargestellt. Es ist zu sehen, dass der einfache Scheduler nach Ablauf der Simulationszeit 89 Fahrstuhl-Rufe erledigt hat.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.5\linewidth]{./NotKnowing_Throughput}
@@ -43,10 +44,12 @@ In Abbildung \ref{fig:knowing_times} sind die durchschnittlichen Warte- und Fahr
 \end{figure}
 
 \section{Betrachtung einzelner Anfragen}
-Einige zufällig ausgewählte Fahrstuhl-Anfragen wurden in der Simulation so konfiguriert, dass sie dem wissenden Scheduler vorzeitig bekannt sind. Für diese dedizierten Anfragen wurden einige Werte erfasst, die im Folgenden gezeigt werden. Dort ist außerdem zu sehen, zu welchem Zeitpunkt die Anfrage in das Scheduling des Schedulers eingegangen ist. Dieser Zeitpunkt ist in der Tabelle \ref{table:request_times} in der Spalte \textit{Scheduler-Zeit} geführt.
+Einige zufällig ausgewählte Fahrstuhl-Anfragen wurden in der Simulation so konfiguriert, dass sie dem wissenden Scheduler vorzeitig bekannt sind. Für diese dedizierten Anfragen wurden die Metrik-Werte erfasst, die im Folgenden gezeigt werden.
 
-Die Zeitwerte sind in der Tabelle \ref{table:request_times} aufgeführt. Die Zeit-Werte einer Zelle sind dabei folgendermaßen zu lesen:
-\textit{a/b} wobei \textit{a} der Wert ist, der im einfachen Scheduler erreicht wurde und \textit{b} der Wert ist, der im wissenden Scheduler erreicht wurde.
+Die Metrikwerte sind in der Tabelle \ref{table:request_times} aufgeführt. Die Werte einer Zelle sind dabei folgendermaßen zu lesen:
+\textit{a/b} wobei \textit{a} der Wert ist, der im einfachen Scheduler erreicht wurde und \textit{b} der Wert ist, der im wissenden Scheduler erreicht wurde. Dort ist außerdem zu sehen, zu welchem Zeitpunkt die Anfrage in das Scheduling des Schedulers eingegangen ist. Dieser Zeitpunkt ist in der Tabelle \ref{table:request_times} in der Spalte \textit{Scheduler-Zeit} geführt.
+
+
 
 \begin{table}[H]
 \centering
@@ -61,7 +64,7 @@ ID der Anfrage & Scheduler-Zeit & Wartezeit & Fahrzeit \\
 \hline 
 83 & 166/156 & 166/167 & 169/170 \\ 
 \end{tabular}
-\caption{Zeit-Werte von ausgewählten Anfragen}
+\caption{Metrikwerte von ausgewählten Anfragen}
 \label{table:request_times}
 \end{table}
 
@@ -70,9 +73,11 @@ Nimmt man die Abbildungen dieses Kapitels für sich, haben sie keine Aussagekraft
 
 Vergleicht man die Durchsatz-Abbildungen, dann sieht man, dass der wissende Scheduler einige Fahrstuhlrufe mehr beendet hat als der einfache Scheduler. Dies ist auf die Konstellation der zufällig erstellen Fahrstuhlrufe zurückzuführen und ist für diese Betrachtung nicht von Interesse. Simulationen mit anderen zufälligen Fahrstuhlruf-Konstellationen hat gezeigt, dass der einfache Scheduler ebenso einen höheren Durchsatz erreichen kann als der wissende Scheduler.
 
+Keiner der beiden Scheduler schafft es alle generierten Fahrstuhl-Anfragen durchzuführen. Dies liegt daran, dass bis zum letzten Zeitschritt der Simulation neue Anfragen generiert werden. Für diese zuletzt generierten Anfragen ist nicht mehr ausreichend vorhanden, um sie erfolgreich durchzuführen.
+
 Was außerdem auffällt ist, dass die Kurve anders verläuft. Bis zum Zeitpunk 104 verlaufen die Durchsatz-Kurven der beiden Scheduler gleichmäßig. Zu dem Zeitpunkt tritt der erste zukünftige Fahrstuhlruf auf. Man sieht in den Graphen, dass in der Kurve des wissenden Scheduler - im Vergleich zum einfachen Scheduler - an dieser Stelle weniger Rufe erledigt wurden. Dies liegt am veränderten Scheduling-Verhalten, das in in Abschnitt \ref{sec:model} erklärt wird. An den Zeitpunkten 118, 148 und 166 treten ebenfalls zukünftige Rufe auf. Zu diesen Zeitpunkten ist ebenfalls niedriges Wachstum in Abbildung \ref{fig:knowing_throughput} zu finden.
 
 Ähnlich ist es in den Zeit-Graphen (Abbildungen \ref{fig:notknowing_times} und \ref{fig:knowing_times}). Auch dort verlaufen die Kurven der beiden Scheduler bis zum Auftreten des ersten zukünftigen Fahrstuhlrufs deckungsgleich. Ab dem Zeitpunkt 104 verläuft die Kurve des wissenden Schedulers anders als die des einfachen Schedulers. Die Durchschnittswerte der Warte- und Fahrzeiten des einfachen Schedulers wachsen nach dem Zeitpunkt 104 auf den Wert sieben an. Dieses Wachstum gibt es beim wissenden Schedulers auch, dort erfolgt das Wachstum allerdings erst später. Diese Wachstums-Verzögerung ist nicht von Bedeutung, denn Simulationsversuche mit anderen zufälligen Fahrstuhlruf-Konstellationen haben gezeigt, dass der wissende Scheduler ebenso deutlich höhere Zeit-Werte als der einfache Scheduler erreichen kann.
 
-
+In Tabelle \ref{table:request_times} ist zu sehen, dass in drei der vier Fälle die dedizierten Anfragen in allen Zeit-Metriken niedrigere Werte erreicht haben. Dies ist so zu verstehen, dass die Personen kürzer auf den Fahrstuhl warten mussten und eine kürzere Fahrtzeit bis zu ihrem Ziel hatten.
 
