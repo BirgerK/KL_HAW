@@ -40,14 +40,19 @@ Nach RFC 6775 (Abschnitt 3.3) sendet der Host einen NS an den Router mit einer g
 In Projektschritt 2 haben wir nach Szenario 2 unseren Versuchsaufbau ausgerichtet und durchgeführt. Im gemeinsamen Testlauf wurde durch Wireshark ein Mitschnitt der Kommunikation der Knoten erzeugt. Dieser lief über einige Zeit und umfasst insgesamt mehrere Tausend Nachrichten. In einem weiteren Schritt wurden alle Nachrichten die das RPL Protokoll betreffen analysiert um zu sehen wie es genutzt wird um eine Kommunikation aufzubauen. 
 
 \subsection{Nachrichten und Informationsaustausch}
-Die Nachrichten die im Rahmen des RPL Protokolls ausgetauscht werden sind entweder \textit{DODAG Information Object, DODAG Information Solicitation, Destination Advertisment Object oder Destination Advertisment Object Acknowledgment}. Dadurch werden die Informationen verteilt welche Knoten über wen zu erreichen sind. Wer Teil des Netzwekes ist und Verbindung zu wen anders hat. Mithilfe der Nachrichten kann ein Graph aufgebaut werden der es ermöglicht Nachrichten im Netz zu verteilen. 
+Die Nachrichten die im Rahmen des RPL Protokolls ausgetauscht werden sind entweder \textit{DODAG Information Object, DODAG Information Solicitation, Destination Advertisment Object (DAO) oder Destination Advertisment Object Acknowledgment}. Dadurch werden die Informationen verteilt welche Knoten Teil des Netzwekes sind und Verbindung zu anderen haben. Mithilfe der durch die Nachrichten bekanntgegebenen Struktur kann ein Graph aufgebaut werden der es ermöglicht Nachrichten im Netz zu verteilen. In der Regel hat jeder Knoten einen Parent Knoten an den er seine Nachrichten weiterleitet. Ein Parent weiß dabei nichts von seinen Kindern bis diese sich bei ihm melden und erfährt aus der DAO-Nachricht welche Knoten über das Kind erreichbar sind.
 
-Aufgrund der Nachrichten und deren Inhalt konnten wir in unserem Versuchsaufbau folgenden Baum entwerfen.
+Mithilfe der durch das RPL erzeugten Schema können dann Datennachrichten übermittelt werden. Die Knoten wissen wen sie Adressieren müssen um Nachrichten zu verteilen. Als erstes ihren Parent der das dann gegebenenfalls weiterleitet. Im unten dargestellten Bild ist dies durch den Ping verdeutlicht der an den RPL-Root gehen soll aber vorher über einen anderen Knoten (den Parent Knoten) weitergeleitet wird.
+
+Aufgrund der Nachrichten und deren Inhalt konnten wir in unserem Versuchsaufbau folgenden Baum entwerfen der sich aus einem ausgewählten Teil unseres Nachrichten Mitschnitts ergibt.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\linewidth]{RPL_Baum.png}
 	\label{fig:RPL_Baum}
 \end{figure}
+
+
 \section{Projektschritt 3}
 
 \end{document}
