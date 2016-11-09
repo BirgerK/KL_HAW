@@ -13,7 +13,7 @@
 \maketitle
 
 \section{Projektschritt 1:Laboreinbindung von Gateways und Sensorknoten}
-Nach der Durchführung des Projektschritts 1 anhand des Szenarios 1 haben wir einen Wireshark Mitschnitt gespeichert, der die Unterhaltung der Bestandteile des Netzwerks mitschneidet. Der Mitschnitt ist unten aufgeführt.
+Nach der Durchführung des Projektschritts 1 anhand des Szenarios 1 haben wir einen Wireshark Mitschnitt gespeichert, der die Unterhaltung der Bestandteile des Netzwerks mitschneidet. Der Mitschnitt ist in Figur \ref{fig:wireshark_1} gezeigt.
 
 \begin{figure}[H]
 	\centering
@@ -30,19 +30,19 @@ Hier zu sehen ist der Ablauf des Neighbor Solicitation Protokolls. Der Ablauf wi
 	\label{fig:flussdiagramm}
 \end{figure}
 
-Hier zu sehen ist, dass beim Anschließen des Sensor Knotens, selbiger nach dem Router fragt. Darauf antwortet der Raspberry Pi und gibt sich bekannt. Daraufhin erfragt der Sensor Knoten mit einer Neighbor Solicitation seine Nachbarschaft. Der Raspberry Pi antwortet mit einem Neighbor Advertisment. Auffällig ist dann aber, dass nach 5 Sekunden der Timer abläuft und die Nachbarschafts Anfragen erneut gesendet werden. Sowohl der Raspberry wie auch der Sensor Knoten senden Neighbour Solicitations und jeweilige Advertisements.\\
+In Diagramm \ref{fig:flussdiagramm} ist zu sehen, dass beim Anschließen des Sensor Knotens, selbiger per \textit{Router Solicitation} nach einem Router fragt. Darauf antwortet der Raspberry Pi und gibt sich als Router bekannt. Daraufhin erfragt der Sensor Knoten mit einer \textit{Neighbor Solicitation} seine Nachbarschaft. Der Raspberry Pi antwortet mit einem \textit{Neighbor Advertisment}. Auffällig ist, dass nach 5 Sekunden der Timer abläuft und die Nachbarschafts Anfragen erneut gesendet werden. Sowohl der Raspberry als auch der Sensor Knoten senden \textit{Neighbour Solicitations} und jeweilige \textit{Advertisements}.\\
 
 \textbf{Auffälligkeit}\\
-Nach RFC 6775 (Abschnitt 3.3) sendet der Host einen NS an den Router mit einer gewissen Lifetime. Sollte die Lifetime ablaufen, dann erneuert der Host diesen Eintrag. Der Router fragt nicht aktiv nach beim Host. Die Anfragen nach dem Timeout sollten nach RFC 6775 nicht passieren!
+Nach RFC 6775 (Abschnitt 3.3) sendet der Host eine \textit{Neighbor Solicitation} an den Router mit einer gewissen Lifetime. Sollte die Lifetime ablaufen, dann erneuert der Host diesen Eintrag. Der Router fragt allerdings nicht aktiv nach, ob der Host noch erreichbar ist. Die Anfragen nach dem oben gezeigtem Timeout sollten gemäß RFC 6775 nicht passieren!
 
 
 \section{Projektschritt 2:RPL Routing im Labornetz}
 In Projektschritt 2 haben wir nach Szenario 2 unseren Versuchsaufbau ausgerichtet und durchgeführt. Im gemeinsamen Testlauf wurde durch Wireshark ein Mitschnitt der Kommunikation der Knoten erzeugt. Dieser lief über einige Zeit und umfasst insgesamt mehrere Tausend Nachrichten. In einem weiteren Schritt wurden alle Nachrichten die das RPL Protokoll betreffen analysiert um zu sehen wie es genutzt wird um eine Kommunikation aufzubauen. 
 
 \subsection{Nachrichten und Informationsaustausch}
-Die Nachrichten die im Rahmen des RPL Protokolls ausgetauscht werden sind entweder \textit{DODAG Information Object, DODAG Information Solicitation, Destination Advertisment Object (DAO) oder Destination Advertisment Object Acknowledgment}. Dadurch werden die Informationen verteilt welche Knoten Teil des Netzwekes sind und Verbindung zu anderen haben. Mithilfe der durch die Nachrichten bekanntgegebenen Struktur kann ein Graph aufgebaut werden der es ermöglicht Nachrichten im Netz zu verteilen. In der Regel hat jeder Knoten einen Parent Knoten an den er seine Nachrichten weiterleitet. Ein Parent weiß dabei nichts von seinen Kindern bis diese sich bei ihm melden und erfährt aus der DAO-Nachricht welche Knoten über das Kind erreichbar sind.
+Die Nachrichten die im Rahmen des RPL Protokolls ausgetauscht werden sind entweder \textit{DODAG Information Object, DODAG Information Solicitation, Destination Advertisment Object (DAO)} oder \textit{Destination Advertisment Object Acknowledgment}. Dadurch werden die Informationen verteilt welche Knoten Teil des Netzwerkes sind und wie die Knoten untereinander verbunden sind. Mithilfe der durch die Nachrichten bekanntgegebenen Struktur kann ein Graph aufgebaut werden, der es ermöglicht Nachrichten im Netz zu verteilen. In der Regel hat jeder Knoten einen Parent-Knoten, an den er seine Nachrichten weiterleitet. Ein Parent weiß dabei nichts von seinen Kindern, bis diese sich bei ihm melden. Der Parent-Knoten erfährt außerdem aus der DAO-Nachricht des Kind-Knoten, welche weiteren Knoten über das Kind erreichbar sind.
 
-Mithilfe der durch das RPL erzeugten Schema können dann Datennachrichten übermittelt werden. Die Knoten wissen wen sie Adressieren müssen um Nachrichten zu verteilen. Als erstes ihren Parent der das dann gegebenenfalls weiterleitet. Im unten dargestellten Bild ist dies durch den Ping verdeutlicht der an den RPL-Root gehen soll aber vorher über einen anderen Knoten (den Parent Knoten) weitergeleitet wird.
+Mithilfe der durch das RPL erzeugten Schema können dann Datennachrichten übermittelt werden. Die Knoten wissen wen sie adressieren müssen um Nachrichten zu verteilen. Als erstes ihren Parent der das Datenpaket dann gegebenenfalls weiterleitet. In Figur \ref{fig:RPL_Baum}  ist dies durch den Ping verdeutlicht der an den RPL-Root gehen soll aber vorher über einen anderen Knoten (den Parent-Knoten) weitergeleitet wird.
 
 Aufgrund der Nachrichten und deren Inhalt konnten wir in unserem Versuchsaufbau folgenden Baum entwerfen der sich aus einem ausgewählten Teil unseres Nachrichten Mitschnitts ergibt.
 
@@ -54,17 +54,15 @@ Aufgrund der Nachrichten und deren Inhalt konnten wir in unserem Versuchsaufbau 
 
 
 \section{Projektschritt 3: Datenverteilung und Messung}
-Der dritte Projektschritt wurde im zweiten Praktikumstermin ausgeführt. Dabei ging es darum die in Projektschritt 1 und 2 bearbeiteten Protokolle zu vergleichen und sie hinsichtlich Zuverlässigkeit und Zeitverhalten zu prüfen. Dafür haben wir sowohl in den zweier Gruppen wie auch in der Praktikumsgruppe selbst Diskussionen und Testsdruchgeführt und sind auf verschiedene Weise an die Aufgabenstellung heran gegangen.
+Der dritte Projektschritt wurde im zweiten Praktikumstermin ausgeführt. Dabei ging es darum die in Projektschritt 1 und 2 bearbeiteten Protokolle zu vergleichen und sie hinsichtlich Zuverlässigkeit und Zeitverhalten zu prüfen. Dafür haben wir sowohl in den zweier Gruppen wie auch in der Praktikumsgruppe selbst Diskussionen und Tests durchgeführt und sind mit unterschiedlichen Ansätzen an die Aufgabenstellung herangegangen.
 
 \subsection{Testaufbau}
-Wir entschlossen uns einen einfachen Ping mit verschiedenen Paketgrößen in beiden Szenarien zu schicken um verfolgen zu können wie lang verschiedene Pakete in den Szenarien benötigen sowie wie zuverlässig die Pakete bei steigender Größe ankommen.
-Dabei war der Ablauf dass wir bei einer Ping-Paketgröße von 16 Bit (Der Header den der Ping darauf rechnet nicht mitgezählt), und dann immer verdoppelt haben bis das Paket nicht mehr durchkommt.Jeden Ping haben wir bis zu fünfzig Mal ausgeführt und die Ergebnisse gemittelt. Sowohl die Ergebnisse wie auch die Erkenntnisse sind untenstehend zu finden.
+Wir entschlossen uns einen einfachen Ping mit verschiedenen Paketgrößen in beiden Szenarien zu versenden um verfolgen zu können wie lange unterschiedlich große Pakete in den Szenarien benötigen sowie wie zuverlässig die Pakete bei steigender Größe ankommen.
+Dabei war der Ablauf, dass wir bei einer Ping-Paketgröße von 16 Byte (Der Header den der Ping darauf rechnet nicht mitgezählt) und dann immer verdoppelt haben bis das Paket nicht mehr sein Ziel erreicht. Jeden Ping haben wir 50 Mal ausgeführt und die Ergebnisse gemittelt. Sowohl die Ergebnisse als auch die Erkenntnisse sind in Tabelle \ref{table_ping_result} zu finden.
 
 \subsection{Szenario 2 Ping}
 
-Im zweiten Szenario war es ein wenig schwierig über alle Pings konstante Werte zu erzeugen da sich je nach Anzahl der aktiven Knoten im Raum die Hop Anzahl geändert hat. Wir haben uns allerdings Mühe gegeben die Werte möglichst gleichmäßig zu erzeugen. Durch diesen Effekt konnten wir allerdings beobachten das ein zusätzlicher Hop bereits einen relativ hohen Anstieg der Zeit verursachte und auch die Ausfallsrate steigen lässt.
-
-Untenstehend ist die Tabelle der Messungen zu sehen.
+Im zweiten Szenario war es schwierig über für alle Ping-Größen konstante Mess-Werte zu erzeugen da sich je nach Anzahl der aktiven Knoten im Raum die Hop-Anzahl geändert hat. Wir haben uns allerdings Mühe gegeben die Werte möglichst gleichmäßig zu erzeugen. Durch diesen Effekt konnten wir allerdings beobachten das ein zusätzlicher Hop bereits einen Anstieg der Zeit verursachte und auch die Verlustrate steigen lässt.
 
 \begin{table}[H]
 \centering
@@ -84,18 +82,19 @@ Untenstehend ist die Tabelle der Messungen zu sehen.
   \hline
 \end{tabular}
 	\caption{Ping mit c = 50 Die Paketgröße ist die von uns angegebene Größe ohne Header}
+	\label{table_ping_result_scenario2}
 \end{table}
 
-Anhand der Daten ist zu erkennen, dass die Größe der Pakete stark mit der Zeit in Zusammenhang steht die die Pakete benötigen. Ebenso steigt der Verlust den die Pakete erleiden. Die Anzahl der Hop sist ebenfalls sehr ausschlaggebend dahingehend wie schnell und zuverlässig die Daten ankommen. Bzw, wie stabil die Anzahl der Hops ist. Werden welche plötzlich dazu geschaltet oder entfernt beeinträchtigt das die Zuverlässigkeit der Übertragung stark.
+Anhand der Daten in Tabelle \ref{table_ping_result} ist zu erkennen, dass die Größe der Pakete stark mit der Zeit in Zusammenhang steht, die die Pakete benötigen. Ebenso steigt der Verlust den die Pakete erleiden. Die Anzahl der Hops ist ebenfalls sehr ausschlaggebend, was die Übertragungsschwindigkeit und -zuverlässigkeit der Pakete betrifft. Werden plötzlich zusätzliche Hops in die Paket-Route geschaltet oder entfernt, beeinflusst das die Zuverlässigkeit der Übertragung stark.
 
-Ab einer Paketgröße von 144 Bit ist es praktisch unmöglich Pings zu übertragen, die Verlustrate steigt dort auf ca. 100 Prozent. Das führen wir darauf zurück, dass ab einer gewissen Größe Ping Pakete in mehrere geteilt werden. Von diesen Paketen müssen allerdings alle ankommen um einen erfolgreichen Ping zu gewährleisten. Ab der Größe von 145 sind dies aber so viele Pakete das in der Regel niemals alle durchkommen und wir keine erfolgreichen Pings mehr verzeichnen konnten. Dies ist auch ein Hinweis darauf, das eine wirklich sichere und konstante Übertragung der Daten über dieses Protokoll nicht möglich ist.
+Ab einer Paketgröße von 144 Byte ist keiner der Pings mehr übertragen worden bzw. wir haben keine Ping-Reply vom Ping-Empfänger erhalten, die Verlustrate steigt dort auf ca. 100 Prozent. Das führen wir darauf zurück, dass ab einer gewissen Größe Ping-Pakete in mehrere TCP-Pakete geteilt werden. Von diesen Paketen müssen allerdings alle beim Empfänger ankommen um einen erfolgreichen Ping zu gewährleisten. Ab der Größe von 145 Byte sind dies aber so viele TCP-Pakete, dass in der Regel kein Paket sein Ziel erreicht und wir keine erfolgreichen Pings mehr verzeichnen konnten. Dies ist auch ein Hinweis darauf, das eine zuverlässige Übertragung der Daten über dieses Protokoll nicht möglich ist.
 
 
-\subsection{Szenario 1}
+\subsection{Szenario 1 Ping}
 
-Im zweiten Versuch haben wir das Szenario 1 aufgebaut und den Test im gleichen Maße wie schon in Szenario 2 durchgeführt. Hier hatten wir allerdings schnell das Problem, dass der Sensor Knoten die Adresse verliert, ein Problem auf das wir keinen Einfluss hatten und mit dem Protokoll eigentlich nichts zu tun hat. Um das Problem zu umgehen haben wir in diesem Durchlauf die Ping Anzahl auf 10 erniedrigt da es nicht möglich war 50 Pings hintereinander durchzuführen.
+Im zweiten Versuch haben wir das Szenario 1 aufgebaut und den Test im gleichen Maße wie schon in Szenario 2 durchgeführt. Hier hatten wir allerdings schnell das Problem, dass der Sensor-Knoten die IPv6-Adresse verliert. Dies ist ein Problem auf das wir keinen Einfluss hatten und mit dem Protokoll nichts zu tun hat. Um das Problem zu umgehen haben wir in diesem Durchlauf die Ping Anzahl auf 10 verringert da es nicht möglich war 50 Pings an einem Stück durchzuführen.
 
-Das Ergebnis der Messung sieht wie folgt aus. 
+Das Ergebnis der Messung ist in Tabelle \ref{table_ping_result_scenario1} aufgeführt
 
 \begin{table}[H]
 \centering
@@ -115,16 +114,17 @@ Das Ergebnis der Messung sieht wie folgt aus.
   \hline
 \end{tabular}
 	\caption{Die Paketgröße ist die von uns angegebene Größe ohne Header Hopanzahl Konstant 2}
+	\label{table_ping_result_scenario1}
 \end{table}
 
-Aufgrund des Aufbaus sind hier konstante zwei Hops, vom Arbeitsrechner auf den Raspberry Pi zum Sensor Knoten und nicht wie in Szenario 2 über das Sensorknoten Netz. Auffällig auch hier, die mit der Größe steigende Übertragungszeit. Eher ungewöhnlich wirkt hier der Paketverlust den wir aber auf die Probleme mit dem Sensorknoten und einem zu dem Zeitpunkt stark schwankendem Funkverkehr im Praktikumsraum zurück führen. Überraschend war hier, die erst gering wirkende Verlustrate von 5 Prozent im letzten Schritt, doch bei Vergrößerung der Paketgröße darüber hinaus ist es auch hier nicht mehr möglich einen Ping zu erhalten.
+Aufgrund des Aufbaus passieren die Ping-Pakete in diesem Szenario konstant zwei Hops. eine kabelgebundene Verbindung zwischen Arbeitsrechner und Raspberry Pi und eine kabellose Verbindung vom Raspberry Pi zum Sensor-Knoten. Auffällig auch hier ist die mit der Größe steigende Übertragungszeit. Eher ungewöhnlich wirkt hier der Paketverlust den wir aber auf die Probleme mit dem Sensorknoten und einem zu dem Zeitpunkt stark schwankendem Funkverkehr im Praktikumsraum zurückführen. Überraschend war hier die erst gering wirkende Verlustrate von 5 Prozent im letzten Mess-Schritt, doch bei Vergrößerung der Paketgröße über 144 Byte hinaus ist es auch hier nicht mehr möglich einen Ping erfolgreich durchzuführen.
 
 
 \subsection{Vergleich und weitere Beobachtungen}
 
-Im Vergleich der beiden Messungen tritt stark hervor, dass sowohl in Zeit wie auch Verlust die Übertragung über das Kabel privilegiert ist. Der Funkverkehr, vor allem über eine steigende Anzahl an Hops führt zu hohen Latenzen und starken Ausfällen. Allerdings hatten wir den Eindruck, dass Szenario 1 deutlich anfälliger für den Funkverkehr im Raum ist als das Szenario 2.
+Im Vergleich der beiden Messungen tritt stark hervor, dass sowohl in Zeit wie auch Verlust die Übertragung über das Kabel privilegiert ist. Der Funkverkehr, vor allem über eine steigende Anzahl an Hops führt zu hohen Latenzen und hohen Verlustraten. Allerdings hatten wir den Eindruck, dass Szenario 1 deutlich anfälliger für den Funkverkehr im Raum ist als das Szenario 2.
 
-Eine Beobachtung die wir machen durften war, dass am Anfang eines Pings, besonders wenn wir den Sensorknoten gerade Neustarten mussten aufgrund seines Fehlers deutlich zu merken ist dass der Sensorknoten eine Zeit braucht sich im Netzwerk wieder einzurichten sowie die ersten Pings sehr anfällig für Störungen sind. Ebenso war es sehr auffällig, dass der Verkehr im Raum großen Einfluss hatten. Der Gruppe ganz hinten im Raum war es über die meiste Zeit praktisch unmöglich zu pingen, bis zu dem Zeitpunkt wo die meisten aufgehört haben zu senden. Anhand unserer Pingverluste und der Umfrage an die anderen Gruppen konnten wir feststellen, dass sobald auch andere Senden unsere Verluste dramatisch steigen bis zu einem Maße, dass wir gar nichts mehr empfangen haben. Dieses Problem stellte sich bei uns vor allem in Szenario 1 heraus, bei anderen Gruppen aber auch im Szenario 2.
+Eine Beobachtung die wir machen konnten war, dass am Anfang eines Pings, besonders wenn wir den Sensorknoten gerade Neustarten mussten, deutlich zu merken war dass der Sensorknoten eine Zeit braucht, um sich im Netzwerk wieder einzurichten. Ebenso war es sehr auffällig, dass der Verkehr im Raum großen Einfluss hatten. Der Gruppe ganz hinten im Raum war es über die meiste Zeit praktisch unmöglich zu pingen, bis zu dem Zeitpunkt wo die meisten aufgehört haben zu senden. Anhand unserer Pingverluste und der Umfrage an die anderen Gruppen konnten wir feststellen, dass sobald auch andere Gruppen gesendet haben, unsere Verluste dramatisch steigen bis zu einem Maße, dass wir gar nichts mehr empfangen haben. Dieses Problem stellte sich bei uns vor allem in Szenario 1 heraus, bei anderen Gruppen aber auch im Szenario 2.
 
 
 \end{document}
