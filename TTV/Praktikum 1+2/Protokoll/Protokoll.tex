@@ -58,7 +58,7 @@ Der dritte Projektschritt wurde im zweiten Praktikumstermin ausgeführt. Dabei g
 
 \subsection{Testaufbau}
 Wir entschlossen uns einen einfachen Ping mit verschiedenen Paketgrößen in beiden Szenarien zu versenden um verfolgen zu können wie lange unterschiedlich große Pakete in den Szenarien benötigen sowie wie zuverlässig die Pakete bei steigender Größe ankommen.
-Dabei war der Ablauf, dass wir bei einer Ping-Paketgröße von 16 Byte (Der Header den der Ping darauf rechnet nicht mitgezählt) und dann immer verdoppelt haben bis das Paket nicht mehr sein Ziel erreicht. Jeden Ping haben wir 50 Mal ausgeführt und die Ergebnisse gemittelt. Sowohl die Ergebnisse als auch die Erkenntnisse sind in Tabelle \ref{table_ping_result} zu finden.
+Dabei war der Ablauf, dass wir bei einer Ping-Paketgröße von 16 Byte (Der Header den der Ping darauf rechnet nicht mitgezählt) und dann immer verdoppelt haben bis das Paket nicht mehr sein Ziel erreicht. Jeden Ping haben wir 50 Mal ausgeführt und die Ergebnisse gemittelt. Sowohl die Ergebnisse als auch die Erkenntnisse sind in den Tabellen \ref{table_ping_result_scenario2} und \ref{table_ping_result_scenario1} zu finden.
 
 \subsection{Szenario 2 Ping}
 
@@ -85,7 +85,7 @@ Im zweiten Szenario war es schwierig über für alle Ping-Größen konstante Mes
 	\label{table_ping_result_scenario2}
 \end{table}
 
-Anhand der Daten in Tabelle \ref{table_ping_result} ist zu erkennen, dass die Größe der Pakete stark mit der Zeit in Zusammenhang steht, die die Pakete benötigen. Ebenso steigt der Verlust den die Pakete erleiden. Die Anzahl der Hops ist ebenfalls sehr ausschlaggebend, was die Übertragungsschwindigkeit und -zuverlässigkeit der Pakete betrifft. Werden plötzlich zusätzliche Hops in die Paket-Route geschaltet oder entfernt, beeinflusst das die Zuverlässigkeit der Übertragung stark.
+Anhand der Daten in Tabelle \ref{table_ping_result_scenario2} ist zu erkennen, dass die Größe der Pakete stark mit der Zeit in Zusammenhang steht, die die Pakete benötigen. Ebenso steigt der Verlust den die Pakete erleiden. Die Anzahl der Hops ist ebenfalls sehr ausschlaggebend, was die Übertragungsschwindigkeit und -zuverlässigkeit der Pakete betrifft. Werden plötzlich zusätzliche Hops in die Paket-Route geschaltet oder entfernt, beeinflusst das die Zuverlässigkeit der Übertragung stark.
 
 Ab einer Paketgröße von 144 Byte ist keiner der Pings mehr übertragen worden bzw. wir haben keine Ping-Reply vom Ping-Empfänger erhalten, die Verlustrate steigt dort auf ca. 100 Prozent. Das führen wir darauf zurück, dass ab einer gewissen Größe Ping-Pakete in mehrere TCP-Pakete geteilt werden. Von diesen Paketen müssen allerdings alle beim Empfänger ankommen um einen erfolgreichen Ping zu gewährleisten. Ab der Größe von 145 Byte sind dies aber so viele TCP-Pakete, dass in der Regel kein Paket sein Ziel erreicht und wir keine erfolgreichen Pings mehr verzeichnen konnten. Dies ist auch ein Hinweis darauf, das eine zuverlässige Übertragung der Daten über dieses Protokoll nicht möglich ist.
 
@@ -126,7 +126,7 @@ Im Vergleich der beiden Messungen tritt stark hervor, dass sowohl in Zeit wie au
 
 Eine Beobachtung die wir machen konnten war, dass am Anfang eines Pings, besonders wenn wir den Sensorknoten gerade Neustarten mussten, deutlich zu merken war dass der Sensorknoten eine Zeit braucht, um sich im Netzwerk wieder einzurichten. Ebenso war es sehr auffällig, dass der Verkehr im Raum großen Einfluss hatten. Der Gruppe ganz hinten im Raum war es über die meiste Zeit praktisch unmöglich zu pingen, bis zu dem Zeitpunkt wo die meisten aufgehört haben zu senden. Anhand unserer Pingverluste und der Umfrage an die anderen Gruppen konnten wir feststellen, dass sobald auch andere Gruppen gesendet haben, unsere Verluste dramatisch steigen bis zu einem Maße, dass wir gar nichts mehr empfangen haben. Dieses Problem stellte sich bei uns vor allem in Szenario 1 heraus, bei anderen Gruppen aber auch im Szenario 2.
 
-Um die Ergebnisse noch einmal zu verdeutlichen haben wir zwei Performance Diagramme erstellt, die die Ergebnisse hinsichtlich der Zeitdauer \ref{fig:Diagramm_Zeit} und der Zuverlässigkeit in Form von Paketverlust \ref{fig:Diagramm_Paketverlust} aufgearbeitet haben.
+Um die Ergebnisse noch einmal zu verdeutlichen haben wir zwei Performance Diagramme erstellt, die die Ergebnisse hinsichtlich der Zeitdauer (s. Abbildung \ref{fig:Diagramm_Zeit}) und der Zuverlässigkeit in Form von Paketverlust (s. Abbildung \ref{fig:Diagramm_Paketverlust}) aufgearbeitet haben.
 
 \begin{figure}[H]
 	\centering
