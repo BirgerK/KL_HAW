@@ -1113,7 +1113,6 @@ public class ChordImpl implements Chord, Report, AsynChord {
 	//send broadcast to all nodes in finger table
 	public void broadcast (ID target, Boolean hit) {
 		this.logger.debug("App called broadcast");
-		
 	}
 	
 	public void setCallback (NotifyCallback callback) {
