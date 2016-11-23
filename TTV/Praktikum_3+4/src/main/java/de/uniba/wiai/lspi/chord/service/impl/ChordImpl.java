@@ -27,38 +27,21 @@
  ***************************************************************************/
 package de.uniba.wiai.lspi.chord.service.impl;
 
-import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.DEBUG;
-import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.INFO;
+import de.uniba.wiai.lspi.chord.com.*;
+import de.uniba.wiai.lspi.chord.data.ID;
+import de.uniba.wiai.lspi.chord.data.URL;
+import de.uniba.wiai.lspi.chord.service.*;
+import de.uniba.wiai.lspi.util.logging.Logger;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
-import de.uniba.wiai.lspi.chord.com.Broadcast;
-import de.uniba.wiai.lspi.chord.com.CommunicationException;
-import de.uniba.wiai.lspi.chord.com.Entry;
-import de.uniba.wiai.lspi.chord.com.Node;
-import de.uniba.wiai.lspi.chord.com.Proxy;
-import de.uniba.wiai.lspi.chord.com.RefsAndEntries;
-import de.uniba.wiai.lspi.chord.data.ID;
-import de.uniba.wiai.lspi.chord.data.URL;
-import de.uniba.wiai.lspi.chord.service.AsynChord;
-import de.uniba.wiai.lspi.chord.service.Chord;
-import de.uniba.wiai.lspi.chord.service.ChordCallback;
-import de.uniba.wiai.lspi.chord.service.ChordFuture;
-import de.uniba.wiai.lspi.chord.service.ChordRetrievalFuture;
-import de.uniba.wiai.lspi.chord.service.Key;
-import de.uniba.wiai.lspi.chord.service.NotifyCallback;
-import de.uniba.wiai.lspi.chord.service.Report;
-import de.uniba.wiai.lspi.chord.service.ServiceException;
-import de.uniba.wiai.lspi.util.logging.Logger;
+import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.DEBUG;
+import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.INFO;
 
 /**
  * Implements all operations which can be invoked on the local node.
@@ -74,35 +57,30 @@ public class ChordImpl implements Chord, Report, AsynChord {
 	 */
 	private static final int ASYNC_CALL_THREADS = Integer.parseInt(System
 			.getProperty(ChordImpl.class.getName() + ".AsyncThread.no"));
-
 	/**
 	 * Time in seconds until the stabilize task is started for the first time.
 	 */
 	private static final int STABILIZE_TASK_START = Integer
 			.parseInt(System
 					.getProperty("de.uniba.wiai.lspi.chord.service.impl.ChordImpl.StabilizeTask.start"));
-
 	/**
 	 * Time in seconds between two invocations of the stabilize task.
 	 */
 	private static final int STABILIZE_TASK_INTERVAL = Integer
 			.parseInt(System
 					.getProperty("de.uniba.wiai.lspi.chord.service.impl.ChordImpl.StabilizeTask.interval"));
-
 	/**
 	 * Time in seconds until the fix finger task is started for the first time.
 	 */
 	private static final int FIX_FINGER_TASK_START = Integer
 			.parseInt(System
 					.getProperty("de.uniba.wiai.lspi.chord.service.impl.ChordImpl.FixFingerTask.start"));
-
 	/**
 	 * Time in seconds between two invocations of the fix finger task.
 	 */
 	private static final int FIX_FINGER_TASK_INTERVAL = Integer
 			.parseInt(System
 					.getProperty("de.uniba.wiai.lspi.chord.service.impl.ChordImpl.FixFingerTask.interval"));
-
 	/**
 	 * Time in seconds until the check predecessor task is started for the first
 	 * time.
@@ -110,14 +88,12 @@ public class ChordImpl implements Chord, Report, AsynChord {
 	private static final int CHECK_PREDECESSOR_TASK_START = Integer
 			.parseInt(System
 					.getProperty("de.uniba.wiai.lspi.chord.service.impl.ChordImpl.CheckPredecessorTask.start"));
-
 	/**
 	 * Time in seconds between two invocations of the check predecessor task.
 	 */
 	private static final int CHECK_PREDECESSOR_TASK_INTERVAL = Integer
 			.parseInt(System
 					.getProperty("de.uniba.wiai.lspi.chord.service.impl.ChordImpl.CheckPredecessorTask.interval"));
-
 	/**
 	 * Number of references in the successor list.
 	 */
@@ -127,79 +103,45 @@ public class ChordImpl implements Chord, Report, AsynChord {
 			: Integer
 					.parseInt(System
 							.getProperty("de.uniba.wiai.lspi.chord.service.impl.ChordImpl.successors"));
-
 	/**
 	 * Object logger.
 	 */
 	protected Logger logger;
-
+	/**
+	 * References to remote nodes.
+	 */
+	protected References references;
+	private Integer currentTransaction = new Integer(0);
 	/**
 	 * Reference on that part of the node implementation which is accessible by
 	 * other nodes; if <code>null</code>, this node is not connected
 	 */
 	private NodeImpl localNode;
-
 	/**
 	 * Entries stored at this node, including replicas.
 	 */
 	private Entries entries;
-
 	/**
 	 * Executor service for local maintenance tasks.
 	 */
 	private ScheduledExecutorService maintenanceTasks;
-
 	/**
 	 * Executor service for asynch requests.
 	 */
 	private ExecutorService asyncExecutor;
-
-	/**
-	 * ThreadFactory used with Executor services.
-	 * 
-	 * @author sven
-	 * 
-	 */
-	private static class ChordThreadFactory implements
-			java.util.concurrent.ThreadFactory {
-
-		private String executorName;
-
-		ChordThreadFactory(String executorName) {
-			this.executorName = executorName;
-		}
-
-		public Thread newThread(Runnable r) {
-			Thread newThread = new Thread(r);
-			newThread.setName(this.executorName + "-" + newThread.getName());
-			return newThread;
-		}
-
-	}
-
-	/**
-	 * References to remote nodes.
-	 */
-	protected References references;
-
 	/**
 	 * Reference on hash function (singleton instance).
 	 */
 	private HashFunction hashFunction;
-
 	/**
 	 * This node's URL.
 	 */
 	private URL localURL;
-
 	/**
 	 * This node's ID.
 	 */
 	private ID localID;
-	
 	private NotifyCallback localCallback;
-
-	/* constructor */
 
 	/**
 	 * Creates a new instance of ExtendedChordImpl which initially is disconnected.
@@ -219,6 +161,8 @@ public class ChordImpl implements Chord, Report, AsynChord {
 		logger.info("ExtendedChordImpl initialized!");
 	}
 
+	/* constructor */
+
 	/**
 	 * @return The Executor executing asynchronous request.
 	 */
@@ -229,11 +173,11 @@ public class ChordImpl implements Chord, Report, AsynChord {
 		return this.asyncExecutor;
 	}
 
-	/* implementation of Chord interface */
-
 	public final URL getURL() {
 		return this.localURL;
 	}
+
+	/* implementation of Chord interface */
 
 	public final void setURL(URL nodeURL) {
 
@@ -260,15 +204,6 @@ public class ChordImpl implements Chord, Report, AsynChord {
 		return this.localID;
 	}
 
-	public final ID getPredecessorID () {
-		Node pre = this.references.getPredecessor();
-		if (pre == null) {
-			return null;
-		} else {
-			return pre.getNodeID();
-		}
-	}
-
 	public final void setID(ID nodeID) {
 
 		if (nodeID == null) {
@@ -288,6 +223,15 @@ public class ChordImpl implements Chord, Report, AsynChord {
 		this.localID = nodeID;
 		this.logger = Logger.getLogger(ChordImpl.class.getName() + "."
 				+ this.localID);
+	}
+
+	public final ID getPredecessorID() {
+		Node pre = this.references.getPredecessor();
+		if (pre == null) {
+			return null;
+		} else {
+			return pre.getNodeID();
+		}
 	}
 
 	public final void create() throws ServiceException {
@@ -371,7 +315,7 @@ public class ChordImpl implements Chord, Report, AsynChord {
 	 * localID and localURL are correctly set. Is invoked by the methods
 	 * {@link #create()}, {@link #create(URL)}, and {@link #create(URL, ID)}
 	 * only.
-	 * 
+	 *
 	 * @throws RuntimeException
 	 */
 	private final void createHelp() {
@@ -383,7 +327,7 @@ public class ChordImpl implements Chord, Report, AsynChord {
 
 		// create local repository for node references
 		if (NUMBER_OF_SUCCESSORS >= 1) {
-			this.references = new References(this.getID(), this.getURL(), 
+			this.references = new References(this.getID(), this.getURL(),
 					NUMBER_OF_SUCCESSORS, this.entries);
 		} else {
 			throw new RuntimeException(
@@ -520,7 +464,7 @@ public class ChordImpl implements Chord, Report, AsynChord {
 	 * that localID and localURL are correctly set. Is invoked by the methods
 	 * {@link #join(URL)}, {@link #join(URL, URL)}, and
 	 * {@link #join(URL, ID, URL)} only.
-	 * 
+	 *
 	 * @param bootstrapURL
 	 *            URL of bootstrap node. Must not be null!.
 	 * @throws ServiceException
@@ -537,7 +481,7 @@ public class ChordImpl implements Chord, Report, AsynChord {
 
 		// create local repository for node references
 		if (NUMBER_OF_SUCCESSORS >= 1) {
-			this.references = new References(this.getID(), this.getURL(), 
+			this.references = new References(this.getID(), this.getURL(),
 					NUMBER_OF_SUCCESSORS, this.entries);
 		} else {
 			throw new RuntimeException(
@@ -857,7 +801,7 @@ public class ChordImpl implements Chord, Report, AsynChord {
 		return values;
 
 	}
-	
+
 	public final void remove(Key key, Serializable s) {
 
 		// check parameters
@@ -908,7 +852,7 @@ public class ChordImpl implements Chord, Report, AsynChord {
 	/**
 	 * Returns a human-readable string representation containing this node's
 	 * node ID and URL.
-	 * 
+	 *
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -922,7 +866,7 @@ public class ChordImpl implements Chord, Report, AsynChord {
 
 	/**
 	 * Returns the Chord node which is responsible for the given key.
-	 * 
+	 *
 	 * @param key
 	 *            Key for which the successor is searched for.
 	 * @throws NullPointerException
@@ -1021,7 +965,7 @@ public class ChordImpl implements Chord, Report, AsynChord {
 	public final String printFingerTable() {
 		return this.references.printFingerTable();
 	}
-	
+
 	public final List<Node> getFingerTable() {
 		return this.references.getFingerTableEntries();
 	}
@@ -1108,13 +1052,44 @@ public class ChordImpl implements Chord, Report, AsynChord {
 	public ChordFuture removeAsync(Key key, Serializable entry) {
 		return ChordRemoveFuture.create(this.asyncExecutor, this, key, entry);
 	}
-	
-	// TODO: implement this function in TTP 
+
 	//send broadcast to all nodes in finger table
 	public void broadcast (ID target, Boolean hit) {
-		this.logger.debug("App called broadcast");
+		this.currentTransaction += 1;
+		this.logger.debug(String.format("App called broadcast for transaction no %d", this.currentTransaction));
+		List<Node> fingerTable = getFingerTable();
+		Set<Node> uniqueFingerTable = new HashSet();
+		uniqueFingerTable.addAll(fingerTable);
+		fingerTable = new ArrayList();
+		fingerTable.addAll(uniqueFingerTable);
+
+		for (int i = 0; i < fingerTable.size(); i++) {
+			Node node = fingerTable.get(i);
+			ID range = null;
+			if (i != fingerTable.size()) {
+				range = fingerTable.get(i + 1).getNodeID();
+			} else {
+				range = getID();
+			}
+			Broadcast broadcast = new Broadcast(range, getID(), target, this.currentTransaction, hit);
+
+			int tryCounter = 1;
+			while (true) {
+				try {
+					node.broadcast(broadcast);
+				} catch (CommunicationException e) {
+					this.logger.error(String
+							.format("CommunicationException occured while sending to node with ID %s, tried %d times.",
+									node.getNodeID().toString(), tryCounter));
+					tryCounter++;
+					if (tryCounter >= 3) {
+						break;
+					}
+				}
+			}
+		}
 	}
-	
+
 	public void setCallback (NotifyCallback callback) {
 		if (callback == null) {
 			NullPointerException e = new NullPointerException(
@@ -1140,6 +1115,27 @@ public class ChordImpl implements Chord, Report, AsynChord {
 		if (this.localNode != null) {
 			this.localNode.clearCallback();
 		}
+	}
+
+	/**
+	 * ThreadFactory used with Executor services.
+	 *
+	 * @author sven
+	 */
+	private static class ChordThreadFactory implements java.util.concurrent.ThreadFactory {
+
+		private String executorName;
+
+		ChordThreadFactory(String executorName) {
+			this.executorName = executorName;
+		}
+
+		public Thread newThread(Runnable r) {
+			Thread newThread = new Thread(r);
+			newThread.setName(this.executorName + "-" + newThread.getName());
+			return newThread;
+		}
+
 	}
 
 }
