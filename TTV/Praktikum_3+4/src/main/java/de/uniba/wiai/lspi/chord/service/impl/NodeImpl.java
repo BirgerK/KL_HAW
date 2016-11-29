@@ -27,27 +27,19 @@
  ***************************************************************************/
 package de.uniba.wiai.lspi.chord.service.impl;
 
-import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.DEBUG;
-import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.INFO;
-
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.Executor;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
-import de.uniba.wiai.lspi.chord.com.Broadcast;
-import de.uniba.wiai.lspi.chord.com.CommunicationException;
-import de.uniba.wiai.lspi.chord.com.Endpoint;
-import de.uniba.wiai.lspi.chord.com.Entry;
-import de.uniba.wiai.lspi.chord.com.Node;
-import de.uniba.wiai.lspi.chord.com.RefsAndEntries;
+import de.uniba.wiai.lspi.chord.com.*;
 import de.uniba.wiai.lspi.chord.data.ID;
 import de.uniba.wiai.lspi.chord.data.URL;
 import de.uniba.wiai.lspi.chord.service.NotifyCallback;
 import de.uniba.wiai.lspi.util.logging.Logger;
+
+import java.util.*;
+import java.util.concurrent.Executor;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.DEBUG;
+import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.INFO;
 
 /**
  * Implements all operations which can be invoked remotely by other nodes.
@@ -425,18 +417,66 @@ public final class NodeImpl extends Node {
 	final Executor getAsyncExecutor() {
 		return this.asyncExecutor;
 	}
-	
-	// TODO: implement this function in TTP
+
 	@Override
 	public final void broadcast(Broadcast info) throws CommunicationException {
 		if (this.logger.isEnabledFor(DEBUG)) {
 			this.logger.debug(" Send broadcast message");
 		}
-		
+		this.impl.setLastReceivedTransactionId(info.getTransaction());
+		List<Node> fingerTable = this.impl.getFingerTable();
+		ringSort(fingerTable);
+		Node receiverNode = null;
+		//TODO: refactor for-and-if to single for
+		for (Node nextNode : fingerTable) {
+			if (nextNode.getNodeID().isInInterval(this.getNodeID(), info.getRange())) {
+				sendBroadcast(receiverNode, nextNode.getNodeID(), info);
+			} else {//Next node is not in Range anymore, so send from receiver till range after loop.
+				break;
+			}
+			receiverNode = nextNode;
+		}
+		//If last receiver was still smaller than range, then send till range
+		if (receiverNode != null && receiverNode.getNodeID().isInInterval(this.getNodeID(), info.getRange())) {
+			sendBroadcast(receiverNode, info.getRange(), info);
+		}
 		// finally inform application
 		if (this.notifyCallback != null) {
 			this.notifyCallback.broadcast(info.getSource(), info.getTarget(), info.getHit());
 		}
 	}
 
+	private void ringSort(List<Node> table) {
+		/**
+		 * Sorts the table in order as that the first element is the first after this node and the last
+		 * element is the last after this node
+		 */
+		Collections.sort(table);
+		List<Node> toAppend = new ArrayList<Node>();
+		Iterator<Node> it = table.iterator();
+		while (it.hasNext()) {
+			Node n = it.next();
+			if (n.compareTo(this) < 0) {
+				toAppend.add(n);
+				it.remove();
+			}
+		}
+		table.addAll(toAppend);
+	}
+
+	private void sendBroadcast(final Node n, final ID range, final Broadcast bc) {
+		if (n != null) {
+			Runnable broadcastRunner = new Runnable() {
+				public void run() {
+					try {
+						n.broadcast(
+								new Broadcast(range, bc.getSource(), bc.getTarget(), bc.getTransaction(), bc.getHit()));
+					} catch (CommunicationException e) {
+						logger.error("Forwarding broadcast to node " + n.getNodeID() + " failed!", e);
+					}
+				}
+			};
+			asyncExecutor.execute(broadcastRunner);
+		}
+	}
 }

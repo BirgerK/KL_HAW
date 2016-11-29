@@ -34,7 +34,6 @@ import de.uniba.wiai.lspi.chord.service.*;
 import de.uniba.wiai.lspi.util.logging.Logger;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -142,6 +141,8 @@ public class ChordImpl implements Chord, Report, AsynChord {
 	 */
 	private ID localID;
 	private NotifyCallback localCallback;
+
+	private int lastReceivedTransactionId = -1;
 
 	/**
 	 * Creates a new instance of ExtendedChordImpl which initially is disconnected.
@@ -1055,38 +1056,14 @@ public class ChordImpl implements Chord, Report, AsynChord {
 
 	//send broadcast to all nodes in finger table
 	public void broadcast (ID target, Boolean hit) {
-		this.currentTransaction += 1;
-		this.logger.debug(String.format("App called broadcast for transaction no %d", this.currentTransaction));
-		List<Node> fingerTable = getFingerTable();
-		Set<Node> uniqueFingerTable = new HashSet();
-		uniqueFingerTable.addAll(fingerTable);
-		fingerTable = new ArrayList();
-		fingerTable.addAll(uniqueFingerTable);
-
-		for (int i = 0; i < fingerTable.size(); i++) {
-			Node node = fingerTable.get(i);
-			ID range = null;
-			if (i != fingerTable.size()) {
-				range = fingerTable.get(i + 1).getNodeID();
-			} else {
-				range = getID();
-			}
-			Broadcast broadcast = new Broadcast(range, getID(), target, this.currentTransaction, hit);
-
-			int tryCounter = 1;
-			while (true) {
-				try {
-					node.broadcast(broadcast);
-				} catch (CommunicationException e) {
-					this.logger.error(String
-							.format("CommunicationException occured while sending to node with ID %s, tried %d times.",
-									node.getNodeID().toString(), tryCounter));
-					tryCounter++;
-					if (tryCounter >= 3) {
-						break;
-					}
-				}
-			}
+		this.logger.debug("App called broadcast");
+		try {
+			//Since we start the broadcast, we have to send the broadcast to the full range,
+			Broadcast broadcast = new Broadcast(this.getID(), this.getID(), target,
+					this.getLastReceivedTransactionId() + 1, hit);
+			this.localNode.broadcast(broadcast);
+		} catch (CommunicationException e) {
+			this.logger.error("Failed while initializing a broadcast!", e);
 		}
 	}
 
@@ -1115,6 +1092,14 @@ public class ChordImpl implements Chord, Report, AsynChord {
 		if (this.localNode != null) {
 			this.localNode.clearCallback();
 		}
+	}
+
+	public int getLastReceivedTransactionId() {
+		return lastReceivedTransactionId;
+	}
+
+	public void setLastReceivedTransactionId(int lastReceivedTransactionId) {
+		this.lastReceivedTransactionId = lastReceivedTransactionId;
 	}
 
 	/**
