@@ -1067,6 +1067,15 @@ public class ChordImpl implements Chord, Report, AsynChord {
 		}
 	}
 
+	public void broadcastAsync(final ID target, final Boolean hit) {
+		this.asyncExecutor.execute(new Runnable() {
+			@Override
+			public void run() {
+				broadcast(target, hit);
+			}
+		});
+	}
+
 	public void setCallback (NotifyCallback callback) {
 		if (callback == null) {
 			NullPointerException e = new NullPointerException(
@@ -1099,7 +1108,9 @@ public class ChordImpl implements Chord, Report, AsynChord {
 	}
 
 	public void setLastReceivedTransactionId(int lastReceivedTransactionId) {
-		this.lastReceivedTransactionId = lastReceivedTransactionId;
+		if (lastReceivedTransactionId > this.lastReceivedTransactionId) {
+			this.lastReceivedTransactionId = lastReceivedTransactionId;
+		}
 	}
 
 	/**
