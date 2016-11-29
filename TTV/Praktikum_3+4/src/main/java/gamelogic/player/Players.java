@@ -17,7 +17,7 @@ public class Players {
 
 	public static void init(ChordImpl chord) {
 		if (players == null) {
-			players = new HashMap();
+			players = new HashMap<ID, Player>();
 			ID ownId = chord.getID();
 			ID predId = chord.getPredecessorID();
 			int shipsPerPlayer = Integer.valueOf(Configuration.getProperty("shipsPerPlayer"));
