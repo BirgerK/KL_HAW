@@ -5,6 +5,7 @@ import de.uniba.wiai.lspi.chord.data.ID;
 import de.uniba.wiai.lspi.chord.service.impl.ChordImpl;
 import de.uniba.wiai.lspi.util.logging.Logger;
 import gamelogic.Configuration;
+import gamelogic.Main;
 
 import java.math.BigInteger;
 import java.util.*;
@@ -30,7 +31,7 @@ public class Players {
 					+ " to " + ownId.toBigInteger());
 			Player self = createPlayer(ownId);
 			self.setStartField(ID.valueOf(predId.toBigInteger()
-					.add(BigInteger.ONE)));//Start field of ourself is one higher then the ID of our predecessor
+					.add(BigInteger.ONE))); //Start field of ourself is one higher then the ID of our predecessor
 
 			me = self;
 			savePlayer(self);
@@ -38,7 +39,12 @@ public class Players {
 		}
 	}
 
-	public static void importFingerTable(ChordImpl chord) {
+	public static void updatePlayers(ChordImpl chord) {
+		importFingerTable(chord);
+		updateEstimatedStartingField();
+	}
+
+	private static void importFingerTable(ChordImpl chord) {
 		logger.info("Import FingerTable to Players");
 
 		int shipsPerPlayer = Integer.valueOf(Configuration.getProperty("shipsPerPlayer"));
@@ -51,6 +57,23 @@ public class Players {
 				Player newPlayer = new Player(nodeId, shipsPerPlayer, fieldsPerPlayer);
 				players.put(nodeId, newPlayer);
 			}
+		}
+	}
+
+	private static void updateEstimatedStartingField() {
+		List<Player> player_list = new ArrayList<Player>(getAll());
+		Collections.sort(player_list);
+
+		ID lastId = player_list.get(player_list.size() - 1).getId();
+		for (Player p : player_list) {
+			BigInteger newId = lastId.toBigInteger().add(BigInteger.ONE);
+			if (newId.compareTo(Main.MAX_ID) > 0) {
+				newId = newId.subtract(Main.MAX_ID);
+			}
+			p.setStartField(ID.valueOf(newId));
+			savePlayer(p);
+			lastId = p.getId();
+			logger.info("New range of player " + p.getId() + ": From " + newId + " to " + lastId.toBigInteger());
 		}
 	}
 

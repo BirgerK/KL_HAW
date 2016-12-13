@@ -1,7 +1,9 @@
 package gamelogic.player;
 
 import de.uniba.wiai.lspi.chord.data.ID;
+import gamelogic.Main;
 
+import java.math.BigInteger;
 import java.util.*;
 
 public class Player implements Comparable<Player> {
@@ -11,7 +13,6 @@ public class Player implements Comparable<Player> {
 	int number_of_ships;
 	int number_of_fields;
 
-	List<Field> fields = new ArrayList();
 	Set<Integer> fieldNumbersContainingShip = new HashSet<Integer>();
 	Map<ID, Boolean> shipWasHitOnField = new HashMap<ID, Boolean>();
 	ID lastShot = null;
@@ -55,11 +56,52 @@ public class Player implements Comparable<Player> {
 	}
 
 	public List<Field> getFields() {
+		List<Field> fields = new ArrayList();
+
+		BigInteger start = this.startField.toBigInteger();
+		BigInteger end = this.id.toBigInteger();
+		if (start.compareTo(end) > 0) {
+			start = start.subtract(Main.MAX_ID);
+		}
+
+		BigInteger idRange = end.subtract(start).add(BigInteger.ONE);
+		BigInteger sizeOfField = idRange.divide(BigInteger.valueOf(this.number_of_fields));
+
+		for (int i = 0; i < this.number_of_fields; i++) {
+			BigInteger startField = this.startField.toBigInteger().add(sizeOfField.multiply(BigInteger.valueOf(i)))
+					.mod(Main.MAX_ID);
+			BigInteger endField = startField.add(sizeOfField).subtract(BigInteger.ONE).mod(Main.MAX_ID);
+			Field field = new Field(i, startField, endField, FieldStatus.NOT_TOUCHED);
+
+			for (ID hitId : shipWasHitOnField.keySet()) {
+				if (field.isInside(hitId.toBigInteger())) {
+					if (field.getState().equals(FieldStatus.NOT_TOUCHED)) {
+						field.setState(getFieldStatus(hitId));
+					} else if (!field.getState().equals(FieldStatus.NOT_SURE)) {
+						FieldStatus newStatus = getFieldStatus(hitId);
+						if (!newStatus.equals(field.getState())) {
+							field.setState(FieldStatus.NOT_SURE);
+						}
+					}
+				}
+			}
+
+			fields.add(field);
+		}
+
 		return fields;
 	}
 
-	public void setFields(List<Field> fields) {
-		this.fields = fields;
+	private FieldStatus getFieldStatus(ID id) {
+		if (shipWasHitOnField.containsKey(id)) {
+			if (shipWasHitOnField.get(id)) {
+				return FieldStatus.HIT;
+			} else {
+				return FieldStatus.MISSED;
+			}
+		} else {
+			return FieldStatus.NOT_TOUCHED;
+		}
 	}
 
 	public Set<Integer> getFieldNumbersContainingShip() {
@@ -129,5 +171,13 @@ public class Player implements Comparable<Player> {
 	@Override
 	public int hashCode() {
 		return id.hashCode();
+	}
+
+	@Override
+	public String toString() {
+		return "Player{" + "id=" + id + ", startField=" + startField + ", number_of_ships=" + number_of_ships
+				+ ", number_of_fields=" + number_of_fields + ", fieldNumbersContainingShip="
+				+ fieldNumbersContainingShip + ", shipWasHitOnField=" + shipWasHitOnField + ", lastShot=" + lastShot
+				+ '}';
 	}
 }

@@ -6,13 +6,17 @@ import de.uniba.wiai.lspi.chord.service.ServiceException;
 import de.uniba.wiai.lspi.chord.service.impl.ChordImpl;
 import de.uniba.wiai.lspi.util.logging.Logger;
 
+import java.math.BigInteger;
 import java.net.MalformedURLException;
 
 public class Main {
 
+	public static int NR_BITS_ID = 160;
+	public static BigInteger MAX_ID = BigInteger.valueOf(2).pow(NR_BITS_ID).subtract(BigInteger.ONE);
 	private static String propertyFile = "game.properties";
 	private static Logger logger = Logger.getLogger(Main.class);
 
+	//TODO: still something missing
 	public static void main(String[] args) {
 		try {
 			if (args.length > 0) {

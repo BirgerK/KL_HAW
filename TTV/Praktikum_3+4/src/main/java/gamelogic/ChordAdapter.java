@@ -23,17 +23,18 @@ public class ChordAdapter implements NotifyCallback {
 
 			Players.init(chord);
 
-			Players.importFingerTable(chord);
+			Players.updatePlayers(chord);
 			boolean hit = Shot.isBoom(target);
 
 			Player meT = Players.me;
 			meT.addShotShipOnField(target, hit);
 			Players.savePlayer(meT);
 
-			logger.info("Shot at Hash: " + target + "; And was a hit: " + hit);
+			logger.info("Been shot at ID: " + target + "; And was a hit: " + hit);
 			chord.broadcastAsync(target, hit);
-			logger.info("I'm a pacifist. Just make more love. I won't bother this game anymore. idiot.");
-			//TODO: do my shot
+
+			logger.info("And now let's give them something from the good stuff");
+			shoot(chord);
 		}
 	}
 
@@ -50,7 +51,7 @@ public class ChordAdapter implements NotifyCallback {
 
 			shooter.addShotShipOnField(target, hit);
 			Players.savePlayer(shooter);
-			Players.importFingerTable(chord);
+			Players.updatePlayers(chord);
 
 			if (shooter.isDefeated()) {
 				logger.info("Player with ID " + shooter.getId() + " is defeated.");
@@ -61,5 +62,14 @@ public class ChordAdapter implements NotifyCallback {
 				}
 			}
 		}
+	}
+
+	private void shoot(ChordImpl chord) {
+		ID shootOnId = Shot.selectIdToShootAt(Shot.selectPlayerToShootAt());
+		Player meT = Players.me;
+		meT.setLastShot(shootOnId);
+		Players.savePlayer(meT);
+
+		chord.retrieveAsync(shootOnId);
 	}
 }
