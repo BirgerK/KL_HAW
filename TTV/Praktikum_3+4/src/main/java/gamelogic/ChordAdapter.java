@@ -4,12 +4,14 @@ import de.uniba.wiai.lspi.chord.data.ID;
 import de.uniba.wiai.lspi.chord.service.NotifyCallback;
 import de.uniba.wiai.lspi.chord.service.impl.ChordImpl;
 import de.uniba.wiai.lspi.util.logging.Logger;
+import gamelogic.player.Player;
 import gamelogic.player.Players;
 
 public class ChordAdapter implements NotifyCallback {
 
 	private static Logger logger = Logger.getLogger(ChordAdapter.class);
 	private ChordImpl chord;
+	private boolean gameIsDone = false;
 
 	public ChordAdapter(ChordImpl chord) {
 		this.chord = chord;
@@ -23,14 +25,41 @@ public class ChordAdapter implements NotifyCallback {
 
 			Players.importFingerTable(chord);
 			boolean hit = Shot.isBoom(target);
-			Players.me.addShotShipOnField(target, hit);
+
+			Player meT = Players.me;
+			meT.addShotShipOnField(target, hit);
+			Players.savePlayer(meT);
+
 			logger.info("Shot at Hash: " + target + "; And was a hit: " + hit);
 			chord.broadcastAsync(target, hit);
 			logger.info("I'm a pacifist. Just make more love. I won't bother this game anymore. idiot.");
+			//TODO: do my shot
 		}
 	}
 
 	public void broadcast(ID source, ID target, Boolean hit) {
+		synchronized (this) {
+			Players.init(chord);
 
+			Player shooter = Players.getPlayer(source);
+			if (shooter == null) {
+				shooter = Players.createPlayer(source);
+				Players.savePlayer(shooter);
+				logger.info("New player saved: " + source);
+			}
+
+			shooter.addShotShipOnField(target, hit);
+			Players.savePlayer(shooter);
+			Players.importFingerTable(chord);
+
+			if (shooter.isDefeated()) {
+				logger.info("Player with ID " + shooter.getId() + " is defeated.");
+				gameIsDone = true;
+				if (Players.me.getLastShot() != null && Players.me.getLastShot().equals(target)) {
+					logger.warn("_____________!FIRST BLOOD!_____________");
+					logger.info("You did the last shot! Well done, my friend.");
+				}
+			}
+		}
 	}
 }

@@ -14,6 +14,7 @@ public class Player implements Comparable<Player> {
 	List<Field> fields = new ArrayList();
 	Set<Integer> fieldNumbersContainingShip = new HashSet<Integer>();
 	Map<ID, Boolean> shipWasHitOnField = new HashMap<ID, Boolean>();
+	ID lastShot = null;
 
 	public Player(ID id, int number_of_ships, int number_of_fields) {
 		this.id = id;
@@ -76,6 +77,35 @@ public class Player implements Comparable<Player> {
 	//TODO: rename it! (Es wurde ein Schiff auf Feld x beschossen, und das muss der Player sich merken!)
 	public void addShotShipOnField(ID field, boolean hit) {
 		this.shipWasHitOnField.put(field, hit);
+	}
+
+	public Map<ID, Boolean> getShipWasHitOnField() {
+		return shipWasHitOnField;
+	}
+
+	public void setShipWasHitOnField(Map<ID, Boolean> shipWasHitOnField) {
+		this.shipWasHitOnField = shipWasHitOnField;
+	}
+
+	public ID getLastShot() {
+		return lastShot;
+	}
+
+	public void setLastShot(ID lastShot) {
+		this.lastShot = lastShot;
+	}
+
+	//TODO: implement
+	public int getHitCounter() {
+		return 0;
+	}
+
+	public int getRemainingShips() {
+		return number_of_ships - getHitCounter();
+	}
+
+	public boolean isDefeated() {
+		return getRemainingShips() <= 0;
 	}
 
 	@Override
