@@ -442,7 +442,7 @@ public final class NodeImpl extends Node {
 		}
 		// finally inform application
 		if (this.notifyCallback != null) {
-			this.notifyCallback.broadcast(info.getSource(), info.getTarget(), info.getHit());
+			this.notifyCallback.broadcast(info.getSource(), info.getTarget(), info.getHit(), info.getTransaction());
 		}
 	}
 

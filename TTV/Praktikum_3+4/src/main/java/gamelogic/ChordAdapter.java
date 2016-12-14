@@ -30,7 +30,11 @@ public class ChordAdapter implements NotifyCallback {
 			meT.shotAtField(target, hit);
 			Players.savePlayer(meT);
 
-			logger.info("Been shot at ID: " + target + "; And was a hit: " + hit);
+			if (hit) {
+				logger.error("Been shot at ID: " + target + "; And was a hit: " + hit);
+			} else {
+				logger.info("Been shot at ID: " + target + "; And was a hit: " + hit);
+			}
 			chord.broadcastAsync(target, hit);
 
 			logger.info("And now let's give them something from the good stuff");
@@ -49,13 +53,19 @@ public class ChordAdapter implements NotifyCallback {
 				logger.info("New player saved: " + source);
 			}
 
+			if (hit) {
+				logger.error("Been shot at ID: " + target + "; And was a hit: " + hit);
+			} else {
+				logger.info("Been shot at ID: " + target + "; And was a hit: " + hit);
+			}
+
 			shooter.shotAtField(target, hit);
 			Players.savePlayer(shooter);
 			Players.updatePlayers(chord);
 
 			if (shooter.isDefeated()) {
 				logger.error(
-						"Player with ID " + shooter.getId() + " is defeated in transaction" + transactionNumber + ".");
+						"Player with ID " + shooter.getId() + " is defeated in transaction " + transactionNumber + ".");
 				gameIsDone = true;
 				if (Players.me.getLastShot() != null && Players.me.getLastShot().equals(target)) {
 					logger.error("_____________!FIRST BLOOD!_____________");
