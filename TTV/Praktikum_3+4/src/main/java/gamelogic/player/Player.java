@@ -15,6 +15,8 @@ public class Player implements Comparable<Player> {
 
 	Set<Integer> fieldNumbersContainingShip = new HashSet<Integer>();
 	Map<ID, Boolean> shipWasHitOnField = new HashMap<ID, Boolean>();
+	int hitCounter = 0;
+	int missCounter = 0;
 	ID lastShot = null;
 
 	public Player(ID id, int number_of_ships, int number_of_fields) {
@@ -116,8 +118,18 @@ public class Player implements Comparable<Player> {
 		return fieldNumbersContainingShip.contains(fieldNumber);
 	}
 
-	//TODO: rename it! (Es wurde ein Schiff auf Feld x beschossen, und das muss der Player sich merken!)
-	public void addShotShipOnField(ID field, boolean hit) {
+	/**
+	 * Player did shoot on field
+	 *
+	 * @param field
+	 * @param hit
+	 */
+	public void shotAtField(ID field, boolean hit) {
+		if (hit) {
+			hitCounter++;
+		} else {
+			missCounter++;
+		}
 		this.shipWasHitOnField.put(field, hit);
 	}
 
@@ -137,9 +149,12 @@ public class Player implements Comparable<Player> {
 		this.lastShot = lastShot;
 	}
 
-	//TODO: implement
 	public int getHitCounter() {
-		return 0;
+		return hitCounter;
+	}
+
+	public int getMissCounter() {
+		return missCounter;
 	}
 
 	public int getRemainingShips() {

@@ -27,7 +27,7 @@ public class ChordAdapter implements NotifyCallback {
 			boolean hit = Shot.isBoom(target);
 
 			Player meT = Players.me;
-			meT.addShotShipOnField(target, hit);
+			meT.shotAtField(target, hit);
 			Players.savePlayer(meT);
 
 			logger.info("Been shot at ID: " + target + "; And was a hit: " + hit);
@@ -49,7 +49,7 @@ public class ChordAdapter implements NotifyCallback {
 				logger.info("New player saved: " + source);
 			}
 
-			shooter.addShotShipOnField(target, hit);
+			shooter.shotAtField(target, hit);
 			Players.savePlayer(shooter);
 			Players.updatePlayers(chord);
 
@@ -62,6 +62,13 @@ public class ChordAdapter implements NotifyCallback {
 				}
 			}
 		}
+	}
+
+	public void firstShoot() {
+		logger.info("Holy shit! I'm doing the first shot. Wish me well.");
+		Players.updatePlayers(chord);
+
+		shoot(chord);
 	}
 
 	private void shoot(ChordImpl chord) {

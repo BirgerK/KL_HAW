@@ -110,7 +110,6 @@ public class ChordImpl implements Chord, Report, AsynChord {
 	 * References to remote nodes.
 	 */
 	protected References references;
-	private Integer currentTransaction = new Integer(0);
 	/**
 	 * Reference on that part of the node implementation which is accessible by
 	 * other nodes; if <code>null</code>, this node is not connected
@@ -142,7 +141,7 @@ public class ChordImpl implements Chord, Report, AsynChord {
 	private ID localID;
 	private NotifyCallback localCallback;
 
-	private int lastReceivedTransactionId = -1;
+	private int lastReceivedTransactionId = Integer.MIN_VALUE;
 
 	/**
 	 * Creates a new instance of ExtendedChordImpl which initially is disconnected.

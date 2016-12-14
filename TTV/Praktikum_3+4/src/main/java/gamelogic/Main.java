@@ -1,5 +1,6 @@
 package gamelogic;
 
+import de.uniba.wiai.lspi.chord.data.ID;
 import de.uniba.wiai.lspi.chord.data.URL;
 import de.uniba.wiai.lspi.chord.service.PropertiesLoader;
 import de.uniba.wiai.lspi.chord.service.ServiceException;
@@ -8,6 +9,7 @@ import de.uniba.wiai.lspi.util.logging.Logger;
 
 import java.math.BigInteger;
 import java.net.MalformedURLException;
+import java.util.*;
 
 public class Main {
 
@@ -15,6 +17,9 @@ public class Main {
 	public static BigInteger MAX_ID = BigInteger.valueOf(2).pow(NR_BITS_ID).subtract(BigInteger.ONE);
 	private static String propertyFile = "game.properties";
 	private static Logger logger = Logger.getLogger(Main.class);
+	private static Set<Integer> fieldsWithShips;
+
+	private static ChordAdapter adapter;
 
 	//TODO: still something missing
 	public static void main(String[] args) {
@@ -24,10 +29,20 @@ public class Main {
 			}
 			logger.info("Welcome to this party");
 			Configuration.init(propertyFile);
-
+			fieldsWithShips = fillFields(Integer.valueOf(Configuration.getProperty("shipsPerPlayer")),
+					Integer.valueOf(Configuration.getProperty("fieldsPerPlayer")));
 			ChordImpl chord = initChord();
 
-			networkStuff(chord);
+			chord = networkStuff(chord);
+
+			logger.info("Duell is starting: Your ID is " + chord.getID());
+			logger.info("Press the red big button to take part");
+			System.in.read();
+
+			if (ID.valueOf(MAX_ID).isInInterval(chord.getPredecessorID(), chord.getID()) || MAX_ID
+					.equals(chord.getID().toBigInteger())) {
+				adapter.firstShoot();
+			}
 		} catch (Exception e) {
 			logger.error("Shutdown game because of error.");
 			e.printStackTrace();
@@ -37,7 +52,7 @@ public class Main {
 	private static ChordImpl initChord() {
 		PropertiesLoader.loadPropertyFile();
 		ChordImpl chord = new ChordImpl();
-		ChordAdapter adapter = new ChordAdapter(chord);
+		adapter = new ChordAdapter(chord);
 		chord.setCallback(adapter);
 		return chord;
 	}
@@ -59,5 +74,22 @@ public class Main {
 		}
 
 		return chord;
+	}
+
+	private static Set<Integer> fillFields(int nrShips, int nrFields) {
+		logger.info("Fill fields with ships");
+		Set<Integer> fieldsWithShips = new HashSet<Integer>();
+		List<Integer> fields = new ArrayList<Integer>();
+		for (int i = 0; i < nrFields; i++) {
+			fields.add(i);
+		}
+		Random r = new Random();
+		for (int i = 0; i < nrShips; i++) {
+			int fIndex = r.nextInt(fields.size());
+			fieldsWithShips.add(fields.get(fIndex));
+			fields.remove(fIndex);
+		}
+		logger.info("Fields with ships: " + fieldsWithShips);
+		return fieldsWithShips;
 	}
 }

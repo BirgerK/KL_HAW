@@ -2,10 +2,7 @@ package gamelogic;
 
 import de.uniba.wiai.lspi.chord.data.ID;
 import de.uniba.wiai.lspi.util.logging.Logger;
-import gamelogic.player.Field;
-import gamelogic.player.FieldStatus;
-import gamelogic.player.Player;
-import gamelogic.player.Players;
+import gamelogic.player.*;
 
 import java.math.BigInteger;
 import java.util.Collections;
@@ -31,8 +28,7 @@ public class Shot {
 		Player result = null;
 
 		List<Player> allPlayers = Players.getAll();
-		//TODO: implement KillSelector
-		Collections.sort(allPlayers);
+		Collections.sort(allPlayers, new Sekundant());
 
 		for (Player player : allPlayers) {
 			if (!player.equals(Players.me)) { // get first player, which is not ME
