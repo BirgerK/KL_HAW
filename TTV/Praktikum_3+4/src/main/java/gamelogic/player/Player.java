@@ -57,18 +57,24 @@ public class Player implements Comparable<Player> {
 		this.number_of_fields = number_of_fields;
 	}
 
+	/**
+	 * Errechnet das Start und Endfeld, die Range und wie groß ein jeweiliges Feld ist
+	 * @return
+	 */
 	public List<Field> getFields() {
 		List<Field> fields = new ArrayList();
-
+		//Wo beginnt und endet der Bereich eines Spielers
 		BigInteger start = this.startField.toBigInteger();
 		BigInteger end = this.id.toBigInteger();
 		if (start.compareTo(end) > 0) {
 			start = start.subtract(Main.MAX_ID);
 		}
 
+		//Wie groß ist der Bereich und die einzelnen Felder
 		BigInteger idRange = end.subtract(start).add(BigInteger.ONE);
 		BigInteger sizeOfField = idRange.divide(BigInteger.valueOf(this.number_of_fields));
 
+		//Die Keys für jedes Feld bestimmen (Start und Ende)
 		for (int i = 0; i < this.number_of_fields; i++) {
 			BigInteger startField = this.startField.toBigInteger().add(sizeOfField.multiply(BigInteger.valueOf(i)))
 					.mod(Main.MAX_ID);
@@ -94,6 +100,11 @@ public class Player implements Comparable<Player> {
 		return fields;
 	}
 
+	/**
+	 * Gibt an ob das Feld
+	 * @param id des Feldes
+	 * @return
+	 */
 	private FieldStatus getFieldStatus(ID id) {
 		if (shipWasHitOnField.containsKey(id)) {
 			if (shipWasHitOnField.get(id)) {
@@ -105,6 +116,7 @@ public class Player implements Comparable<Player> {
 			return FieldStatus.NOT_TOUCHED;
 		}
 	}
+
 
 	public Set<Integer> getFieldNumbersContainingShip() {
 		return fieldNumbersContainingShip;
@@ -121,8 +133,8 @@ public class Player implements Comparable<Player> {
 	/**
 	 * Player did shoot on field
 	 *
-	 * @param field
-	 * @param hit
+	 * @param field welches Feld auf das geschossen wurde
+	 * @param hit wurde das Feld getroffen (1) nicht getroffen (0)
 	 */
 	public void shotAtField(ID field, boolean hit) {
 		if (hit) {
