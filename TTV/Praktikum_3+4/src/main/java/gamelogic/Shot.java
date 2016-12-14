@@ -17,6 +17,7 @@ public class Shot {
 	public static boolean isBoom(ID target) {
 		for (Field f : Players.me.getFields()) {
 			if (f.isInside(target.toBigInteger())) {
+				Players.me.removeShipFromField(f.getFieldNumber());
 				return Players.me.isFieldContainingShip(f.getFieldNumber());
 			}
 		}

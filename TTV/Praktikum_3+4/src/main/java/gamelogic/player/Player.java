@@ -126,6 +126,10 @@ public class Player implements Comparable<Player> {
 		this.fieldNumbersContainingShip = fieldNumbersContainingShip;
 	}
 
+	public void removeShipFromField(int fieldNumber) {
+		fieldNumbersContainingShip.remove(fieldNumber);
+	}
+
 	public boolean isFieldContainingShip(int fieldNumber) {
 		return fieldNumbersContainingShip.contains(fieldNumber);
 	}

@@ -35,7 +35,8 @@ public class Main {
 
 			logger.error("Duell is starting: Your ID is " + chord.getID());
 
-			if (ID.valueOf(MAX_ID).isInInterval(chord.getPredecessorID(), chord.getID()) || MAX_ID
+			if ((chord.getPredecessorID() != null && ID.valueOf(MAX_ID)
+					.isInInterval(chord.getPredecessorID(), chord.getID())) || MAX_ID
 					.equals(chord.getID().toBigInteger())) {
 				logger.error("Press the red big button to do the first shot");
 				System.in.read();
