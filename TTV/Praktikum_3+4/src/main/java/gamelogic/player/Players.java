@@ -32,6 +32,7 @@ public class Players {
 			Player self = createPlayer(ownId);
 			self.setStartField(ID.valueOf(predId.toBigInteger()
 					.add(BigInteger.ONE))); //Start field of ourself is one higher then the ID of our predecessor
+			self.setFieldNumbersContainingShip(Main.fieldsWithShips);
 
 			me = self;
 			savePlayer(self);

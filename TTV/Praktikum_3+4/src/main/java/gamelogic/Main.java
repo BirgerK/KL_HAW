@@ -15,10 +15,9 @@ public class Main {
 
 	public static int NR_BITS_ID = 160;
 	public static BigInteger MAX_ID = BigInteger.valueOf(2).pow(NR_BITS_ID).subtract(BigInteger.ONE);
+	public static Set<Integer> fieldsWithShips;
 	private static String propertyFile = "game.properties";
 	private static Logger logger = Logger.getLogger(Main.class);
-	private static Set<Integer> fieldsWithShips;
-
 	private static ChordAdapter adapter;
 
 	public static void main(String[] args) {
