@@ -6,9 +6,9 @@ package de.uniba.wiai.lspi.chord.service;
 import de.uniba.wiai.lspi.chord.data.ID;
 
 public interface NotifyCallback {
-	
-	public void retrieved(ID target);
-	
-	public void broadcast(ID source, ID target, Boolean hit);
+
+	void retrieved(ID target);
+
+	void broadcast(ID source, ID target, Boolean hit, int transactionNumber);
 
 }

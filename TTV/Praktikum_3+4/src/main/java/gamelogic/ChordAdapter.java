@@ -38,7 +38,7 @@ public class ChordAdapter implements NotifyCallback {
 		}
 	}
 
-	public void broadcast(ID source, ID target, Boolean hit) {
+	public void broadcast(ID source, ID target, Boolean hit, int transactionNumber) {
 		synchronized (this) {
 			Players.init(chord);
 
@@ -54,18 +54,24 @@ public class ChordAdapter implements NotifyCallback {
 			Players.updatePlayers(chord);
 
 			if (shooter.isDefeated()) {
-				logger.info("Player with ID " + shooter.getId() + " is defeated.");
+				logger.error(
+						"Player with ID " + shooter.getId() + " is defeated in transaction" + transactionNumber + ".");
 				gameIsDone = true;
 				if (Players.me.getLastShot() != null && Players.me.getLastShot().equals(target)) {
-					logger.warn("_____________!FIRST BLOOD!_____________");
-					logger.info("You did the last shot! Well done, my friend.");
+					logger.error("_____________!FIRST BLOOD!_____________");
+					logger.error(
+							"You did the last shot! Well done, my friend. Won in transaction " + transactionNumber);
+				}
+				if (shooter.getId().equals(Players.me.getId())) {
+					logger.error("_____________!YOU LOST!_____________");
 				}
 			}
 		}
 	}
 
 	public void firstShoot() {
-		logger.info("Holy shit! I'm doing the first shot. Wish me well.");
+		logger.error("Holy shit! I'm doing the first shot. Wish me well.");
+		Players.init(chord);
 		Players.updatePlayers(chord);
 
 		shoot(chord);

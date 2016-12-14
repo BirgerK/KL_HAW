@@ -5,7 +5,7 @@ import de.uniba.wiai.lspi.chord.data.URL;
 import de.uniba.wiai.lspi.chord.service.PropertiesLoader;
 import de.uniba.wiai.lspi.chord.service.ServiceException;
 import de.uniba.wiai.lspi.chord.service.impl.ChordImpl;
-import de.uniba.wiai.lspi.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import java.math.BigInteger;
 import java.net.MalformedURLException;
@@ -18,14 +18,14 @@ public class Main {
 	public static Set<Integer> fieldsWithShips;
 	private static String propertyFile = "game.properties";
 	private static Logger logger = Logger.getLogger(Main.class);
-	private static ChordAdapter adapter;
+	private static gamelogic.ChordAdapter adapter;
 
 	public static void main(String[] args) {
 		try {
 			if (args.length > 0) {
 				propertyFile = args[0];
 			}
-			logger.info("Welcome to this party");
+			logger.error("Welcome to this party");
 			Configuration.init(propertyFile);
 			fieldsWithShips = fillFields(Integer.valueOf(Configuration.getProperty("shipsPerPlayer")),
 					Integer.valueOf(Configuration.getProperty("fieldsPerPlayer")));
@@ -33,12 +33,12 @@ public class Main {
 
 			chord = networkStuff(chord);
 
-			logger.info("Duell is starting: Your ID is " + chord.getID());
-			logger.info("Press the red big button to take part");
-			System.in.read();
+			logger.error("Duell is starting: Your ID is " + chord.getID());
 
 			if (ID.valueOf(MAX_ID).isInInterval(chord.getPredecessorID(), chord.getID()) || MAX_ID
 					.equals(chord.getID().toBigInteger())) {
+				logger.error("Press the red big button to do the first shot");
+				System.in.read();
 				adapter.firstShoot();
 			}
 		} catch (Exception e) {

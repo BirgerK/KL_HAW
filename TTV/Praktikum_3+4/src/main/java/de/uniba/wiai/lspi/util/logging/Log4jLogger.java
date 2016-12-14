@@ -2,7 +2,7 @@
  *                                                                         *
  *                             Log4jLogger.java                            *
  *                            -------------------                          *
- *   date                 : 26. März 2004, 12:37                           *
+ *   date                 : 26. Mï¿½rz 2004, 12:37                           *
  *   copyright            : (C) 2004 Distributed and Mobile Systems Group  *
  *                              Lehrstuhl fuer Praktische Informatik       *
  *                              Universitaet Bamberg                       *
@@ -26,11 +26,11 @@
 
 package de.uniba.wiai.lspi.util.logging;
 
+import org.apache.log4j.Level;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
-import org.apache.log4j.Level;
 
 /**
  * This is the standard logger for this framework.
@@ -51,30 +51,26 @@ import org.apache.log4j.Level;
 public class Log4jLogger extends Logger {
 
 	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6061557202317126907L;
-
-	/**
-	 * The fully qualified class name of this logger.
-	 */
-	private String myFQN = this.getClass().getName();
-
-	/**
-	 * Reference to underlying log4j logger.
-	 */
-	private transient org.apache.log4j.Logger logger = null;
-
-	/**
 	 * Name of property to set the reference to the property file containing
 	 * log4j properties.
 	 */
 	public final static String PROPERTIES_FILE_PROPERTY = "log4j.properties.file";
-
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 6061557202317126907L;
 	/**
 	 * Flag indicating if log4j has been configured before.
 	 */
 	private static boolean configured = false;
+	/**
+	 * The fully qualified class name of this logger.
+	 */
+	private String myFQN = this.getClass().getName();
+	/**
+	 * Reference to underlying log4j logger.
+	 */
+	private transient org.apache.log4j.Logger logger = null;
 
 	/**
 	 * Creates a new instance of Log4JLogger

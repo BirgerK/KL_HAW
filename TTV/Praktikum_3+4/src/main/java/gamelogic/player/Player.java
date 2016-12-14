@@ -162,11 +162,23 @@ public class Player implements Comparable<Player> {
 	}
 
 	public int getHitCounter() {
-		return hitCounter;
+		int res = 0;
+		for (Field field : getFields()) {
+			if (field.getState().equals(FieldStatus.HIT)) {
+				res++;
+			}
+		}
+		return res;
 	}
 
 	public int getMissCounter() {
-		return missCounter;
+		int res = 0;
+		for (Field field : getFields()) {
+			if (field.getState().equals(FieldStatus.MISSED)) {
+				res++;
+			}
+		}
+		return res;
 	}
 
 	public int getRemainingShips() {
