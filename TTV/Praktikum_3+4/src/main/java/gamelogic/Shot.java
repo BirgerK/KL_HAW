@@ -14,14 +14,15 @@ public class Shot {
 
 	private static Logger logger = Logger.getLogger(Shot.class);
 
-	public static boolean isBoom(ID target) {
+	public static Field isBoom(ID target) {
 		for (Field f : Players.me.getFields()) {
 			if (f.isInside(target.toBigInteger())) {
-				Players.me.removeShipFromField(f.getFieldNumber());
-				return Players.me.isFieldContainingShip(f.getFieldNumber());
+				if (Players.me.isFieldContainingShip(f.getFieldNumber())) {
+					return f;
+				}
 			}
 		}
-		return false;
+		return null;
 	}
 
 	public static Player selectPlayerToShootAt() {

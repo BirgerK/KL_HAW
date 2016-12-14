@@ -4,6 +4,7 @@ import de.uniba.wiai.lspi.chord.data.ID;
 import de.uniba.wiai.lspi.chord.service.NotifyCallback;
 import de.uniba.wiai.lspi.chord.service.impl.ChordImpl;
 import de.uniba.wiai.lspi.util.logging.Logger;
+import gamelogic.player.Field;
 import gamelogic.player.Player;
 import gamelogic.player.Players;
 
@@ -24,18 +25,20 @@ public class ChordAdapter implements NotifyCallback {
 			Players.init(chord);
 
 			Players.updatePlayers(chord);
-			boolean hit = Shot.isBoom(target);
+			Field hitField = Shot.isBoom(target);
 
 			Player meT = Players.me;
-			meT.shotAtField(target, hit);
+			meT.shotAtField(target, (hitField != null));
 			Players.savePlayer(meT);
 
-			if (hit) {
-				logger.error("Been shot at ID: " + target + "; And was a hit: " + hit);
+			if (hitField != null) {
+				Players.me.removeShipFromField(hitField.getFieldNumber());
+				logger.error("Been shot at ID: " + target + "; And was a hit: " + hitField);
+				logger.error("My status: " + Players.me);
 			} else {
-				logger.info("Been shot at ID: " + target + "; And was a hit: " + hit);
+				logger.info("Been shot at ID: " + target + "; And was a hit: " + hitField);
 			}
-			chord.broadcastAsync(target, hit);
+			chord.broadcastAsync(target, (hitField != null));
 
 			logger.info("And now let's give them something from the good stuff");
 			shoot(chord);
