@@ -190,9 +190,7 @@ public class Player implements Comparable<Player> {
 
 	@Override
 	public String toString() {
-		return "Player{" + "id=" + id + ", startField=" + startField + ", number_of_ships=" + number_of_ships
-				+ ", number_of_fields=" + number_of_fields + ", fieldNumbersContainingShip="
-				+ fieldNumbersContainingShip + ", shipWasHitOnField=" + shipWasHitOnField + ", lastShot=" + lastShot
-				+ '}';
+		return "Player{" + "id=" + id + ", startField=" + startField + ", shipWasHitOnField=" + shipWasHitOnField
+				+ ", hitCounter=" + hitCounter + ", missCounter=" + missCounter + '}';
 	}
 }
