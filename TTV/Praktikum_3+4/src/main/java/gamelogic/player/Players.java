@@ -53,7 +53,7 @@ public class Players {
 
 		for (Node node : chord.getFingerTable()) {
 			ID nodeId = node.getNodeID();
-			if (players.containsKey(nodeId)) {
+			if (!players.containsKey(nodeId)) {
 				logger.info("Add player with nodeId " + nodeId);
 				Player newPlayer = new Player(nodeId, shipsPerPlayer, fieldsPerPlayer);
 				players.put(nodeId, newPlayer);

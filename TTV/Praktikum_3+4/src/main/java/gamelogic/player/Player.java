@@ -15,8 +15,6 @@ public class Player implements Comparable<Player> {
 
 	Set<Integer> fieldNumbersContainingShip = new HashSet<Integer>();
 	Map<ID, Boolean> shipWasHitOnField = new HashMap<ID, Boolean>();
-	int hitCounter = 0;
-	int missCounter = 0;
 	ID lastShot = null;
 
 	public Player(ID id, int number_of_ships, int number_of_fields) {
@@ -141,11 +139,6 @@ public class Player implements Comparable<Player> {
 	 * @param hit wurde das Feld getroffen (1) nicht getroffen (0)
 	 */
 	public void shotAtField(ID field, boolean hit) {
-		if (hit) {
-			hitCounter++;
-		} else {
-			missCounter++;
-		}
 		this.shipWasHitOnField.put(field, hit);
 	}
 
@@ -167,8 +160,8 @@ public class Player implements Comparable<Player> {
 
 	public int getHitCounter() {
 		int res = 0;
-		for (Field field : getFields()) {
-			if (field.getState().equals(FieldStatus.HIT)) {
+		for (boolean hit : shipWasHitOnField.values()) {
+			if (hit) {
 				res++;
 			}
 		}
@@ -177,8 +170,8 @@ public class Player implements Comparable<Player> {
 
 	public int getMissCounter() {
 		int res = 0;
-		for (Field field : getFields()) {
-			if (field.getState().equals(FieldStatus.MISSED)) {
+		for (boolean hit : shipWasHitOnField.values()) {
+			if (!hit) {
 				res++;
 			}
 		}
@@ -218,7 +211,6 @@ public class Player implements Comparable<Player> {
 
 	@Override
 	public String toString() {
-		return "Player{" + "id=" + id + ", startField=" + startField + ", shipWasHitOnField=" + shipWasHitOnField
-				+ ", hitCounter=" + hitCounter + ", missCounter=" + missCounter + '}';
+		return "Player{" + "id=" + id + ", startField=" + startField + ", shipWasHitOnField=" + shipWasHitOnField + '}';
 	}
 }
