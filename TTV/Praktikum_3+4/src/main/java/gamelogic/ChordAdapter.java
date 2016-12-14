@@ -54,9 +54,9 @@ public class ChordAdapter implements NotifyCallback {
 			}
 
 			if (hit) {
-				logger.error("Been shot at ID: " + target + "; And was a hit: " + hit);
+				logger.error("There was a shot at player: " + source + "; And was a hit: " + hit);
 			} else {
-				logger.info("Been shot at ID: " + target + "; And was a hit: " + hit);
+				logger.info("There was a shot at player: " + source + "; And was a hit: " + hit);
 			}
 
 			shooter.shotAtField(target, hit);
