@@ -21,7 +21,6 @@ public class Main {
 
 	private static ChordAdapter adapter;
 
-	//TODO: still something missing
 	public static void main(String[] args) {
 		try {
 			if (args.length > 0) {
