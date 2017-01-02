@@ -7,7 +7,6 @@ import de.uniba.wiai.lspi.util.logging.Logger;
 import gamelogic.player.Field;
 import gamelogic.player.Player;
 import gamelogic.player.Players;
-import gamelogic.CoAPAdapter;
 
 public class ChordAdapter implements NotifyCallback {
 
@@ -21,7 +20,7 @@ public class ChordAdapter implements NotifyCallback {
 
 	public void retrieved(ID target) {
 		synchronized (this) {
-			logger.info("Retrieved shot at " + target);
+			logger.error("Retrieved shot at " + target);
 
 			Players.init(chord);
 

@@ -29,6 +29,8 @@ public class Main {
 			Configuration.init(propertyFile);
 			fieldsWithShips = fillFields(Integer.valueOf(Configuration.getProperty("shipsPerPlayer")),
 					Integer.valueOf(Configuration.getProperty("fieldsPerPlayer")));
+
+			logger.error("Your ships are set on: " + fieldsWithShips);
 			ChordImpl chord = initChord();
 
 			chord = networkStuff(chord);
@@ -39,6 +41,9 @@ public class Main {
 			//CoAPAdapter coap = new CoAPAdapter();
 			//coap.initLED();
 			//Testgebiet Ende
+
+			logger.error("Press ANY-key if I shall check if you have to start.");
+			System.in.read();
 
 			while (true) {
 				Thread.sleep(2000);
