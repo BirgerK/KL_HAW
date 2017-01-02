@@ -27,6 +27,8 @@
  ***************************************************************************/
 package de.uniba.wiai.lspi.chord.com.socket;
 
+import de.uniba.wiai.lspi.util.logging.Logger;
+
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -35,8 +37,7 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import de.uniba.wiai.lspi.util.logging.Logger;
-import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.*;
+import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.DEBUG;
 
 /**
  * This <code>Thread</code> is used to make a method invocation on a node that

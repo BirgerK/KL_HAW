@@ -28,6 +28,11 @@
 
 package de.uniba.wiai.lspi.chord.com.socket;
 
+import de.uniba.wiai.lspi.chord.com.Endpoint;
+import de.uniba.wiai.lspi.chord.com.Node;
+import de.uniba.wiai.lspi.chord.data.URL;
+import de.uniba.wiai.lspi.util.logging.Logger;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -35,11 +40,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ThreadPoolExecutor;
 
-import de.uniba.wiai.lspi.chord.com.Endpoint;
-import de.uniba.wiai.lspi.chord.com.Node;
-import de.uniba.wiai.lspi.chord.data.URL;
-import de.uniba.wiai.lspi.util.logging.Logger;
-import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.*;
+import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.DEBUG;
 
 /**
  * This class represents an {@link Endpoint} for communication over socket

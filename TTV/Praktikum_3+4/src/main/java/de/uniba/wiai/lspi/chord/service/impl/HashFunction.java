@@ -27,12 +27,12 @@
  ***************************************************************************/
 package de.uniba.wiai.lspi.chord.service.impl;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import de.uniba.wiai.lspi.chord.data.ID;
 import de.uniba.wiai.lspi.chord.data.URL;
 import de.uniba.wiai.lspi.chord.service.Key;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Provides a hash function for calculating the hash value out of {@link Key} or

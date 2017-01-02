@@ -34,28 +34,19 @@
 
 package de.uniba.wiai.lspi.chord.com.socket;
 
+import de.uniba.wiai.lspi.chord.com.*;
+import de.uniba.wiai.lspi.chord.data.ID;
+import de.uniba.wiai.lspi.util.logging.Logger;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-import java.util.Vector;
+import java.util.*;
 
-import de.uniba.wiai.lspi.chord.com.Broadcast;
-import de.uniba.wiai.lspi.chord.com.CommunicationException;
-import de.uniba.wiai.lspi.chord.com.Endpoint;
-import de.uniba.wiai.lspi.chord.com.EndpointStateListener;
-import de.uniba.wiai.lspi.chord.com.Entry;
-import de.uniba.wiai.lspi.chord.com.Node;
-import de.uniba.wiai.lspi.chord.com.RefsAndEntries;
-import de.uniba.wiai.lspi.chord.data.ID;
-import de.uniba.wiai.lspi.util.logging.Logger;
-import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.*;
+import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.DEBUG;
+import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.INFO;
 
 /**
  * This class handles {@link Request requests} for a single incoming connection

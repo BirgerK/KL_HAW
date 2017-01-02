@@ -26,10 +26,13 @@
  ***************************************************************************/
 package de.uniba.wiai.lspi.chord.com.rmi;
 
+import de.uniba.wiai.lspi.chord.com.*;
+import de.uniba.wiai.lspi.chord.data.ID;
+import de.uniba.wiai.lspi.chord.data.URL;
+
 import java.rmi.AccessException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
-//import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -38,14 +41,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import de.uniba.wiai.lspi.chord.com.Broadcast;
-import de.uniba.wiai.lspi.chord.com.CommunicationException;
-import de.uniba.wiai.lspi.chord.com.Endpoint;
-import de.uniba.wiai.lspi.chord.com.Entry;
-import de.uniba.wiai.lspi.chord.com.Node;
-import de.uniba.wiai.lspi.chord.com.RefsAndEntries;
-import de.uniba.wiai.lspi.chord.data.ID;
-import de.uniba.wiai.lspi.chord.data.URL;
+//import java.rmi.Remote;
 
 public final class RMIEndpoint extends Endpoint implements RemoteNode {
 

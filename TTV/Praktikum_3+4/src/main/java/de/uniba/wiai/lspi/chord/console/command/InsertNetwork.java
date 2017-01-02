@@ -34,8 +34,6 @@ import de.uniba.wiai.lspi.chord.service.Chord;
 import de.uniba.wiai.lspi.util.console.Command;
 import de.uniba.wiai.lspi.util.console.ConsoleException;
 
-
-
 import java.io.PrintStream;
 
 /**

@@ -28,14 +28,14 @@
  
 package de.uniba.wiai.lspi.chord.console.command;
 
+import de.uniba.wiai.lspi.util.console.Command;
+import de.uniba.wiai.lspi.util.console.ConsoleThread;
+
 import java.io.PrintStream;
 import java.lang.reflect.Field;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Map;
-
-import de.uniba.wiai.lspi.util.console.Command;
-import de.uniba.wiai.lspi.util.console.ConsoleThread;
 //import de.uniba.wiai.lspi.util.logging.Logger;
 
 /**

@@ -26,10 +26,10 @@
  ***************************************************************************/
 package de.uniba.wiai.lspi.chord.com.rmi;
 
-import java.io.Serializable;
-
 import de.uniba.wiai.lspi.chord.data.ID;
 import de.uniba.wiai.lspi.chord.data.URL;
+
+import java.io.Serializable;
 
 /**
  * 

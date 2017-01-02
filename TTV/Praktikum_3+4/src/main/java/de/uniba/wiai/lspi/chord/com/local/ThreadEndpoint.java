@@ -28,22 +28,17 @@
 
 package de.uniba.wiai.lspi.chord.com.local;
 
+import de.uniba.wiai.lspi.chord.com.*;
+import de.uniba.wiai.lspi.chord.data.ID;
+import de.uniba.wiai.lspi.chord.data.URL;
+import de.uniba.wiai.lspi.chord.service.impl.ChordImpl;
+import de.uniba.wiai.lspi.util.logging.Logger;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
-import de.uniba.wiai.lspi.chord.com.Broadcast;
-import de.uniba.wiai.lspi.chord.com.CommunicationException;
-import de.uniba.wiai.lspi.chord.com.Endpoint;
-import de.uniba.wiai.lspi.chord.com.Entry;
-import de.uniba.wiai.lspi.chord.com.Node;
-import de.uniba.wiai.lspi.chord.com.RefsAndEntries;
-import de.uniba.wiai.lspi.chord.data.ID;
-import de.uniba.wiai.lspi.chord.data.URL;
-import de.uniba.wiai.lspi.chord.service.impl.ChordImpl;
-import de.uniba.wiai.lspi.util.logging.Logger;
 
 /**
  * This represents the {@link Endpoint} for the protocol that can be used to

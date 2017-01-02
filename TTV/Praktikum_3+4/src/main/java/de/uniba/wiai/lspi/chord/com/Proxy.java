@@ -33,12 +33,13 @@
  */
 package de.uniba.wiai.lspi.chord.com;
 
-import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.DEBUG;
 import de.uniba.wiai.lspi.chord.com.local.ThreadProxy;
 import de.uniba.wiai.lspi.chord.com.rmi.RMIProxy;
 import de.uniba.wiai.lspi.chord.com.socket.SocketProxy;
 import de.uniba.wiai.lspi.chord.data.URL;
 import de.uniba.wiai.lspi.util.logging.Logger;
+
+import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.DEBUG;
 
 /**
  * This class is used to represent other

@@ -28,12 +28,11 @@
 
 package de.uniba.wiai.lspi.chord.console.command;
 
-import de.uniba.wiai.lspi.util.console.Command;
-import de.uniba.wiai.lspi.util.console.ConsoleException;
-
 import de.uniba.wiai.lspi.chord.console.command.entry.Key;
 import de.uniba.wiai.lspi.chord.console.command.entry.Value;
 import de.uniba.wiai.lspi.chord.service.Chord;
+import de.uniba.wiai.lspi.util.console.Command;
+import de.uniba.wiai.lspi.util.console.ConsoleException;
 
 /**
  * To get a description of this command type <code>removeN -help</code> 

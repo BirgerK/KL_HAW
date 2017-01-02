@@ -38,3 +38,5 @@ slprj
 .classpath
 *.pyc
 TTV/Praktikum_3+4/target
+*.iml
+TTV/Praktikum_3+4/.idea

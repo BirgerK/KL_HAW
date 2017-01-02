@@ -27,11 +27,11 @@
  ***************************************************************************/
 package de.uniba.wiai.lspi.chord.com.local;
 
-import java.lang.reflect.Field;
-
 import de.uniba.wiai.lspi.chord.com.Node;
 import de.uniba.wiai.lspi.chord.service.impl.ChordImpl;
 import de.uniba.wiai.lspi.chord.service.impl.NodeImpl;
+
+import java.lang.reflect.Field;
 
 /**
  * @author sven

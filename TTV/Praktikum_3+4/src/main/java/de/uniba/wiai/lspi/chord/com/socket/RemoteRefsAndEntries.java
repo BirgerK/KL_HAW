@@ -27,11 +27,11 @@
  ***************************************************************************/
 package de.uniba.wiai.lspi.chord.com.socket;
 
-import java.util.List;
-import java.io.Serializable;
-import java.util.Set;
-
 import de.uniba.wiai.lspi.chord.com.Entry;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 /**
  * This class represents entries and {@link RemoteNodeInfo references} that 

@@ -7,6 +7,7 @@ import de.uniba.wiai.lspi.util.logging.Logger;
 import gamelogic.player.Field;
 import gamelogic.player.Player;
 import gamelogic.player.Players;
+import gamelogic.CoAPAdapter;
 
 public class ChordAdapter implements NotifyCallback {
 
@@ -30,9 +31,16 @@ public class ChordAdapter implements NotifyCallback {
 			Player meT = Players.me;
 			meT.shotAtField(target, (hitField != null));
 			Players.savePlayer(meT);
-
+			//TODO auslesen wie viel Prozent noch da sind, an Coap übermitteln
 			if (hitField != null) {
 				Players.me.removeShipFromField(hitField.getFieldNumber());
+				//calc status of player and send it to CoapAdapter
+				int hits = meT.getHitCounter();
+				int shipsTotal = meT.getNumber_of_ships();
+				int status = (hits*100)/shipsTotal;
+				CoAPAdapter coap = new CoAPAdapter();
+				coap.sendStatus(status);
+
 				logger.error("Been shot at ID: " + target + "; And was a hit: " + hitField);
 				logger.error("My status: " + Players.me);
 			} else {

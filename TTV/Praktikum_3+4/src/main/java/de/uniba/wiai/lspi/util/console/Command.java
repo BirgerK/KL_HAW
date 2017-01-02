@@ -26,8 +26,9 @@
 
 package de.uniba.wiai.lspi.util.console;
 
-import java.util.*;
 import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author sven

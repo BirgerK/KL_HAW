@@ -28,10 +28,10 @@
 
 package de.uniba.wiai.lspi.chord.console.command;
 
-import java.io.PrintStream;
-
 import de.uniba.wiai.lspi.chord.com.local.Registry;
 import de.uniba.wiai.lspi.util.console.Command;
+
+import java.io.PrintStream;
 
 /**
  * The command to close the {@link de.uniba.wiai.lspi.chord.console.Main console}.

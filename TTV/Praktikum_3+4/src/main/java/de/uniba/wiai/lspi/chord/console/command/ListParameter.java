@@ -28,11 +28,11 @@
 
 package de.uniba.wiai.lspi.chord.console.command;
 
-import java.util.List;
-import java.util.LinkedList;
-
 import de.uniba.wiai.lspi.chord.console.Main;
 import de.uniba.wiai.lspi.util.console.ConsoleException;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * This class represents a list of names, that are provided to some commands as

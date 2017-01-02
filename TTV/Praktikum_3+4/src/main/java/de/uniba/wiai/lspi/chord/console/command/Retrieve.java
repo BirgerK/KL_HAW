@@ -28,10 +28,6 @@
 
 package de.uniba.wiai.lspi.chord.console.command;
 
-import java.io.Serializable;
-import java.net.MalformedURLException;
-import java.util.Set;
-
 import de.uniba.wiai.lspi.chord.com.local.ChordImplAccess;
 import de.uniba.wiai.lspi.chord.com.local.Registry;
 import de.uniba.wiai.lspi.chord.com.local.ThreadEndpoint;
@@ -39,6 +35,10 @@ import de.uniba.wiai.lspi.chord.console.command.entry.Key;
 import de.uniba.wiai.lspi.chord.data.URL;
 import de.uniba.wiai.lspi.util.console.Command;
 import de.uniba.wiai.lspi.util.console.ConsoleException;
+
+import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.util.Set;
 
 /**
  * {@link Command} to retrieve a value from the local chord network.

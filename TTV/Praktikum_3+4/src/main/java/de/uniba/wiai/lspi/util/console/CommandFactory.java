@@ -26,11 +26,13 @@
 
 package de.uniba.wiai.lspi.util.console;
 
-import java.util.*;
-import java.lang.reflect.*;
-import java.io.PrintStream;
-
 import de.uniba.wiai.lspi.util.console.parser.*;
+
+import java.io.PrintStream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Factory responsible to create instances of {@link Command} given the commands

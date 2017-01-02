@@ -27,17 +27,6 @@
  ***************************************************************************/
 package de.uniba.wiai.lspi.chord.service.impl;
 
-import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.DEBUG;
-import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.INFO;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import de.uniba.wiai.lspi.chord.com.CommunicationException;
 import de.uniba.wiai.lspi.chord.com.Entry;
 import de.uniba.wiai.lspi.chord.com.Node;
@@ -45,6 +34,11 @@ import de.uniba.wiai.lspi.chord.com.Proxy;
 import de.uniba.wiai.lspi.chord.data.ID;
 import de.uniba.wiai.lspi.chord.data.URL;
 import de.uniba.wiai.lspi.util.logging.Logger;
+
+import java.util.*;
+
+import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.DEBUG;
+import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.INFO;
 
 /**
  * Stores all remote references of nodes the local node is connected to and

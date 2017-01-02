@@ -28,13 +28,13 @@
  
 package de.uniba.wiai.lspi.chord.com.local;
 
+import de.uniba.wiai.lspi.chord.data.URL;
+import de.uniba.wiai.lspi.util.logging.Logger;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import de.uniba.wiai.lspi.chord.data.URL;
-import de.uniba.wiai.lspi.util.logging.Logger;
 
 /**
  * This class represents a registry for {@link ThreadEndpoint endpoints}that

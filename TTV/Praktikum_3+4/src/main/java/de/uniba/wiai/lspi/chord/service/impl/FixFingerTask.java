@@ -27,12 +27,14 @@
  ***************************************************************************/
 package de.uniba.wiai.lspi.chord.service.impl;
 
-import java.util.Random;
-
 import de.uniba.wiai.lspi.chord.com.Node;
 import de.uniba.wiai.lspi.chord.data.ID;
 import de.uniba.wiai.lspi.util.logging.Logger;
-import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.*; 
+
+import java.util.Random;
+
+import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.DEBUG;
+import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.INFO;
 
 /**
  * Looks up the node for a certain ID and stores the reference of the

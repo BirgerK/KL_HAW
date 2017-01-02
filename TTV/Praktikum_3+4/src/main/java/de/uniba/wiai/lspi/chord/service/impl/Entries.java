@@ -28,15 +28,11 @@
 
 package de.uniba.wiai.lspi.chord.service.impl;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-
 import de.uniba.wiai.lspi.chord.com.Entry;
 import de.uniba.wiai.lspi.chord.data.ID;
 import de.uniba.wiai.lspi.util.logging.Logger;
+
+import java.util.*;
 
 /**
  * Stores entries for the local node in a local hash table and provides methods

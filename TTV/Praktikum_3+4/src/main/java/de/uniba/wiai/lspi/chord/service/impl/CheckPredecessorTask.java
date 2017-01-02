@@ -30,7 +30,8 @@ package de.uniba.wiai.lspi.chord.service.impl;
 import de.uniba.wiai.lspi.chord.com.CommunicationException;
 import de.uniba.wiai.lspi.chord.com.Node;
 import de.uniba.wiai.lspi.util.logging.Logger;
-import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.*;
+
+import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.DEBUG;
 
 /**
  * Checks if the predecessor of the local node is still alive.

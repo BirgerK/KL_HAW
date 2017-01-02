@@ -33,10 +33,10 @@
  */
 package de.uniba.wiai.lspi.chord.com.socket;
 
-import java.io.Serializable;
-
 import de.uniba.wiai.lspi.chord.data.ID;
 import de.uniba.wiai.lspi.chord.data.URL;
+
+import java.io.Serializable;
 
 /** 
  * This class represents information about a remote node 

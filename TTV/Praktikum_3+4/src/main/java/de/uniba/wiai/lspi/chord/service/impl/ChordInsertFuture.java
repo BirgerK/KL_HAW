@@ -27,12 +27,12 @@
  ***************************************************************************/
 package de.uniba.wiai.lspi.chord.service.impl;
 
-import java.io.Serializable;
-import java.util.concurrent.Executor;
-
 import de.uniba.wiai.lspi.chord.service.Chord;
 import de.uniba.wiai.lspi.chord.service.ChordFuture;
 import de.uniba.wiai.lspi.chord.service.Key;
+
+import java.io.Serializable;
+import java.util.concurrent.Executor;
 
 /**
  * Implementation of {@link ChordFuture} for

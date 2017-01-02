@@ -28,9 +28,9 @@
 
 package de.uniba.wiai.lspi.chord.com.socket;
 
-import java.io.Serializable;
-
 import de.uniba.wiai.lspi.chord.service.Chord;
+
+import java.io.Serializable;
 
 /**
  * <p>

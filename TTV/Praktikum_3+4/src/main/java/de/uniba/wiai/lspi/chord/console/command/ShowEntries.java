@@ -28,14 +28,14 @@
 
 package de.uniba.wiai.lspi.chord.console.command;
 
-import java.net.MalformedURLException;
-
 import de.uniba.wiai.lspi.chord.com.local.ChordImplAccess;
 import de.uniba.wiai.lspi.chord.com.local.Registry;
 import de.uniba.wiai.lspi.chord.com.local.ThreadEndpoint;
 import de.uniba.wiai.lspi.chord.data.URL;
 import de.uniba.wiai.lspi.util.console.Command;
 import de.uniba.wiai.lspi.util.console.ConsoleException;
+
+import java.net.MalformedURLException;
 
 /**
  * <p>

@@ -35,6 +35,11 @@ public class Main {
 
 			logger.error("Duell is starting: Your ID is " + chord.getID());
 
+			//Testgebiet
+			//CoAPAdapter coap = new CoAPAdapter();
+			//coap.initLED();
+			//Testgebiet Ende
+
 			while (true) {
 				Thread.sleep(2000);
 				if ((chord.getPredecessorID() != null && ID.valueOf(MAX_ID)

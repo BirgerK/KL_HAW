@@ -27,18 +27,18 @@
  ***************************************************************************/
 package de.uniba.wiai.lspi.chord.service.impl;
 
-import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.DEBUG;
-import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.INFO;
+import de.uniba.wiai.lspi.chord.com.Node;
+import de.uniba.wiai.lspi.chord.data.ID;
+import de.uniba.wiai.lspi.chord.data.URL;
+import de.uniba.wiai.lspi.util.logging.Logger;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import de.uniba.wiai.lspi.chord.com.Node;
-import de.uniba.wiai.lspi.chord.data.ID;
-import de.uniba.wiai.lspi.chord.data.URL;
-import de.uniba.wiai.lspi.util.logging.Logger;
+import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.DEBUG;
+import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.INFO;
 
 /**
  * Stores references on the nodes in the finger table and provides methods for

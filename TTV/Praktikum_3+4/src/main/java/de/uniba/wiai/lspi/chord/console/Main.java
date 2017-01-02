@@ -28,19 +28,14 @@
 
 package de.uniba.wiai.lspi.chord.console;
 
-import java.util.Hashtable;
-
-import de.uniba.wiai.lspi.util.console.CommandFactory;
-import de.uniba.wiai.lspi.util.console.ConsoleThread;
-import de.uniba.wiai.lspi.util.console.ExecuteMacro;
-import de.uniba.wiai.lspi.util.console.MemoryOutputStream;
-import de.uniba.wiai.lspi.util.console.ShowOutputCommand;
-
 import de.uniba.wiai.lspi.chord.com.local.Registry;
 import de.uniba.wiai.lspi.chord.console.command.*;
 import de.uniba.wiai.lspi.chord.data.URL;
 import de.uniba.wiai.lspi.chord.service.Chord;
 import de.uniba.wiai.lspi.chord.service.PropertiesLoader;
+import de.uniba.wiai.lspi.util.console.*;
+
+import java.util.Hashtable;
 
 /**
  * Main class to start a console, that allows manual testing of chord. There are

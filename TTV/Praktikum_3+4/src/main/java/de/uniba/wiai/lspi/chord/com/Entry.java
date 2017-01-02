@@ -28,9 +28,9 @@
 
 package de.uniba.wiai.lspi.chord.com;
 
-import java.io.Serializable;
-
 import de.uniba.wiai.lspi.chord.data.ID;
+
+import java.io.Serializable;
 
 /**
  * @author karsten

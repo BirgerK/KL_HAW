@@ -28,17 +28,17 @@
 
 package de.uniba.wiai.lspi.chord.console.command;
 
-import java.net.MalformedURLException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
 import de.uniba.wiai.lspi.chord.com.local.Registry;
 import de.uniba.wiai.lspi.chord.com.local.ThreadEndpoint;
 import de.uniba.wiai.lspi.chord.data.URL;
 import de.uniba.wiai.lspi.util.console.Command;
 import de.uniba.wiai.lspi.util.console.ConsoleException;
+
+import java.net.MalformedURLException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * <p>

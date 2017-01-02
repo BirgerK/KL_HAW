@@ -26,15 +26,11 @@
 
 package de.uniba.wiai.lspi.util.console;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
-import java.io.OutputStream;
-
 import de.uniba.wiai.lspi.util.console.parser.CommandParser;
 import de.uniba.wiai.lspi.util.console.parser.ParseException;
 import de.uniba.wiai.lspi.util.console.parser.TokenMgrError;
+
+import java.io.*;
 
 /**
  * @author sven

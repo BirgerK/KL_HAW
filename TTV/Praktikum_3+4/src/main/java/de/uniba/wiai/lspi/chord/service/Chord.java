@@ -27,11 +27,11 @@
  ***************************************************************************/
 package de.uniba.wiai.lspi.chord.service;
 
-import java.io.Serializable;
-import java.util.Set;
-
 import de.uniba.wiai.lspi.chord.data.ID;
 import de.uniba.wiai.lspi.chord.data.URL;
+
+import java.io.Serializable;
+import java.util.Set;
 
 /**
  * Provides all methods necessary for a user application. This includes methods

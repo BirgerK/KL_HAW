@@ -26,15 +26,15 @@
  ***************************************************************************/
 package de.uniba.wiai.lspi.chord.com;
 
+import de.uniba.wiai.lspi.chord.data.ID;
+import de.uniba.wiai.lspi.chord.data.URL;
+import de.uniba.wiai.lspi.chord.service.PropertiesLoader;
+
 import java.net.MalformedURLException;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
-import de.uniba.wiai.lspi.chord.data.ID;
-import de.uniba.wiai.lspi.chord.data.URL;
-import de.uniba.wiai.lspi.chord.service.PropertiesLoader;
 
 public class Test {
 

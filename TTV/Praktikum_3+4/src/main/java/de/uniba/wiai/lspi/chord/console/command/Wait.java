@@ -28,10 +28,10 @@
 
 package de.uniba.wiai.lspi.chord.console.command;
 
-import java.io.PrintStream;
-
 import de.uniba.wiai.lspi.util.console.Command;
 import de.uniba.wiai.lspi.util.console.ConsoleException;
+
+import java.io.PrintStream;
 
 /**
  * <p>

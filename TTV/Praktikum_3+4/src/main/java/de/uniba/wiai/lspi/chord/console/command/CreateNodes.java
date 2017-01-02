@@ -33,15 +33,15 @@
 
 package de.uniba.wiai.lspi.chord.console.command;
 
-import java.util.List;
-import java.io.PrintStream;
-
-import de.uniba.wiai.lspi.util.console.ConsoleException;
 import de.uniba.wiai.lspi.chord.com.local.Registry;
 import de.uniba.wiai.lspi.chord.data.URL;
 import de.uniba.wiai.lspi.chord.service.Chord;
 import de.uniba.wiai.lspi.chord.service.ServiceException;
 import de.uniba.wiai.lspi.chord.service.impl.ChordImpl;
+import de.uniba.wiai.lspi.util.console.ConsoleException;
+
+import java.io.PrintStream;
+import java.util.List;
 //import de.uniba.wiai.lspi.chord.service.impl.TaskExecutor;
 
 /**

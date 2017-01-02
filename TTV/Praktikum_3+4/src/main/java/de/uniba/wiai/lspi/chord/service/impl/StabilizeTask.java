@@ -27,15 +27,15 @@
  ***************************************************************************/
 package de.uniba.wiai.lspi.chord.service.impl;
 
-import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.DEBUG;
-import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.INFO;
-
-import java.util.List;
-
 import de.uniba.wiai.lspi.chord.com.CommunicationException;
 import de.uniba.wiai.lspi.chord.com.Node;
 import de.uniba.wiai.lspi.chord.com.RefsAndEntries;
 import de.uniba.wiai.lspi.util.logging.Logger;
+
+import java.util.List;
+
+import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.DEBUG;
+import static de.uniba.wiai.lspi.util.logging.Logger.LogLevel.INFO;
 
 /**
  * Invokes notify method on successor.
