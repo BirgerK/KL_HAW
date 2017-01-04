@@ -12,11 +12,11 @@ public class Sekundant implements Comparator<Player> {
 		} else if (o2.getHitCounter() > o1.getHitCounter()) {
 			return 1;
 		} else {
-			if (o1.getMissCounter() > o2.getMissCounter()) {//2. Nr of known fields
+			if (o1.getMissCounter() > o2.getMissCounter()) {//2. Nr of hit fields
 				return -1;
 			} else if (o2.getMissCounter() > o1.getMissCounter()) {
 				return 1;
-			} else {// 3. Who is the clockwise closest
+			} else {// 3. Anyone
 				Random random = new Random();
 				boolean randomness = random.nextBoolean();
 				if (randomness) {

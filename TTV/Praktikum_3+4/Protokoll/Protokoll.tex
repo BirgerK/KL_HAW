@@ -1,0 +1,38 @@
+\documentclass[]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{float}
+
+\title{Technik und Technologie vernetzter Systeme  \\ Abgabe der Praktikumsaufgabe 2}
+
+\author{Maria Lüdemann und Birger Kamp}
+
+\begin{document}
+
+\maketitle
+
+\section{Spielablauf und Strategie}
+In diesem Dokument soll festgehalten werden wie unsere Implementierung des verteilten Schiffe versenkens agiert und welche Strategie dahinter steckt
+
+
+\subsection{Spielstart}
+Am Start des Spiels wartet unsere Implementierung darauf, dass der Spieler eine beliebige Taste drückt um ggf. Darauf zu warten dass alle Teilnehmer dem Spiel beigetreten sind. Sollte man selbst der Spieler mit der höchsten ID sein so wählt das Spiel automatisch das erste Ziel das in der Regel derjenige Spieler ist über den wir am meisten wissen, also unseren Vorgänger. Im Laufe des Spiels lässt sich der Fortschritt über die Konsolen Ausgaben verfolgen.
+
+\subsection{Schussstrategie}
+Die Strategie nach der ein Spieler gesucht wird der beschossen werden soll besteht aus drei Teilen. Die Kriterien nach denen Sortiert werden sind:
+
+\begin{enumerate}
+\item Die meisten versenkten Schiffe 
+\item Die meisten beschossenen Felder
+\item Eine beliebige ID 
+\end{enumerate}
+
+So soll sichergestellt werden das wir auf das bestmögliche Ziel schießen, entweder jenen der schon am meisten verloren hat oder eben jener der generell schon am meisten Beschossen wurde da dort unsere Chance etwas zu treffen steigt.
+Sollte nichts davon zutreffen wählen wir irgendeine ID aus.
+
+\subsection{Spielende}
+
+Ist das Spiel zu Ende gibt es dort verschiedene Szenarien, haben wir den letzten Schuss getan, also jemanden versenkt dann merken wir das und stoppen. Hat jemand anders den letzten versenkt schießen wir erstmal weiter auch wenn unser letztes Schiff versenkt wurde, da der Schütze feststellen muss das er gewonnen hat um das Spiel zu beenden. 
+
+\end{document}
