@@ -45,17 +45,14 @@ public class Main {
 			logger.error("Press ANY-key if I shall check if you have to start.");
 			System.in.read();
 
-			while (true) {
-				Thread.sleep(2000);
-				if ((chord.getPredecessorID() != null && ID.valueOf(MAX_ID)
-						.isInInterval(chord.getPredecessorID(), chord.getID())) || MAX_ID
-						.equals(chord.getID().toBigInteger())) {
-					logger.error("Press the red big button to do the first shot");
-					System.in.read();
-					adapter.firstShoot();
-					break;
-				}
+			if ((chord.getPredecessorID() != null && ID.valueOf(MAX_ID)
+					.isInInterval(chord.getPredecessorID(), chord.getID())) || MAX_ID
+					.equals(chord.getID().toBigInteger())) {
+				logger.error("Press the red big button to do the first shot");
+				System.in.read();
+				adapter.firstShoot();
 			}
+
 		} catch (Exception e) {
 			logger.error("Shutdown game because of error.");
 			e.printStackTrace();

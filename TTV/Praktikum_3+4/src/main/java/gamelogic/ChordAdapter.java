@@ -8,6 +8,9 @@ import gamelogic.player.Field;
 import gamelogic.player.Player;
 import gamelogic.player.Players;
 
+import java.io.IOException;
+import java.util.Scanner;
+
 public class ChordAdapter implements NotifyCallback {
 
 	private static Logger logger = Logger.getLogger(ChordAdapter.class);
@@ -20,7 +23,7 @@ public class ChordAdapter implements NotifyCallback {
 
 	public void retrieved(ID target) {
 		synchronized (this) {
-			logger.error("Retrieved shot at " + target);
+			logger.info("Retrieved shot at " + target);
 
 			Players.init(chord);
 
@@ -63,10 +66,12 @@ public class ChordAdapter implements NotifyCallback {
 				logger.info("New player saved: " + source);
 			}
 
-			if (hit) {
-				logger.error("There was a shot at player: " + source + "; And was a hit: " + hit);
-			} else {
-				logger.info("There was a shot at player: " + source + "; And was a hit: " + hit);
+			if (!shooter.getId().equals(Players.me.getId())) {
+				if (hit) {
+					logger.error("There was a shot at player: " + source + "; And was a hit: " + hit);
+				} else {
+					logger.info("There was a shot at player: " + source + "; And was a hit: " + hit);
+				}
 			}
 
 			shooter.shotAtField(target, hit);
@@ -99,10 +104,35 @@ public class ChordAdapter implements NotifyCallback {
 
 	private void shoot(ChordImpl chord) {
 		ID shootOnId = Shot.selectIdToShootAt(Shot.selectPlayerToShootAt());
-		Player meT = Players.me;
-		meT.setLastShot(shootOnId);
-		Players.savePlayer(meT);
 
-		chord.retrieveAsync(shootOnId);
+		boolean shootIt = true;
+		if (Players.areAllPlayersDefeated()) {
+			logger.error("Seems like all players are defeated and I want to shoot on ID " + shootOnId
+					+ ". You ok with it? (y/n)");
+			try {
+				Scanner scanner = new Scanner(System.in);
+				String answer = scanner.nextLine();
+
+				if (answer.contains("n")) {
+					logger.error("OK, don't press anything! I'm waiting.");
+					System.in.read();
+					shootIt = true;
+				} else {
+					shootIt = false;
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			shootIt = true;
+		}
+
+		if (shootIt) {
+			Player meT = Players.me;
+			meT.setLastShot(shootOnId);
+			Players.savePlayer(meT);
+
+			chord.retrieveAsync(shootOnId);
+		}
 	}
 }

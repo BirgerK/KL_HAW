@@ -103,4 +103,16 @@ public class Players {
 		Collections.sort(l);
 		return l;
 	}
+
+	public static boolean areAllPlayersDefeated() {
+		List<Player> players = getAll();
+		players.remove(me);
+
+		for (Player player : players) {
+			if (!player.isDefeated()) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
