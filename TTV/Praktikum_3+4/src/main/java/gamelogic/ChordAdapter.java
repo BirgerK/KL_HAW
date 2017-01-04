@@ -30,7 +30,7 @@ public class ChordAdapter implements NotifyCallback {
 			Player meT = Players.me;
 			meT.shotAtField(target, (hitField != null));
 			Players.savePlayer(meT);
-			//TODO auslesen wie viel Prozent noch da sind, an Coap übermitteln
+
 			if (hitField != null) {
 				Players.me.removeShipFromField(hitField.getFieldNumber());
 				//calc status of player and send it to CoapAdapter

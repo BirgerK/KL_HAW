@@ -16,8 +16,8 @@ public class CoAPAdapter {
     private URI uri = null;
 
     public void initLED() throws URISyntaxException {
-       // uri = new URI("coap://localhost/led");
-        uri = new URI("coap://localhost:5683/led");
+        uri = new URI("coap://localhost/led");
+        //uri = new URI("coap://localhost:5683/led");
         client = new CoapClient(uri);
         CoapResponse response = client.get();
         sendStatus(1);
@@ -54,7 +54,7 @@ public class CoAPAdapter {
                 client.put("0", MediaTypeRegistry.TEXT_PLAIN);
                 client.put("r", MediaTypeRegistry.TEXT_PLAIN);
             } else {
-                logger.warn("unbekannter Status übergeben in CoAP Adapter");
+                logger.error("Unbekannter Status übergeben in CoAP Adapter");
             }
         } catch (Exception e) {
             logger.error("Caught an exception while putting CoAP-stuff.");
