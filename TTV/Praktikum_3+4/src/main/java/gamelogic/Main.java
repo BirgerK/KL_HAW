@@ -37,11 +37,6 @@ public class Main {
 
 			logger.info("Duell is starting: Your ID is " + chord.getID());
 
-			//Testgebiet
-			//CoAPAdapter coap = new CoAPAdapter();
-			//coap.initLED();
-			//Testgebiet Ende
-
 			logger.error("Press ANY-key if I shall check if you have to start.");
 			System.in.read();
 

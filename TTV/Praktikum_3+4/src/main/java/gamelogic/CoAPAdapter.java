@@ -9,9 +9,6 @@ import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-/**
- * Created by Mooni on 18.12.2016.
- */
 public class CoAPAdapter {
 
     private static Logger logger = Logger.getLogger(CoAPAdapter.class);
@@ -20,6 +17,7 @@ public class CoAPAdapter {
 
     public void initLED() throws URISyntaxException {
         uri = new URI("coap://localhost/led");
+        //uri = new URI("coap://localhost:5683/led");
         client = new CoapClient(uri);
         CoapResponse response = client.get();
         sendStatus(1);
@@ -40,10 +38,8 @@ public class CoAPAdapter {
     }
 
 
-
     public void sendStatus(int status){
         String color = "g";
-        //TODO Hier die das Senden an die LED implementieren
         try {
             if (status > 0.5) {
                 //Grün
@@ -58,16 +54,10 @@ public class CoAPAdapter {
                 client.put("0", MediaTypeRegistry.TEXT_PLAIN);
                 client.put("r", MediaTypeRegistry.TEXT_PLAIN);
             } else {
-                logger.warn("unbekannter Status übergeben in CoAP Adapter");
+                logger.error("Unbekannter Status übergeben in CoAP Adapter");
             }
         } catch (Exception e) {
             logger.error("Caught an exception while putting CoAP-stuff.");
         }
-    }
-
-    public String getStatus(){
-        String result = null;
-
-        return result;
     }
 }
