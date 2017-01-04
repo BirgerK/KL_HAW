@@ -13,11 +13,15 @@
 \maketitle
 
 \section{Spielablauf und Strategie}
-In diesem Dokument soll festgehalten werden wie unsere Implementierung des verteilten Schiffe versenkens agiert und welche Strategie dahinter steckt
+In diesem Dokument ist festgehalten wie unsere Implementierung des verteilten Schiffe versenkens agiert und welche Strategie dahinter steckt. Die Kommunikation der beteiligten Spieler basiert auf der vorgegebenen und erweiterten Chord DHT Implementierung.
 
 
 \subsection{Spielstart}
-Am Start des Spiels wartet unsere Implementierung darauf, dass der Spieler eine beliebige Taste drückt um ggf. Darauf zu warten dass alle Teilnehmer dem Spiel beigetreten sind. Sollte man selbst der Spieler mit der höchsten ID sein so wählt das Spiel automatisch das erste Ziel das in der Regel derjenige Spieler ist über den wir am meisten wissen, also unseren Vorgänger. Im Laufe des Spiels lässt sich der Fortschritt über die Konsolen Ausgaben verfolgen.
+Am Start des Spiels wartet unsere Implementierung darauf, dass der Spieler eine beliebige Taste drückt, um zu überprüfen ob es der Spieler ist, der als erster schießt. Sollte es so sein, dann wählt das Spiel automatisch das erste Ziel, das in der Regel derjenige Spieler ist über den wir am meisten wissen Zu Beginn ist dies unser Vorgänger.
+
+Während des Spielverlaufs erfährt unser Spiel mehr über die anderen Spieler. Dieses Wissen wird für die \textit{Schussstrategie} verwendet.
+
+Im Laufe des Spiels lässt sich der Fortschritt über die Logging-Ausgaben verfolgen.
 
 \subsection{Schussstrategie}
 Die Strategie nach der ein Spieler gesucht wird der beschossen werden soll besteht aus drei Teilen. Die Kriterien nach denen Sortiert werden sind:
@@ -33,6 +37,8 @@ Sollte nichts davon zutreffen wählen wir irgendeine ID aus.
 
 \subsection{Spielende}
 
-Ist das Spiel zu Ende gibt es dort verschiedene Szenarien, haben wir den letzten Schuss getan, also jemanden versenkt dann merken wir das und stoppen. Hat jemand anders den letzten versenkt schießen wir erstmal weiter auch wenn unser letztes Schiff versenkt wurde, da der Schütze feststellen muss das er gewonnen hat um das Spiel zu beenden. 
+Ist das Spiel zu Ende gibt es dort verschiedene Szenarien. Haben wir mit unserem letzten Schuss das letzte Schiff eines Spielers versenkt, dann wird dies im Logging ausgegeben. Hat jemand anders den letzten Schuss getan, wird auch dies entsprechend im Logging bekanntgegeben.
+
+Anschließend spielt unsere Implementierung normal weiter. Sollten alle Schiffe aller anderen Spieler versenkt worden sein, wird auch dies im Logging vermerkt.
 
 \end{document}
