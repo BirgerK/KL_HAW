@@ -23,7 +23,7 @@ public class ChordAdapter implements NotifyCallback {
 
 	public void retrieved(ID target) {
 		synchronized (this) {
-			logger.info("Retrieved shot at " + target);
+			logger.debug("Retrieved shot at " + target);
 
 			Players.init(chord);
 
@@ -44,13 +44,13 @@ public class ChordAdapter implements NotifyCallback {
 				coap.sendStatus(status);
 
 				logger.error("Been shot at ID: " + target + "; And was a hit: " + hitField);
-				logger.error("My status: " + Players.me);
+				logger.info("My status: " + Players.me);
 			} else {
 				logger.info("Been shot at ID: " + target + "; And was a hit: " + hitField);
 			}
 			chord.broadcastAsync(target, (hitField != null));
 
-			logger.info("And now let's give them something from the good stuff");
+			logger.debug("And now let's give them something from the good stuff");
 			shoot(chord);
 		}
 	}
@@ -63,7 +63,7 @@ public class ChordAdapter implements NotifyCallback {
 			if (shooter == null) {
 				shooter = Players.createPlayer(source);
 				Players.savePlayer(shooter);
-				logger.info("New player saved: " + source);
+				logger.debug("New player saved: " + source);
 			}
 
 			if (!shooter.getId().equals(Players.me.getId())) {

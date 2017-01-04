@@ -46,7 +46,7 @@ public class Players {
 	}
 
 	private static void importFingerTable(ChordImpl chord) {
-		logger.info("Import FingerTable to Players");
+		logger.debug("Import FingerTable to Players");
 
 		int shipsPerPlayer = Integer.valueOf(Configuration.getProperty("shipsPerPlayer"));
 		int fieldsPerPlayer = Integer.valueOf(Configuration.getProperty("fieldsPerPlayer"));
@@ -54,7 +54,7 @@ public class Players {
 		for (Node node : chord.getFingerTable()) {
 			ID nodeId = node.getNodeID();
 			if (!players.containsKey(nodeId)) {
-				logger.info("Add player with nodeId " + nodeId);
+				logger.debug("Add player with nodeId " + nodeId);
 				Player newPlayer = new Player(nodeId, shipsPerPlayer, fieldsPerPlayer);
 				players.put(nodeId, newPlayer);
 			}
@@ -74,7 +74,7 @@ public class Players {
 			p.setStartField(ID.valueOf(newId));
 			savePlayer(p);
 			lastId = p.getId();
-			logger.info("New range of player " + p.getId() + ": From " + newId + " to " + lastId.toBigInteger());
+			logger.debug("New range of player " + p.getId() + ": From " + newId + " to " + lastId.toBigInteger());
 		}
 	}
 

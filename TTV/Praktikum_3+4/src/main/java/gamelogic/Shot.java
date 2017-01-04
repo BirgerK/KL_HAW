@@ -26,7 +26,7 @@ public class Shot {
 	}
 
 	public static Player selectPlayerToShootAt() {
-		logger.info("Selecting next player to shoot at.");
+		logger.debug("Selecting next player to shoot at.");
 		Player result = null;
 
 		List<Player> allPlayers = Players.getAll();
@@ -39,7 +39,7 @@ public class Shot {
 			}
 		}
 
-		logger.info("Selected player " + result + " to shoot at next time.");
+		logger.debug("Selected player " + result + " to shoot at next time.");
 		return result;
 	}
 

@@ -30,12 +30,12 @@ public class Main {
 			fieldsWithShips = fillFields(Integer.valueOf(Configuration.getProperty("shipsPerPlayer")),
 					Integer.valueOf(Configuration.getProperty("fieldsPerPlayer")));
 
-			logger.error("Your ships are set on: " + fieldsWithShips);
+			logger.info("Your ships are set on: " + fieldsWithShips);
 			ChordImpl chord = initChord();
 
 			chord = networkStuff(chord);
 
-			logger.error("Duell is starting: Your ID is " + chord.getID());
+			logger.info("Duell is starting: Your ID is " + chord.getID());
 
 			//Testgebiet
 			//CoAPAdapter coap = new CoAPAdapter();
